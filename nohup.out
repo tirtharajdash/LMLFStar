@@ -1,0 +1,629 @@
+
+PROCESSING MOLECULE: Nc1n[nH]c2cc(Br)ccc12 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -6.42        0.00       0.9540      4.525
+
+
+PROCESSING MOLECULE: CN(c1ncnc2[nH]ccc12)C1CN(Cc2ccccc2)CC12CC2 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -8.36        1.11       0.9767      7.552
+
+
+PROCESSING MOLECULE: O=S(=O)(Nc1cccc(-c2cnc3ccccc3n2)c1)c1cccs1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -8.86       -0.70       0.9450      7.372
+
+
+PROCESSING MOLECULE: O=c1cc(-c2[nH]c(-c3ccc(-c4cn(CCP(=O)([O-])[O-])nn4)cc3)nc2-c2ccc(F)cc2)cc[nH]1.[Na+].[Na+] (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1      -10.32        0.99       0.6951      7.455
+
+
+PROCESSING MOLECULE: CN(c1ncnc2[nH]ccc12)C1CCCCC1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -7.47        0.10       0.9729      6.772
+
+
+PROCESSING MOLECULE: Nc1n[nH]c2ccc(Br)cc12 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -6.45        0.00       0.9709      4.585
+
+
+PROCESSING MOLECULE: Cc1cc2c(c(Cl)n1)-c1[nH]c3ccccc3c1CCN2CCc1ccccc1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -9.36       -0.70       0.9258      7.972
+
+
+PROCESSING MOLECULE: Cc1c(-c2c(F)cc(C(N)=O)c3[nH]c4c(c23)CCC(C(C)(C)O)C4)cccc1-n1c(=O)c2cccc(F)c2n(C)c1=O (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1      -11.16        4.38       0.6111      8.314
+
+
+PROCESSING MOLECULE: CCN1CC(N(C)c2ncnc3[nH]ccc23)C2(CC2)C1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -7.92       -0.07       0.9889      7.416
+
+
+PROCESSING MOLECULE: NC(=O)c1ccc2c(c1)nc(C1CCC(O)CC1)n2CCCO (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -8.39       -0.16       0.9410      6.360
+
+
+PROCESSING MOLECULE: Cc1noc(C)c1-c1ccc2[nH]nc(N)c2c1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -8.65        0.51       0.9226      6.266
+
+
+PROCESSING MOLECULE: Nc1ncc(NC(=O)c2cc(NC(=O)c3cccc(C(F)(F)F)c3)ccc2Cl)cc1Cl (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -8.56        0.09       0.5176      7.095
+
+
+PROCESSING MOLECULE: CC(C)(C)CNc1nc2cc[nH]c(=O)c2cc1-c1ccc(F)cc1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -8.49        0.00       0.9580      7.310
+
+
+PROCESSING MOLECULE: NCCCn1c(C2CCNCC2)nc2cc(C(N)=O)ccc21 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -6.69       -0.59       0.9577      6.948
+
+
+PROCESSING MOLECULE: CCCCN1CCC(N(C)c2ncnc3[nH]ccc23)C1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -7.30        0.30       0.9778      6.980
+
+
+PROCESSING MOLECULE: CNC(=S)Nc1cccc(-c2cnc3ccccc3n2)c1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -7.73       -0.08       0.6477      6.871
+
+
+PROCESSING MOLECULE: O=C(Nc1cccc(-c2cnc3ccccc3n2)c1)C1CC1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -8.35        0.30       0.5523      6.764
+
+
+PROCESSING MOLECULE: COc1ccc2c(Oc3ccc(NC(=O)c4c(C)n(CC(C)(C)O)n(-c5ccccc5)c4=O)nc3)ccnc2c1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -9.56        2.53       0.2649      7.328
+
+
+PROCESSING MOLECULE: O=C(Nc1cccc(-c2cnc3ccccc3n2)c1)c1ccco1 (Label: 0)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -8.60       -0.15       0.6911      6.871
+
+
+PROCESSING MOLECULE: CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21 (Label: 1)
+Running Gnina command: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/JAK2/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -9.72        0.85       0.9032      8.544
+
+Total time taken: 1.85 minutes
+                                              SMILES  ...  Label
+0                              Nc1n[nH]c2cc(Br)ccc12  ...      0
+1         CN(c1ncnc2[nH]ccc12)C1CN(Cc2ccccc2)CC12CC2  ...      0
+2         O=S(=O)(Nc1cccc(-c2cnc3ccccc3n2)c1)c1cccs1  ...      0
+3  O=c1cc(-c2[nH]c(-c3ccc(-c4cn(CCP(=O)([O-])[O-]...  ...      0
+4                       CN(c1ncnc2[nH]ccc12)C1CCCCC1  ...      0
+
+[5 rows x 12 columns]
