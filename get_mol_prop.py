@@ -1,3 +1,4 @@
+import time
 import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -44,26 +45,26 @@ def calculate_molecular_properties(smiles):
             rot_bonds = Descriptors.NumRotatableBonds(mol)
             return {
                 'SMILES': smiles,
-                'Molecular Weight': mw,
+                'MolWt': mw,
                 'LogP': logp,
-                'QED Score': qed,
-                'SAS Score': sas,
+                'QED': qed,
+                'SAS': sas,
                 'TPSA': tpsa,
-                'H Acceptors': h_acceptors,
-                'H Donors': h_donors,
-                'Rotatable Bonds': rot_bonds
+                'H_Acceptors': h_acceptors,
+                'H_Donors': h_donors,
+                'Rotatable_Bonds': rot_bonds
             }
         else:
             return {
                 'SMILES': smiles,
-                'Molecular Weight': None,
+                'MolWt': None,
                 'LogP': None,
-                'QED Score': None,
-                'SAS Score': None,
+                'QED': None,
+                'SAS': None,
                 'TPSA': None,
-                'H Acceptors': None,
-                'H Donors': None,
-                'Rotatable Bonds': None
+                'H_Acceptors': None,
+                'H_Donors': None,
+                'Rotatable_Bonds': None
             }
     except Exception as e:
         return {
@@ -109,10 +110,40 @@ def smiles_to_pdb(smiles, output_path):
         return False
 
 
+def parse_gnina_output(output):
+    """
+    Parses the Gnina stdout to extract affinity and CNN affinity values.
+
+    Args:
+        output (str): The stdout string from Gnina.
+
+    Returns:
+        tuple: (affinity, cnn_affinity) or (None, None) if not found.
+    """
+    lines = output.splitlines()
+    for i, line in enumerate(lines):
+        # Look for the header line indicating the docking results table
+        if "affinity" in line.lower() and "cnn" in line.lower():
+            for result_line in lines[i + 3:]:
+                result_line = result_line.strip()
+                if result_line:  
+                    print(f"gnina output result line captured: {result_line}")
+                    parts = result_line.split()
+                    if len(parts) >= 5: # usually 5 columns
+                        try:
+                            affinity = float(parts[1])  # Affinity value
+                            cnn_affinity = float(parts[4])  # CNN Affinity value
+                            return affinity, cnn_affinity
+                        except ValueError:
+                            print(f"Error parsing values from line: {result_line}")
+                            return None, None
+    return None, None
+
+
 def calculate_binding_affinity(smiles, gnina_path, config_path, temp_dir):
     try:
         pdb_file = os.path.join(temp_dir, 'ligand.pdb')
-
+        
         # Convert SMILES to PDB
         success = smiles_to_pdb(smiles, pdb_file)
         if not success:
@@ -136,22 +167,7 @@ def calculate_binding_affinity(smiles, gnina_path, config_path, temp_dir):
             return None, None
 
         # Parse the output for affinity and CNN affinity
-        affinity = None
-        cnn_affinity = None
-        for line in result.stdout.splitlines():
-            if "mode" in line or not line.strip():
-                continue
-            if "affinity" in line and "CNN" in line:
-                parts = line.split()
-                if len(parts) >= 4:
-                    print(parts)
-                    try:
-                        affinity = float(parts[1])
-                        cnn_affinity = float(parts[-1])
-                    except ValueError:
-                        print(f"Error parsing affinity values in line: {line}")
-                break
-
+        affinity, cnn_affinity = parse_gnina_output(result.stdout)
         return affinity, cnn_affinity
     except Exception as e:
         print(f"Error during Gnina processing: {e}")
@@ -189,7 +205,7 @@ def compute_properties_with_affinity(input_data, gnina_path, config_path, temp_d
         affinity, cnn_affinity = calculate_binding_affinity(smiles, gnina_path, config_path, temp_dir)
         mol_props.update({
             'Affinity': affinity,
-            'CNNaffinity': cnn_affinity
+            'CNNaffinity': cnn_affinity,
             'Label': label
         })
         properties.append(mol_props)
@@ -203,6 +219,12 @@ config_path = './docking/JAK2/JAK2_config.txt'
 temp_dir = '/tmp/'
 os.makedirs(temp_dir, exist_ok=True)
 input_csv = 'data/JAK2.txt'
-properties_df = compute_properties_with_affinity(input_csv, gnina_path, config_path, temp_dir)
-properties_df.to_csv("data/JAK2_with_properties_and_affinities.txt", index=False)
 
+start_time = time.time()
+properties_df = compute_properties_with_affinity(input_csv, gnina_path, config_path, temp_dir)
+properties_df.to_csv("data/JAK2_with_properties.txt", index=False)
+end_time = time.time()
+
+print(f"Total time taken: {(end_time - start_time) / 60.0:.2f} minutes")
+
+print(properties_df.head())
