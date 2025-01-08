@@ -42,17 +42,17 @@ def SearchHypothesis(B, D, factors, init_intervals, s, n, ext_h_default=0.5):
     interval_history = [e_0]
     
     while k <= n:
-	    print(f"Iteration {k}: Current Interval {e_0}, Q-Score {w_0:.4f}")
+	    print(f"Iteration {k}: Current Interval {e_0} | Q-score {w_0:.4f}")
 	    E_k = [
 	        [[e[0] + random.uniform(0, (e[1] - e[0]) / 2), e[1]] for e in e_0] for _ in range(s)
 	    ]
 	    S = [(compute_Q(Hypothesis(factors, e), B, D, ext_h_approx=ext_h_default), e) for e in E_k]
-	    #print(f"Sampled Intervals and Q-Scores:\n{[(e, q) for q, e in S]}\n")
+	    #print(f"Sampled Intervals and Q-scores:\n{[(e, q) for q, e in S]}\n")
 	    (w_k, e_k) = max(S, key=lambda x: x[0])
 	    Q_values.append(w_k)
 	    interval_history.append(e_k)
-	    if w_k <= w_0 + 1e-6:  # Allow for small tolerance
-	        print(f"No significant improvement in Q-score: {w_k:.4f} <= {w_0:.4f}")
+	    if w_k <= w_0 + 1e-2:  # Allow for small tolerance
+	        print(f"\nNo significant improvement in Q-score: {w_k:.4f} <= {w_0:.4f}")
 	        break
 	    w_0 = w_k
 	    e_0 = e_k
@@ -76,9 +76,13 @@ def main():
     n = 10
     final_hypothesis, Q_values, interval_history = SearchHypothesis(B, labelled_data, [factor], init_interval, s, n, ext_h_default)
 
-    print("Iteration    Q-Score")
+    print("\nSearch History:")
+    print("-"*20)
+    print("Iteration    Q-score")
+    print("-"*20)
     for i, q in enumerate(Q_values):
-        print(f"{i+1:<12}{q:.4f}")
+        print(f"{i+1:<11}{q:.4f}")
+    print("-"*20)
 
     print("\nFinal Hypothesis Interval:", interval_history[-1])
 
