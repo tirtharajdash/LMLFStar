@@ -179,7 +179,7 @@ def compute_properties_with_affinity(input_data, gnina_path, config_path, temp_d
     Compute molecular properties for SMILES strings, including binding affinity.
 
     Args:
-        input_data: str or list. A file path to a CSV with 'SMILES' and 'label' columns or a list of SMILES strings.
+        input_data: str or list. A file path to a CSV with 'SMILES' column (and optional 'Label') or a list of SMILES strings.
         gnina_path: str. Path to the Gnina executable.
         config_path: str. Path to the Gnina configuration file.
         temp_dir: str. Temporary directory to store intermediate files.
@@ -188,12 +188,16 @@ def compute_properties_with_affinity(input_data, gnina_path, config_path, temp_d
         pd.DataFrame: A DataFrame containing the computed properties for each SMILES.
     """
     if isinstance(input_data, str):
-        df = pd.read_csv(input_data, nrows=2)
+        #df = pd.read_csv(input_data, nrows=2)  
+        df = pd.read_csv(input_data)  
         smiles_list = df['SMILES'].tolist()
-        labels = df['Label'].tolist()
+        if 'Label' in df.columns:
+            labels = df['Label'].tolist()
+        else:
+            labels = [-1] * len(smiles_list)  # Add dummy labels
     elif isinstance(input_data, list):
         smiles_list = input_data
-        labels = [None] * len(smiles_list)
+        labels = [-1] * len(smiles_list)
     else:
         raise ValueError("Input must be a path to a CSV file or a list of SMILES strings.")
 
@@ -213,18 +217,24 @@ def compute_properties_with_affinity(input_data, gnina_path, config_path, temp_d
     return pd.DataFrame(properties)
 
 
+
 # RUN CONFIG
 gnina_path = './docking/JAK2/'
 config_path = './docking/JAK2/JAK2_config.txt'
 temp_dir = '/tmp/'
 os.makedirs(temp_dir, exist_ok=True)
-input_csv = 'data/JAK2.txt'
+
+input_csv = 'data/unlabelled.txt' #'data/JAK2.txt'
+output_csv = f"{input_csv.split('.')[0]}_with_properties.txt"
 
 start_time = time.time()
+
 properties_df = compute_properties_with_affinity(input_csv, gnina_path, config_path, temp_dir)
-properties_df.to_csv("data/JAK2_with_properties.txt", index=False)
+properties_df.to_csv(output_csv, index=False)
+print(properties_df.head())
+
 end_time = time.time()
 
+print(f"\nData saved to: {output_csv}")
 print(f"Total time taken: {(end_time - start_time) / 60.0:.2f} minutes")
 
-print(properties_df.head())
