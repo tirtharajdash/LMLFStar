@@ -1,1 +1,2 @@
-`unlabelled.txt` is the molecules from `gi50_screen_786_0`.
+ - `unlabelled.txt` is the molecules from `gi50_screen_786_0`.
+ - `unlabelled_with_properties_JAK2binding.txt` contains molecular properties and binding affinity values of the molecules in `unlabelled.txt`
