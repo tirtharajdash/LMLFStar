@@ -217,17 +217,43 @@ def compute_properties_with_affinity(input_data, gnina_path, config_path, temp_d
     return pd.DataFrame(properties)
 
 
+def infer_protein_from_filename(filename):
+    """
+    Infer protein from the filename if it is labeled; otherwise, return None.
+    """
+    known_proteins = ["JAK2", "DRD2", "DBH"]
+    for protein in known_proteins:
+        if protein in filename:
+            return protein
+    return None
 
-# RUN CONFIG
-gnina_path = './docking/JAK2/'
-config_path = './docking/JAK2/JAK2_config.txt'
+
+
+#RUN CONFIG
+
+input_csv = 'data/chembl1K.txt'
+
+protein = infer_protein_from_filename(input_csv)
+
+if protein is None:
+    protein = "DBH"  # "JAK2" "DRD2"
+    print(f"Protein not inferred from filename. Using specified protein: {protein}")
+else:
+    print(f"Protein inferred from filename: {protein}")
+
+gnina_path = f'./docking/'
+config_path = f'./docking/{protein}/{protein}_config.txt'
+
+output_csv = f"{input_csv.split('.')[0]}_with_properties_{protein}binding.txt"
+
 temp_dir = '/tmp/'
 os.makedirs(temp_dir, exist_ok=True)
 
-input_csv = 'data/unlabelled.txt' #'data/JAK2.txt'
-output_csv = f"{input_csv.split('.')[0]}_with_properties.txt"
-
 start_time = time.time()
+
+print(f"Running for protein: {protein}")
+print(f"Input file: {input_csv}")
+print(f"Output file: {output_csv}")
 
 properties_df = compute_properties_with_affinity(input_csv, gnina_path, config_path, temp_dir)
 properties_df.to_csv(output_csv, index=False)
