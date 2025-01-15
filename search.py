@@ -77,10 +77,12 @@ def SearchHypothesis(B, D, factors, init_intervals, s, n, theta_ext_h_default=0.
 
 
 def main():
-    labelled_data = pd.read_csv("data/JAK2_with_properties.txt").to_dict(orient="records")
+    #labelled_data = pd.read_csv("data/JAK2_with_properties.txt").to_dict(orient="records")
+    labelled_data = pd.read_csv("data/DBH_with_properties_DBHbinding.txt").to_dict(orient="records")
     
     try:
-        unlabelled_data = pd.read_csv("data/unlabelled_with_properties_JAK2binding_noNaN.txt").to_dict(orient="records")
+        #unlabelled_data = pd.read_csv("data/unlabelled_with_properties_JAK2binding_noNaN.txt").to_dict(orient="records")
+        unlabelled_data = pd.read_csv("data/chembl1K_with_properties_DBHbinding.txt").to_dict(orient="records")
         theta_ext_h_default = len(unlabelled_data) / (len(labelled_data) + len(unlabelled_data))
         print(f"Using computed theta(ext(h)) value: {theta_ext_h_default}")
     except FileNotFoundError:
