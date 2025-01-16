@@ -77,8 +77,9 @@ def SearchHypothesis(B, D, factors, init_intervals, s, n, theta_ext_h_default=0.
 
 
 def main():
-    #labelled_data = pd.read_csv("data/JAK2_with_properties.txt").to_dict(orient="records")
-    labelled_data = pd.read_csv("data/DBH_with_properties_DBHbinding.txt").to_dict(orient="records")
+    #labelled_data = pd.read_csv("data/JAK2_with_properties_JAK2binding.txt").to_dict(orient="records")
+    #labelled_data = pd.read_csv("data/DBH_with_properties_DBHbinding.txt").to_dict(orient="records")
+    labelled_data = pd.read_csv("data/DRD2_with_properties_DRD2binding.txt").to_dict(orient="records")
     
     try:
         #unlabelled_data = pd.read_csv("data/unlabelled_with_properties_JAK2binding_noNaN.txt").to_dict(orient="records")

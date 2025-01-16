@@ -1,0 +1,48 @@
+In [1]: raw_generated_smiles = ["['C1=CC=C(C(=O)C=C1)N', 'CCN(CC)C(=S)SSC(=S)N(CC)CC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)Cl', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4']"]
+
+   ...:
+   ...: # Example string
+   ...: raw_output = '["[\'C1=CC=C(C(=O)C=C1)N\', \'CCN(CC)C(=S)SSC(=S)N(CC)CC\', \'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)Cl\', \'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN\', \'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4\']"]'
+   ...:
+   ...: # Parse the string
+   ...: try:
+   ...:     parsed_outer_list = ast.literal_eval(raw_output)  # Convert the outer string into a list
+   ...:     if isinstance(parsed_outer_list, list) and len(parsed_outer_list) > 0:
+   ...:         parsed_smiles_list = ast.literal_eval(parsed_outer_list[0])  # Convert the inner string into a list
+   ...:         print("Extracted SMILES:", parsed_smiles_list)
+   ...:     else:
+   ...:         print("Invalid structure: Expected a list containing SMILES strings.")
+   ...: except Exception as e:
+   ...:     print(f"Error parsing SMILES: {e}")
+   ...:
+Extracted SMILES: ['C1=CC=C(C(=O)C=C1)N', 'CCN(CC)C(=S)SSC(=S)N(CC)CC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)Cl', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4']
+
+In [2]: from rdkit import Chem
+
+In [3]: valid_smiles = [s for s in parsed_smiles_list if Chem.MolFromSmiles(s)]
+
+In [4]: valid_smiles
+Out[4]:
+['C1=CC=C(C(=O)C=C1)N',
+ 'CCN(CC)C(=S)SSC(=S)N(CC)CC',
+ 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)Cl',
+ 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN',
+ 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4']
+
+In [5]: from get_mol_prop import compute_properties_with_affinity
+
+
+In [6]: import os
+   ...: protein="DBH"
+   ...: gnina_path = "./gnina"
+   ...: config_path = f"./docking/{protein}/{protein}_config.txt"
+   ...: temp_dir = "/tmp/molecule_generation"
+
+In [7]: os.makedirs(temp_dir, exist_ok=True)
+In [8]: properties_df = compute_properties_with_affinity(
+    ...:         input_data=valid_smiles,
+    ...:         gnina_path=gnina_path,
+    ...:         config_path=config_path,
+    ...:         temp_dir=temp_dir
+    ...:     )
+

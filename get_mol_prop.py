@@ -228,39 +228,42 @@ def infer_protein_from_filename(filename):
     return None
 
 
+def main(input_csv, gnina_path, temp_dir, protein=None):
+    """
+    Main function to compute molecular properties and binding affinity.
+    """
+    if protein is None:
+        protein = infer_protein_from_filename(input_csv)
+        if protein is None:
+            protein = "DBH"  # Default protein if not inferred
+            print(f"Protein not inferred from filename. Using default protein: {protein}")
+        else:
+            print(f"Protein inferred from filename: {protein}")
 
-#RUN CONFIG
+    config_path = f'./docking/{protein}/{protein}_config.txt'
+    output_csv = f"{input_csv.split('.')[0]}_with_properties_{protein}binding.txt"
+    os.makedirs(temp_dir, exist_ok=True)
 
-input_csv = 'data/chembl1K.txt'
+    print(f"Running for protein: {protein}")
+    print(f"Input file: {input_csv}")
+    print(f"Output file: {output_csv}")
 
-protein = infer_protein_from_filename(input_csv)
+    start_time = time.time()
+    properties_df = compute_properties_with_affinity(input_csv, gnina_path, config_path, temp_dir)
+    properties_df.to_csv(output_csv, index=False)
+    print(properties_df.head())
+    end_time = time.time()
 
-if protein is None:
-    protein = "DBH"  # "JAK2" "DRD2"
-    print(f"Protein not inferred from filename. Using specified protein: {protein}")
-else:
-    print(f"Protein inferred from filename: {protein}")
+    print(f"\nData saved to: {output_csv}")
+    print(f"Total time taken: {(end_time - start_time) / 60.0:.2f} minutes")
 
-gnina_path = f'./docking/'
-config_path = f'./docking/{protein}/{protein}_config.txt'
 
-output_csv = f"{input_csv.split('.')[0]}_with_properties_{protein}binding.txt"
+if __name__ == "__main__":
+    main(
+        input_csv='data/DRD2.txt', #JAK2.txt, DRD2.txt, DBH.txt, unlabelled.txt, chembl10.txt, chembl1K.txt
+        gnina_path='./docking/',
+        temp_dir='/tmp/',
+        protein=None
+    )
 
-temp_dir = '/tmp/'
-os.makedirs(temp_dir, exist_ok=True)
-
-start_time = time.time()
-
-print(f"Running for protein: {protein}")
-print(f"Input file: {input_csv}")
-print(f"Output file: {output_csv}")
-
-properties_df = compute_properties_with_affinity(input_csv, gnina_path, config_path, temp_dir)
-properties_df.to_csv(output_csv, index=False)
-print(properties_df.head())
-
-end_time = time.time()
-
-print(f"\nData saved to: {output_csv}")
-print(f"Total time taken: {(end_time - start_time) / 60.0:.2f} minutes")
 

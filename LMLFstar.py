@@ -1,5 +1,7 @@
 import os
 import pandas as pd
+import ast
+from rdkit import Chem
 from openai import OpenAI
 from get_mol_prop import compute_properties_with_affinity
 
@@ -33,11 +35,10 @@ def generate_molecules_for_protein(protein, input_csv, output_csv, api_key, mode
         return
 
     generated_molecules = []
-    valid_molecules = []
 
     for iteration in range(1, max_iterations + 1):
         messages = [
-            {"role": "system", "content": "You are a science expert specialising in chemistry and drug design. Your final answer should be valid SMILES strings for molecules. Do not generate any extract text descriptions."},
+            {"role": "system", "content": "You are a science expert specialising in chemistry and drug design. Your final answer should be valid SMILES strings for molecules. Do not generate any extra text descriptions."},
             {"role": "user", "content": (
                 f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}.\n"
                 f"Ensure the molecules are chemically feasible and suitable for binding to {protein}."
@@ -52,16 +53,26 @@ def generate_molecules_for_protein(protein, input_csv, output_csv, api_key, mode
                 temperature=0.7,
                 n=1
             )
-            generated_smiles = response.choices[0].message.content.strip().split("\n")
-            print(f"Iteration {iteration}: Generated molecules: {generated_smiles}")
-            generated_molecules.extend(generated_smiles)
+            raw_generated_smiles = response.choices[0].message.content.strip()
+            print(raw_generated_smiles[0])
+            print(type(raw_generated_smiles[0]))
+            print(f"Iteration {iteration}: {raw_generated_smiles}")
+            # Parse and validate SMILES
+            try:
+                parsed_smiles_list = ast.literal_eval(raw_generated_smiles.replace("'", '"'))
+                valid_smiles = [s for s in parsed_smiles_list if Chem.MolFromSmiles(s)]
+                print(f"Iteration {iteration}: Valid molecules: {valid_smiles}")
+                generated_molecules.extend(valid_smiles)
+            except Exception as e:
+                print(f"Error parsing generated SMILES: {e}")
+                continue
         except Exception as e:
             print(f"Error during molecule generation: {e}")
             continue
 
     # Remove duplicates
     generated_molecules = list(set(generated_molecules))
-    print(f"Total unique molecules generated: {len(generated_molecules)}")
+    print(f"Total unique valid molecules generated: {len(generated_molecules)}")
 
     # Compute properties and filter based on CNNaffinity
     properties_df = compute_properties_with_affinity(
@@ -81,6 +92,7 @@ def generate_molecules_for_protein(protein, input_csv, output_csv, api_key, mode
     valid_df.to_csv(output_csv, index=False)
     print(f"Results saved to {output_csv}")
 
+
 if __name__ == "__main__":
     # User parameters
     protein = "DBH"
@@ -92,13 +104,13 @@ if __name__ == "__main__":
     model_engine = "gpt-3.5-turbo" #"gpt-4o-mini"
 
     # Gnina docking details
-    gnina_path = "./gnina"
+    gnina_path = "./docking"
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
     os.makedirs(temp_dir, exist_ok=True)
 
     # CNNaffinity range (user-defined hypothesis)
-    affinity_range = (3.0, 6.0)
+    affinity_range = (5.0, 10.0)
 
     generate_molecules_for_protein(
         protein=protein,
@@ -110,7 +122,7 @@ if __name__ == "__main__":
         config_path=config_path,
         temp_dir=temp_dir,
         affinity_range=affinity_range,
-        max_iterations=10,
+        max_iterations=5,
         max_samples=5
     )
 
