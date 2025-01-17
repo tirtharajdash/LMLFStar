@@ -1,6 +1,31 @@
 from rdkit import Chem
-from rdkit.Chem import rdFingerprintGenerator, DataStructs
+from rdkit.Chem import rdFingerprintGenerator, DataStructs, SanitizeMol, SanitizeFlags
 import pandas as pd
+
+
+def sanitize_smiles(smiles):
+    """
+    Create and sanitize a molecule from a SMILES string.
+
+    Args:
+        smiles (str): The SMILES string of the molecule.
+
+    Returns:
+        tuple: A tuple (mol, flag)
+            - mol: RDKit Mol object if successful, None otherwise.
+            - flag: A string describing the result or error.
+    """
+    try:
+        mol = Chem.MolFromSmiles(smiles, sanitize=False)
+        if mol is None:
+            return None, "Invalid SMILES: Parsing failed."
+        Chem.SanitizeMol(mol, sanitizeOps=SanitizeFlags.SANITIZE_ALL)
+        print(f"Molecule {smiles} sanitized successfully.")
+        return mol, True
+    except Exception as e:
+        print(f"Sanitization failed: {e}")
+        return None, False
+
 
 def calculate_similarity(target_smiles_list, input_smiles_list):
     """

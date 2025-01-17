@@ -5,7 +5,7 @@ import ast
 from rdkit import Chem
 from openai import OpenAI
 from get_mol_prop import compute_properties_with_affinity
-from mol_utils import calculate_similarity
+from mol_utils import calculate_similarity, sanitize_smiles
 
 def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, model_engine, gnina_path, config_path, temp_dir, affinity_range, target_size=5, max_iterations=10, max_samples=5):
     """
@@ -42,18 +42,28 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
 
     for iteration in range(1, max_iterations + 1):
         messages = [
-            {"role": "system", "content": "You are a scientist specialising in chemistry and drug design. Your final answer should be valid SMILES strings for molecules. Do not generate any extra text descriptions."},
-            {"role": "user", "content": (
-                f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}.\n"
-                f"Ensure the molecules are chemically feasible and suitable for binding to {protein}."
-            )}
-        ]
+	            {
+	                "role": "system", 
+	                "content": (
+	                    "You are a scientist specialising in chemistry and drug design. "
+	                    "Your task is to generate valid SMILES strings in the form of a Python list. " 
+	                    "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations."
+	                    )
+	            },
+	            {
+	                "role": "user", 
+	                "content": (
+	                    f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
+	                    f"Ensure the molecules are chemically feasible and suitable for binding to {protein}."
+	                    )
+	            }
+	        ]
 
         try:
             response = client.chat.completions.create(
                 model=model_engine,
                 messages=messages,
-                max_tokens=100 * max_samples,
+                max_tokens=128 * max_samples,
                 temperature=0.7,
                 n=1
             )
@@ -62,7 +72,7 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
             print(f"\tGenerated: {raw_generated_smiles}")
             try:
                 parsed_smiles_list = ast.literal_eval(raw_generated_smiles.replace("'", '"'))
-                valid_smiles = [s for s in parsed_smiles_list if Chem.MolFromSmiles(s)]
+                valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
                 print(f"\tValid: {valid_smiles} (Total: {len(valid_smiles)})")
                 generated_molecules.extend(valid_smiles)
             except Exception as e:
@@ -109,15 +119,15 @@ if __name__ == "__main__":
     date_time = datetime.now().strftime("%d%m%y_%H%M")
     print(date_time)
 
+    api_key = "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"
+    model_engine = "gpt-3.5-turbo" #"gpt-3.5-turbo", gpt-4o-mini, gpt-4o
+    
     # User parameters: protein and its affinity range for potential inhibitors (obtained from search.py)
     protein = "JAK2"
     affinity_range = (6.95, 10.0)
     
     input_csv = f"data/{protein}.txt"
-    output_dir = f"results/{protein}/{date_time}"
-
-    api_key = "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"
-    model_engine = "gpt-3.5-turbo" #gpt-4o-minii, gpt-4o
+    output_dir = f"results/{protein}/{model_engine}/{date_time}"
 
     # Gnina docking information
     gnina_path = "./docking"
@@ -139,5 +149,4 @@ if __name__ == "__main__":
         max_iterations=2,
         max_samples=2
     )
-
 
