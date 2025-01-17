@@ -1,4 +1,5 @@
 # Ignore directories or files
+nohup.out
 docking/
 data/
 

@@ -1,31 +1,57 @@
+[07:14:50] Can't kekulize mol.  Unkekulized atoms: 8 9 10 11 12 13 14 15 18
+[07:14:50] Can't kekulize mol.  Unkekulized atoms: 6 7 9 10 11 12 13 14 15
+[07:14:50] Can't kekulize mol.  Unkekulized atoms: 8 9 10 11 12 13 14 15 20
+[07:14:50] Can't kekulize mol.  Unkekulized atoms: 9 10 11 12 13 14 15 16 21
+170125_0714
 [
 <class 'str'>
-Iteration 1: ['C1=CC=C(C(=O)C=C1)NS(=O)(=O)C2=CC=CC=C2',
- 'CCN(CC)C(=S)SSC(=S)N(CC)C1=CC=CC=C1',
- 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)Cl)F',
- 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNC',
- 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC(=O)O']
-Iteration 1: Valid molecules: ['C1=CC=C(C(=O)C=C1)NS(=O)(=O)C2=CC=CC=C2', 'CCN(CC)C(=S)SSC(=S)N(CC)C1=CC=CC=C1', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)Cl)F', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNC', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC(=O)O']
+Iteration 1: ['CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21',
+ 'Nc1nn2cccnc2c1-c1cc(NC2CCc3ccccc32)ncn1',
+ 'CC(Nc1cc(-c2c(N)nn3cccnc23)ncn1)c1ccccc1',
+ 'Cn1c(C(=O)NCCN2CCCC2)cc2c(-c3ccc(NC(=O)c4ccc(C#N)cc4)cc3)ncnc21',
+ 'O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1']
+Iteration 1:
+	Valid molecules: ['CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21', 'Nc1nn2cccnc2c1-c1cc(NC2CCc3ccccc32)ncn1', 'CC(Nc1cc(-c2c(N)nn3cccnc23)ncn1)c1ccccc1', 'Cn1c(C(=O)NCCN2CCCC2)cc2c(-c3ccc(NC(=O)c4ccc(C#N)cc4)cc3)ncnc21', 'O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1'] (Total: 5)
 [
 <class 'str'>
-Iteration 2: ['C1=CC=C(C(=O)C=C1)O', 'CCN(CC)C(=S)SSC(=S)N(CC)CC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)F.Cl', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4']
-Iteration 2: Valid molecules: ['C1=CC=C(C(=O)C=C1)O', 'CCN(CC)C(=S)SSC(=S)N(CC)CC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)F.Cl', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4']
+Iteration 2: ['CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)NCCN)C5CC5)c4n3)cc21', 
+ 'Nc1nn2cccnc2c1-c1cc(NC2CCc3ccccc32)ncn1', 
+ 'CC(Nc1cc(-c2c(N)nn3cccnc23)ncn1)c1ccccc1', 
+ 'Cn1c(C(=O)NCCN2CCCC2)cc2c(-c3ccc(NC(=O)c4ccc(C#N)cc4)cc3)ncnc21', 
+ 'O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1']
+Iteration 2:
+	Valid molecules: ['CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)NCCN)C5CC5)c4n3)cc21', 'Nc1nn2cccnc2c1-c1cc(NC2CCc3ccccc32)ncn1', 'CC(Nc1cc(-c2c(N)nn3cccnc23)ncn1)c1ccccc1', 'Cn1c(C(=O)NCCN2CCCC2)cc2c(-c3ccc(NC(=O)c4ccc(C#N)cc4)cc3)ncnc21', 'O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1'] (Total: 5)
 [
 <class 'str'>
-Iteration 3: ['C1=CC=C(C(=O)C=C1)NCCN', 'CCN(CC)C(=S)SSC(=S)N(CC)CCC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)Cl)Cl', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNC', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=C(Cl)C=C4']
-Iteration 3: Valid molecules: ['C1=CC=C(C(=O)C=C1)NCCN', 'CCN(CC)C(=S)SSC(=S)N(CC)CCC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)Cl)Cl', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNC', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=C(Cl)C=C4']
+Iteration 3: ['CC(=O)Nc1ccc(-c2ncnc3c2cc(C)sc3)cc1',
+'CC(Nc1cc(-c2c(N)nc3cccnc23)ncn1)c1cccnc1',
+'CC(NC(=O)c1c[nH]c2ncc(-c3ncn4ccc(F)cc34)nc12)C(=O)N1CC(C#N)C1',
+'CC(=O)Nc1ccc(-c2ncnc3c2cc(C(N)=O)sc3)cc1',
+'CCC(=O)Nc1ccc(-c2ncnc3c2cc(C(N)=O)sc3)cc1']
+Iteration 3:
+	Valid molecules: ['CC(NC(=O)c1c[nH]c2ncc(-c3ncn4ccc(F)cc34)nc12)C(=O)N1CC(C#N)C1'] (Total: 1)
 [
 <class 'str'>
-Iteration 4: ['C1=CC=C(C(=O)C=C1)O', 'CCN(CC)C(=S)SSC(=S)N(CC)CC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)F.Cl', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4']
-Iteration 4: Valid molecules: ['C1=CC=C(C(=O)C=C1)O', 'CCN(CC)C(=S)SSC(=S)N(CC)CC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)F.Cl', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4']
+Iteration 4: ['CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21',
+ 'Nc1nn2cccnc2c1-c1cc(NC2CCc3ccccc32)ncn1',
+ 'CC(Nc1cc(-c2c(N)nn3cccnc23)ncn1)c1ccccc1',
+ 'Cn1c(C(=O)NCCN2CCCC2)cc2c(-c3ccc(NC(=O)c4ccc(C#N)cc4)cc3)ncnc21',
+ 'O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1']
+Iteration 4:
+	Valid molecules: ['CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21', 'Nc1nn2cccnc2c1-c1cc(NC2CCc3ccccc32)ncn1', 'CC(Nc1cc(-c2c(N)nn3cccnc23)ncn1)c1ccccc1', 'Cn1c(C(=O)NCCN2CCCC2)cc2c(-c3ccc(NC(=O)c4ccc(C#N)cc4)cc3)ncnc21', 'O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1'] (Total: 5)
 [
 <class 'str'>
-Iteration 5: ['Cc1ccc(cc1)C(=O)C=C', 'CCN(CC)C(=S)SSC(=S)N(CC)CC', 'CN1[C@@H](CCN)C(=C)N=C2C1=CC=C2F', 'CCN1[C@@H](COC)C(=C)N=C2C1=CC=C2F', 'CCN1[C@@H](COC)C(=C)N=C2C1=CC=C2F']
-Iteration 5: Valid molecules: ['Cc1ccc(cc1)C(=O)C=C', 'CCN(CC)C(=S)SSC(=S)N(CC)CC', 'CN1[C@@H](CCN)C(=C)N=C2C1=CC=C2F', 'CCN1[C@@H](COC)C(=C)N=C2C1=CC=C2F', 'CCN1[C@@H](COC)C(=C)N=C2C1=CC=C2F']
-Total unique valid molecules generated: 17
+Iteration 5: ['CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21',
+ 'CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21',
+ 'CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21',
+ 'CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21',
+ 'CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21']
+Iteration 5:
+	Valid molecules: ['CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21', 'CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21', 'CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21', 'CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21', 'CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21'] (Total: 5)
+Total unique valid molecules generated: 7
 
-PROCESSING MOLECULE: C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)Cl)Cl (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+PROCESSING MOLECULE: Cn1c(C(=O)NCCN2CCCC2)cc2c(-c3ccc(NC(=O)c4ccc(C#N)cc4)cc3)ncnc21
+Running Gnina command: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Gnina output:
               _             
              (_)            
@@ -40,23 +66,38 @@ gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
 gnina is based on smina and AutoDock Vina.
 Please cite appropriately.
 
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Commandline: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Using random seed: 0
 
 0%   10   20   30   40   50   60   70   80   90   100%
 |----|----|----|----|----|----|----|----|----|----|
 ***************************************************
  | pose 0 | initial pose not within box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | initial pose not within box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | initial pose not within box
+ | pose 0 | ligand outside box
 
 mode |  affinity  |  intramol  |    CNN     |   CNN
      | (kcal/mol) | (kcal/mol) | pose score | affinity
 -----+------------+------------+------------+----------
-    1        0.00       -0.27       0.7937      5.039
+    1       -8.48        0.71       0.7511      8.064
 
-gnina output result line captured: 1        0.00       -0.27       0.7937      5.039
+gnina output result line captured: 1       -8.48        0.71       0.7511      8.064
 
-PROCESSING MOLECULE: C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)Cl)F (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+PROCESSING MOLECULE: CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)NCCN)C5CC5)c4n3)cc21
+Running Gnina command: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Gnina output:
               _             
              (_)            
@@ -71,7 +112,7 @@ gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
 gnina is based on smina and AutoDock Vina.
 Please cite appropriately.
 
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Commandline: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Using random seed: 0
 
 0%   10   20   30   40   50   60   70   80   90   100%
@@ -82,12 +123,12 @@ Using random seed: 0
 mode |  affinity  |  intramol  |    CNN     |   CNN
      | (kcal/mol) | (kcal/mol) | pose score | affinity
 -----+------------+------------+------------+----------
-    1        0.00       -0.25       0.8536      5.196
+    1       -8.99        0.04       0.9113      8.550
 
-gnina output result line captured: 1        0.00       -0.25       0.8536      5.196
+gnina output result line captured: 1       -8.99        0.04       0.9113      8.550
 
-PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC(=O)O (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+PROCESSING MOLECULE: CC(=O)NC1CCc2ccc(Oc3cnc4[nH]cc(C(=O)NC(C(=O)N5CC(C#N)C5)C5CC5)c4n3)cc21
+Running Gnina command: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Gnina output:
               _             
              (_)            
@@ -102,7 +143,7 @@ gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
 gnina is based on smina and AutoDock Vina.
 Please cite appropriately.
 
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Commandline: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Using random seed: 0
 
 0%   10   20   30   40   50   60   70   80   90   100%
@@ -113,12 +154,12 @@ Using random seed: 0
 mode |  affinity  |  intramol  |    CNN     |   CNN
      | (kcal/mol) | (kcal/mol) | pose score | affinity
 -----+------------+------------+------------+----------
-    1        0.00       -0.73       0.8354      4.936
+    1       -8.40        1.96       0.9146      8.541
 
-gnina output result line captured: 1        0.00       -0.73       0.8354      4.936
+gnina output result line captured: 1       -8.40        1.96       0.9146      8.541
 
-PROCESSING MOLECULE: C1=CC=C(C(=O)C=C1)NS(=O)(=O)C2=CC=CC=C2 (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+PROCESSING MOLECULE: CC(NC(=O)c1c[nH]c2ncc(-c3ncn4ccc(F)cc34)nc12)C(=O)N1CC(C#N)C1
+Running Gnina command: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Gnina output:
               _             
              (_)            
@@ -133,23 +174,29 @@ gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
 gnina is based on smina and AutoDock Vina.
 Please cite appropriately.
 
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Commandline: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Using random seed: 0
 
 0%   10   20   30   40   50   60   70   80   90   100%
 |----|----|----|----|----|----|----|----|----|----|
 ***************************************************
  | pose 0 | initial pose not within box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | ligand outside box
+ | pose 0 | initial pose not within box
 
 mode |  affinity  |  intramol  |    CNN     |   CNN
      | (kcal/mol) | (kcal/mol) | pose score | affinity
 -----+------------+------------+------------+----------
-    1        0.00       -0.11       0.6895      3.652
+    1       -9.61        0.44       0.9750      8.387
 
-gnina output result line captured: 1        0.00       -0.11       0.6895      3.652
+gnina output result line captured: 1       -9.61        0.44       0.9750      8.387
 
-PROCESSING MOLECULE: C1=CC=C(C(=O)C=C1)O (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+PROCESSING MOLECULE: CC(Nc1cc(-c2c(N)nn3cccnc23)ncn1)c1ccccc1
+Running Gnina command: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Gnina output:
               _             
              (_)            
@@ -164,7 +211,7 @@ gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
 gnina is based on smina and AutoDock Vina.
 Please cite appropriately.
 
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Commandline: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Using random seed: 0
 
 0%   10   20   30   40   50   60   70   80   90   100%
@@ -175,12 +222,12 @@ Using random seed: 0
 mode |  affinity  |  intramol  |    CNN     |   CNN
      | (kcal/mol) | (kcal/mol) | pose score | affinity
 -----+------------+------------+------------+----------
-    1        0.00        0.00       0.4633      3.151
+    1       -9.01       -0.45       0.9473      7.027
 
-gnina output result line captured: 1        0.00        0.00       0.4633      3.151
+gnina output result line captured: 1       -9.01       -0.45       0.9473      7.027
 
-PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=CC=C4 (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+PROCESSING MOLECULE: Nc1nn2cccnc2c1-c1cc(NC2CCc3ccccc32)ncn1
+Running Gnina command: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Gnina output:
               _             
              (_)            
@@ -195,7 +242,7 @@ gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
 gnina is based on smina and AutoDock Vina.
 Please cite appropriately.
 
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Commandline: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Using random seed: 0
 
 0%   10   20   30   40   50   60   70   80   90   100%
@@ -206,12 +253,12 @@ Using random seed: 0
 mode |  affinity  |  intramol  |    CNN     |   CNN
      | (kcal/mol) | (kcal/mol) | pose score | affinity
 -----+------------+------------+------------+----------
-    1        0.00       -1.72       0.8642      5.450
+    1       -9.13       -0.25       0.9659      7.241
 
-gnina output result line captured: 1        0.00       -1.72       0.8642      5.450
+gnina output result line captured: 1       -9.13       -0.25       0.9659      7.241
 
-PROCESSING MOLECULE: CCN1[C@@H](COC)C(=C)N=C2C1=CC=C2F (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+PROCESSING MOLECULE: O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1
+Running Gnina command: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Gnina output:
               _             
              (_)            
@@ -226,7 +273,7 @@ gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
 gnina is based on smina and AutoDock Vina.
 Please cite appropriately.
 
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Commandline: ./docking/gnina --config ./docking/JAK2/JAK2_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
 Using random seed: 0
 
 0%   10   20   30   40   50   60   70   80   90   100%
@@ -237,318 +284,23 @@ Using random seed: 0
 mode |  affinity  |  intramol  |    CNN     |   CNN
      | (kcal/mol) | (kcal/mol) | pose score | affinity
 -----+------------+------------+------------+----------
-    1        0.00       -0.26       0.8763      4.343
+    1       -9.83        1.06       0.9195      7.397
 
-gnina output result line captured: 1        0.00       -0.26       0.8763      4.343
-
-PROCESSING MOLECULE: Cc1ccc(cc1)C(=O)C=C (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -0.19       0.8661      3.803
-
-gnina output result line captured: 1        0.00       -0.19       0.8661      3.803
-
-PROCESSING MOLECULE: C1=CC=C(C(=O)C=C1)NCCN (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -0.48       0.6707      3.336
-
-gnina output result line captured: 1        0.00       -0.48       0.6707      3.336
-
-PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNC (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -0.63       0.8603      4.757
-
-gnina output result line captured: 1        0.00       -0.63       0.8603      4.757
-
-PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCN (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -0.30       0.8661      5.010
-
-gnina output result line captured: 1        0.00       -0.30       0.8661      5.010
-
-PROCESSING MOLECULE: CCN(CC)C(=S)SSC(=S)N(CC)CC (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -0.84       0.7362      3.540
-
-gnina output result line captured: 1        0.00       -0.84       0.7362      3.540
-
-PROCESSING MOLECULE: CCN(CC)C(=S)SSC(=S)N(CC)C1=CC=CC=C1 (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -1.27       0.7046      3.737
-
-gnina output result line captured: 1        0.00       -1.27       0.7046      3.737
-
-PROCESSING MOLECULE: C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)CN)F)F.Cl (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -0.04       0.8786      4.797
-
-gnina output result line captured: 1        0.00       -0.04       0.8786      4.797
-
-PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)F)N3C(=CNC3=S)CCNCC4=CC=C(Cl)C=C4 (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -1.57       0.8335      5.525
-
-gnina output result line captured: 1        0.00       -1.57       0.8335      5.525
-
-PROCESSING MOLECULE: CN1[C@@H](CCN)C(=C)N=C2C1=CC=C2F (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -0.12       0.8783      3.961
-
-gnina output result line captured: 1        0.00       -0.12       0.8783      3.961
-
-PROCESSING MOLECULE: CCN(CC)C(=S)SSC(=S)N(CC)CCC (Label: -1)
-Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Gnina output:
-              _             
-             (_)            
-   __ _ _ __  _ _ __   __ _ 
-  / _` | '_ \| | '_ \ / _` |
- | (_| | | | | | | | | (_| |
-  \__, |_| |_|_|_| |_|\__,_|
-   __/ |                    
-  |___/                     
-
-gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
-gnina is based on smina and AutoDock Vina.
-Please cite appropriately.
-
-Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
-Using random seed: 0
-
-0%   10   20   30   40   50   60   70   80   90   100%
-|----|----|----|----|----|----|----|----|----|----|
-***************************************************
- | pose 0 | initial pose not within box
-
-mode |  affinity  |  intramol  |    CNN     |   CNN
-     | (kcal/mol) | (kcal/mol) | pose score | affinity
------+------------+------------+------------+----------
-    1        0.00       -0.94       0.6691      3.544
-
-gnina output result line captured: 1        0.00       -0.94       0.6691      3.544
-Number of valid molecules within affinity range (5.0, 10.0): 5
-Results saved to results/gen_DBH.csv
+gnina output result line captured: 1       -9.83        1.06       0.9195      7.397
+Number of valid molecules within affinity range (6.95, 10.0): 7
+Calculate Jaccard (Tanimoto) similarities between generated molecules and a target database of molecules in data/JAK2.txt.
+Traceback (most recent call last):
+  File "/home/dash01/TD/LMLFStar/LMLFstar.py", line 128, in <module>
+    generate_molecules_for_protein(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        protein=protein,
+        ^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        max_samples=5
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/dash01/TD/LMLFStar/LMLFstar.py", line 97, in generate_molecules_for_protein
+    os.makedirs(directory_path)
+                ^^^^^^^^^^^^^^
+NameError: name 'directory_path' is not defined

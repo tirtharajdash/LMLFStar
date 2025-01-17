@@ -194,7 +194,7 @@ def compute_properties_with_affinity(input_data, gnina_path, config_path, temp_d
         if 'Label' in df.columns:
             labels = df['Label'].tolist()
         else:
-            labels = [-1] * len(smiles_list)  # Add dummy labels
+            labels = [-1] * len(smiles_list)  # unknown label (-1)
     elif isinstance(input_data, list):
         smiles_list = input_data
         labels = [-1] * len(smiles_list)
@@ -204,7 +204,10 @@ def compute_properties_with_affinity(input_data, gnina_path, config_path, temp_d
     properties = []
 
     for smiles, label in zip(smiles_list, labels):
-        print(f"\nPROCESSING MOLECULE: {smiles} (Label: {label})")
+        if label == -1:
+            print(f"\nPROCESSING MOLECULE: {smiles}")
+        else:
+            print(f"\nPROCESSING MOLECULE: {smiles} (Label: {label})")
         mol_props = calculate_molecular_properties(smiles)
         affinity, cnn_affinity = calculate_binding_affinity(smiles, gnina_path, config_path, temp_dir)
         mol_props.update({
