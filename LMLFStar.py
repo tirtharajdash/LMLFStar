@@ -129,13 +129,13 @@ if __name__ == "__main__":
     print(date_time)
 
     api_key = "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"
-    model_engine = "gpt-3.5-turbo" #"gpt-3.5-turbo", gpt-4o-mini, gpt-4o
+    model_engine = "gpt-4o" #"gpt-3.5-turbo", gpt-4o-mini, gpt-4o
     
     # User parameters: protein and its affinity range for potential inhibitors (obtained from search.py)
     #protein, affinity_range = "JAK2", (6.95, 10.0)
-    #protein, affinity_range = "DBH", (8.96, 10.0)
-    protein, affinity_range = "DRD2", (5.76, 10.0)
-    
+    #protein, affinity_range = "DRD2", (6.95, 10.0)
+    protein, affinity_range = "DBH", (6.08, 10.0)
+
     input_csv = f"data/{protein}.txt"
     output_dir = f"results/{protein}/{model_engine}/{date_time}"
 
@@ -144,6 +144,11 @@ if __name__ == "__main__":
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
     os.makedirs(temp_dir, exist_ok=True)
+
+    print("*" * 53)
+    print(f" PROGRAM: LMLFSTAR (TIMESTAMP: {now})")
+    print(f" PROTEIN: {protein}")
+    print("*" * 53)
 
     generate_molecules_for_protein(
         protein=protein,

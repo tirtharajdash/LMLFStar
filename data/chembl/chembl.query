@@ -1,0 +1,127 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "bool": {
+            "should": [
+              {
+                "terms": {
+                  "molecule_type": [
+                    "Small molecule"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "range": {
+                  "molecule_properties.full_mwt": {
+                    "gte": 0,
+                    "lt": 1255
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must_not": {
+                    "exists": {
+                      "field": "_metadata.atc_classifications.level2_description"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must_not": {
+                    "exists": {
+                      "field": "_metadata.related_targets.count"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must_not": {
+                    "exists": {
+                      "field": "_metadata.related_activities.count"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "should": [],
+      "must_not": [],
+      "must": []
+    }
+  },
+  "track_total_hits": true,
+  "size": 20,
+  "from": 0,
+  "_source": [
+    "molecule_chembl_id",
+    "pref_name",
+    "molecule_synonyms",
+    "molecule_type",
+    "max_phase",
+    "molecule_properties.full_mwt",
+    "_metadata.related_targets.count",
+    "_metadata.related_activities.count",
+    "molecule_properties.alogp",
+    "molecule_properties.psa",
+    "molecule_properties.hba",
+    "molecule_properties.hbd",
+    "molecule_properties.num_ro5_violations",
+    "molecule_properties.rtb",
+    "molecule_properties.ro3_pass",
+    "molecule_properties.qed_weighted",
+    "molecule_properties.cx_most_apka",
+    "molecule_properties.cx_most_bpka",
+    "molecule_properties.cx_logp",
+    "molecule_properties.cx_logd",
+    "molecule_properties.aromatic_rings",
+    "structure_type",
+    "inorganic_flag",
+    "molecule_properties.heavy_atoms",
+    "molecule_properties.hba_lipinski",
+    "molecule_properties.hbd_lipinski",
+    "molecule_properties.num_lipinski_ro5_violations",
+    "molecule_properties.mw_monoisotopic",
+    "molecule_properties.np_likeness_score",
+    "molecule_properties.molecular_species",
+    "molecule_properties.full_molformula",
+    "molecule_structures.canonical_smiles",
+    "molecule_structures.standard_inchi_key",
+    "molecule_structures.standard_inchi",
+    "withdrawn_flag",
+    "orphan",
+    "_metadata.compound_records.compound_key",
+    "_metadata.compound_records.compound_name"
+  ],
+  "sort": []
+}
