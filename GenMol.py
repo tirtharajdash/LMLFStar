@@ -12,7 +12,7 @@ random.seed(0)
 np.random.seed(0)
 
 
-def interleaved_LMLF(protein, labelled_data, unlabelled_data, initial_interval, api_key, model_engine, gnina_path, config_path, temp_dir, output_dir, s=4, n=10, max_samples=5, final_k=10):
+def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interval, api_key, model_engine, gnina_path, config_path, temp_dir, output_dir, s=4, n=10, max_samples=5, final_k=10):
     """
     Interleaved search and molecule generation.
 
@@ -201,7 +201,7 @@ if __name__ == "__main__":
     print(f" PROTEIN: {protein}")
     print("*" * 64)
 
-    interleaved_LMLF(
+    interleaved_LMLFStar(
         protein=protein,
         labelled_data=labelled_data,
         unlabelled_data=unlabelled_data,
