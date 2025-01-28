@@ -257,7 +257,7 @@ if __name__ == "__main__":
     protein, affinity_range = "DBH", (6.08, 10.0)
 
     input_csv = f"data/{protein}.txt"
-    output_dir = f"results/{protein}/{model_engine}/{date_time}"
+    output_dir = f"results_LMLFStar/{protein}/{model_engine}/{date_time}"
 
     # Gnina docking information
     gnina_path = "./docking"

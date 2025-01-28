@@ -1,6 +1,7 @@
 """
 GenMol.py: Generate molecules while doing the LMLFStar search with single constraint (CNNaffinity)
-The code searches for an optimal parameter range (CNNaffinity \in [x,10]) while interleaving it with generating molecules from an LLM
+The code searches for an optimal parameter range (CNNaffinity \in [range]) while interleaving it with generating molecules from an LLM.
+1. The feasibility of generated molecules is checked against one constraint: CNNaffinity \in [optimal range]
 """
 
 import random
@@ -198,7 +199,7 @@ if __name__ == "__main__":
     gnina_path = "./docking"
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
-    output_dir = f"results_GenMol/{protein}/{model_engine}/{date_time}"
+    output_dir = f"results_GenMol1F/{protein}/{model_engine}/{date_time}"
 
     os.makedirs(temp_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
