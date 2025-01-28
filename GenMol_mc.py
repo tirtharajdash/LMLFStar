@@ -31,6 +31,10 @@ def factor(x, constraints):
     Returns:
         bool: True if molecule satisfies all constraints, else False.
     """
+    print(f"Evaluating molecule: {x}")
+    for constraint in constraints:
+        print(f"Checking constraint: {constraint}")
+
     for constraint in constraints:
         param, operator, value = constraint['parameter'], constraint['operator'], constraint['value']
         if param not in x:
@@ -144,35 +148,41 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
 
             # Check if generated molecules exist within the interval
             gen_csv = f"{output_dir}/generated.csv"
-
+            
             if os.path.exists(gen_csv):
                 properties_df = pd.read_csv(gen_csv)
-                
-                def check_feasibility(row, constraints):
-                    print(f"Checking molecule: {row.to_dict()}")
-                    result = factor(row.to_dict(), constraints)
-                    print(f"Feasibility result: {result}")
-                    return result
-
-                feasible_df = properties_df[properties_df.apply(lambda row: check_feasibility(row, user_constraints), axis=1)]
-
-                if len(feasible_df) > 0:
+            
+                print("Starting feasibility checks...")
+                feasible_records = [] 
+            
+                for idx, row in properties_df.iterrows():
+                    molecule = row.to_dict()
+                    print(f"Checking molecule: {molecule}")
+                    if factor(molecule, user_constraints):  
+                        print("Molecule is feasible.")
+                        feasible_records.append(molecule)
+                    else:
+                        print("Molecule is not feasible.")
+            
+                feasible_df = pd.DataFrame(feasible_records)
+            
+                print(f"Number of feasible molecules: {len(feasible_df)}")
+            
+                if not feasible_df.empty:
                     print(f"Feasible molecules found in interval {e_k} with Q-score {Q_k:.4f}.")
                     w_k = Q_k * len(feasible_df)
                     Q_values.append(w_k)
                     interval_history.append(e_k)
-
-                    # Add feasible molecules to the intermediate data
-                    intermediate_data.extend(feasible_df.to_dict(orient="records"))
-
+            
+                    intermediate_data.extend(feasible_records)
+            
                     if (w_0 - w_k) / w_0 >= 0.10:  # Stop if no significant improvement
                         print(f"\nNo significant improvement in W-score: {w_k:.4f} <= {w_0:.4f}")
                         break
-
+            
                     w_0 = w_k
                     e_0 = e_k
                     feasible_node_found = True
-                    break
                 else:
                     print(f"No feasible molecules in interval {e_k}.")
             else:
