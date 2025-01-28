@@ -1,5 +1,6 @@
-### GenMol.py: Generate molecules while doing the LMLFStar search with single constraint (CNNaffinity)
-### See GenMol_mc.py: User now can provide their constraints as specified
+### GenMol.py improved to incorporate multiple constraints (CNNaffinity, MolWt, SAS, etc.)
+### User now can provide their constraints as specified.
+### Quantile-based search is implemented for one parameter: CNNaffinity.
 
 import random
 import math
@@ -15,7 +16,38 @@ random.seed(0)
 np.random.seed(0)
 
 
-def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interval, api_key, model_engine, gnina_path, config_path, temp_dir, output_dir, s=4, n=10, max_samples=5, final_k=10):
+def factor(x, constraints):
+    """
+    Checks if a molecule satisfies the specified constraints.
+
+    Args:
+        x (dict): Molecule properties.
+        constraints (list): List of constraints where each constraint is a dictionary with:
+                            - 'parameter': str, property name (e.g., 'CNNaffinity', 'MolWt').
+                            - 'operator': str, '<', '>', or 'range'.
+                            - 'value': float or list, value for comparison or range [min, max].
+
+    Returns:
+        bool: True if molecule satisfies all constraints, else False.
+    """
+    for constraint in constraints:
+        param, operator, value = constraint['parameter'], constraint['operator'], constraint['value']
+        if param not in x:
+            continue  # Skip if parameter is missing
+
+        if operator == '<':
+            if not (x[param] < value):
+                return False
+        elif operator == '>':
+            if not (x[param] > value):
+                return False
+        elif operator == 'range':
+            if not (value[0] <= x[param] <= value[1]):
+                return False
+    return True
+
+
+def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interval, api_key, model_engine, gnina_path, config_path, temp_dir, output_dir, s=4, n=10, max_samples=5, final_k=10, user_constraints=None):
     """
     Interleaved search and molecule generation.
 
@@ -34,6 +66,7 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         n (int): Maximum number of iterations.
         max_samples (int): Maximum number of molecules to generate per iteration.
         final_k (int): Number of molecules to generate at the final node.
+        user_constraints (list): List of user-defined constraints for molecule feasibility.
 
     Returns:
         None
@@ -112,8 +145,11 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
 
             if os.path.exists(gen_csv):
                 properties_df = pd.read_csv(gen_csv)
-                feasible_df = properties_df[(properties_df['CNNaffinity'] >= affinity_range[0]) &
-                                            (properties_df['CNNaffinity'] <= affinity_range[1])]
+
+                # Updated feasibility check using user_constraints
+                feasible_df = properties_df[
+                    properties_df.apply(lambda row: factor(row, user_constraints), axis=1)
+                ]
 
                 if len(feasible_df) > 0:
                     print(f"Feasible molecules found in interval {e_k} with Q-score {Q_k:.4f}.")
@@ -176,6 +212,7 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         for child in node['children']:
             print(f"\tChild Interval {child['interval']} | Q-score {child['Q_score']:.4f}")
 
+
 if __name__ == "__main__":
     date_time = datetime.now().strftime("%d%m%y_%H%M")
     print(date_time)
@@ -190,19 +227,27 @@ if __name__ == "__main__":
     unlabelled_data = pd.read_csv(unlabelled_file).to_dict(orient="records")
 
     api_key = "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"
-    model_engine = "gpt-4o-mini" #"gpt-3.5-turbo", gpt-4o-mini, gpt-4o
+    model_engine = "gpt-4o-mini"  #gpt-3.5-turbo, gpt-4o-mini, gpt-4o 
     gnina_path = "./docking"
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
-    output_dir = f"results_i/{protein}/{model_engine}/{date_time}"
+    output_dir = f"results_i_mc/{protein}/{model_engine}/{date_time}"
 
     os.makedirs(temp_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
+
+    user_constraints = [
+        {'parameter': 'CNNaffinity', 'operator': 'range', 'value': [2, 10]},
+        {'parameter': 'MolWt', 'operator': '<', 'value': 500},
+        {'parameter': 'SAS', 'operator': '<', 'value': 5.0},
+    ]
 
     print("*" * 64)
     print(f" PROGRAM: INTERLEAVED_LMLFSTAR (TIMESTAMP: {date_time})")
     print(f" PROTEIN: {protein}")
     print("*" * 64)
+
+    print("User constraints:\n{user_constraints}")
 
     interleaved_LMLFStar(
         protein=protein,
@@ -218,7 +263,9 @@ if __name__ == "__main__":
         s=4,
         n=10,
         max_samples=5,
-        final_k=10
+        final_k=10,
+        user_constraints=user_constraints
     )
-    
-    print("DONE [GenMol.py]")
+
+    print("DONE [GenMol_mc.py]")
+

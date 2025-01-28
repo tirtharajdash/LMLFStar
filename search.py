@@ -22,7 +22,9 @@ class Hypothesis:
         self.experiment = experiment
 
     def is_feasible(self, x):
-        return all(self.experiment[i][0] <= f(x) <= self.experiment[i][1] for i, f in enumerate(self.factors))
+        return all(
+            f(x) is not None and self.experiment[i][0] <= f(x) <= self.experiment[i][1]
+            for i, f in enumerate(self.factors))
 
     def __call__(self, x):
         return self.is_feasible(x)
