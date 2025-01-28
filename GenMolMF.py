@@ -1,59 +1,17 @@
-### GenMol.py improved to incorporate multiple constraints (CNNaffinity, MolWt, SAS, etc.)
-### User now can provide their constraints as specified.
-### Quantile-based search is implemented for one parameter: CNNaffinity.
-
 import random
 import math
 import numpy as np
 from datetime import datetime
 import os
 from search import Hypothesis, compute_Q, construct_file_paths
-from LMLFStar import generate_molecules_for_protein
+from LMLFStar import generate_molecules_for_protein, generate_molecules_for_protein_multifactors
 import pandas as pd
-from functools import partial  # Added for clean function handling
 
 # Seeding for reproducibility
 random.seed(0)
 np.random.seed(0)
 
-
-def factor(x, constraints):
-    """
-    Checks if a molecule satisfies the specified constraints.
-
-    Args:
-        x (dict): Molecule properties.
-        constraints (list): List of constraints where each constraint is a dictionary with:
-                            - 'parameter': str, property name (e.g., 'CNNaffinity', 'MolWt').
-                            - 'operator': str, '<', '>', or 'range'.
-                            - 'value': float or list, value for comparison or range [min, max].
-
-    Returns:
-        bool: True if molecule satisfies all constraints, else False.
-    """
-    print(f"Evaluating molecule: {x}")
-    for constraint in constraints:
-        print(f"Checking constraint: {constraint}")
-
-    for constraint in constraints:
-        param, operator, value = constraint['parameter'], constraint['operator'], constraint['value']
-        if param not in x:
-            print(f"Parameter {param} not found in molecule properties.")
-            continue  # Skip if parameter is missing
-
-        if operator == '<':
-            if not (x[param] < value):
-                return False
-        elif operator == '>':
-            if not (x[param] > value):
-                return False
-        elif operator == 'range':
-            if not (value[0] <= x[param] <= value[1]):
-                return False
-    return True
-
-
-def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interval, api_key, model_engine, gnina_path, config_path, temp_dir, output_dir, s=4, n=10, max_samples=5, final_k=10, user_constraints=None):
+def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_intervals, api_key, model_engine, gnina_path, config_path, temp_dir, output_dir, s=4, n=10, max_samples=5, final_k=10):
     """
     Interleaved search and molecule generation.
 
@@ -61,7 +19,7 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         protein (str): Target protein name.
         labelled_data (list): Labelled dataset (list of dictionaries).
         unlabelled_data (list): Unlabelled dataset (list of dictionaries).
-        initial_interval (list): Initial interval for the parameter.
+        initial_intervals (dict): Initial intervals for each parameter as a dictionary.
         api_key (str): OpenAI API key.
         model_engine (str): Model engine (e.g., gpt-3.5-turbo).
         gnina_path (str): Path to Gnina executable.
@@ -72,15 +30,14 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         n (int): Maximum number of iterations.
         max_samples (int): Maximum number of molecules to generate per iteration.
         final_k (int): Number of molecules to generate at the final node.
-        user_constraints (list): List of user-defined constraints for molecule feasibility.
 
     Returns:
         None
     """
     # Set initial hypothesis
-    factor = lambda x: x['CNNaffinity']
-    e_0 = initial_interval
-    h_0 = Hypothesis([factor], e_0)
+    factors = [lambda x, p=param: x.get(p) for param in initial_intervals.keys()]
+    e_0 = [initial_intervals[param] for param in initial_intervals]
+    h_0 = Hypothesis(factors, e_0)
 
     theta_ext_h_default = len(unlabelled_data) / (len(labelled_data) + len(unlabelled_data))
     w_0 = compute_Q(h_0, "Background Knowledge", labelled_data, theta_ext_h_approx=theta_ext_h_default)
@@ -95,23 +52,24 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
     intermediate_data = []
 
     while k <= n:
-        print(f"\nIteration {k}: Current Interval {e_0} | Q-score {w_0:.4f}\n")
+        print(f"\nIteration {k}: Current Intervals {e_0} | Q-score {w_0:.4f}\n")
 
-        quantiles = list(map(float, np.linspace(e_0[0][0], e_0[0][1], 5)))
-        E_k = [
-            [[random.uniform(quantiles[q], quantiles[q + 1]), e_0[0][1]]]
-            for q in range(len(quantiles) - 1) for _ in range(s // 4)
-        ]
+        E_k = []
+        for dim, (lower, upper) in enumerate(e_0):
+            quantiles = list(map(float, np.linspace(lower, upper, 5)))
+            for q in range(len(quantiles) - 1):
+                sub_interval = e_0[:]
+                sub_interval[dim] = [quantiles[q], quantiles[q + 1]]
+                E_k.append(sub_interval)
 
         S = []
         for e in E_k:
-            h_k = Hypothesis([factor], e)
+            h_k = Hypothesis(factors, e)
             Q_k = compute_Q(h_k, "Background Knowledge", labelled_data, theta_ext_h_approx=theta_ext_h_default)
             S.append((Q_k, e))
 
-        print(f"Quantiles\t\t: {quantiles}")
-        print(f"Sampled intervals\t: {E_k}")
-        print(f"Q-scores\t\t: {[q for q, e in S]}\n")
+        print(f"Sampled intervals: {E_k}")
+        print(f"Q-scores: {[q for q, e in S]}\n")
 
         # Add current node and its children to the search tree
         search_tree.append({
@@ -128,10 +86,10 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         for (Q_k, e_k) in sorted_S:
             print(f"Evaluating node with interval {e_k} and Q-score {Q_k:.4f}")
 
-            affinity_range = [float(e_k[0][0]), float(e_k[0][1])]
+            parameter_ranges = {param: e_k[i] for i, param in enumerate(initial_intervals.keys())}
 
-            # Generate molecules for the interval
-            generate_molecules_for_protein(
+            # Generate molecules for the hyper-interval
+            generate_molecules_for_protein_multifactors(
                 protein=protein,
                 input_csv=f"data/{protein}.txt",
                 output_dir=output_dir,
@@ -140,7 +98,7 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
                 gnina_path=gnina_path,
                 config_path=config_path,
                 temp_dir=temp_dir,
-                affinity_range=affinity_range,
+                parameter_ranges=parameter_ranges,
                 target_size=5,
                 max_iterations=1,
                 max_samples=max_samples
@@ -148,41 +106,31 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
 
             # Check if generated molecules exist within the interval
             gen_csv = f"{output_dir}/generated.csv"
-            
+
             if os.path.exists(gen_csv):
                 properties_df = pd.read_csv(gen_csv)
-            
-                print("Starting feasibility checks...")
-                feasible_records = [] 
-            
-                for idx, row in properties_df.iterrows():
-                    molecule = row.to_dict()
-                    print(f"Checking molecule: {molecule}")
-                    if factor(molecule, user_constraints):  
-                        print("Molecule is feasible.")
-                        feasible_records.append(molecule)
-                    else:
-                        print("Molecule is not feasible.")
-            
-                feasible_df = pd.DataFrame(feasible_records)
-            
-                print(f"Number of feasible molecules: {len(feasible_df)}")
-            
-                if not feasible_df.empty:
+
+                for param, bounds in parameter_ranges.items():
+                    properties_df = properties_df[(properties_df[param] >= bounds[0]) &
+                                                  (properties_df[param] <= bounds[1])]
+
+                if len(properties_df) > 0:
                     print(f"Feasible molecules found in interval {e_k} with Q-score {Q_k:.4f}.")
-                    w_k = Q_k * len(feasible_df)
+                    w_k = Q_k * len(properties_df)
                     Q_values.append(w_k)
                     interval_history.append(e_k)
-            
-                    intermediate_data.extend(feasible_records)
-            
+
+                    # Add feasible molecules to the intermediate data
+                    intermediate_data.extend(properties_df.to_dict(orient="records"))
+
                     if (w_0 - w_k) / w_0 >= 0.10:  # Stop if no significant improvement
                         print(f"\nNo significant improvement in W-score: {w_k:.4f} <= {w_0:.4f}")
                         break
-            
+
                     w_0 = w_k
                     e_0 = e_k
                     feasible_node_found = True
+                    break
                 else:
                     print(f"No feasible molecules in interval {e_k}.")
             else:
@@ -200,9 +148,9 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
 
     # Generate k molecules at the final node
     print("\nGenerating final molecules for the last interval.")
-    final_affinity_range = [float(interval_history[-1][0][0]), float(interval_history[-1][0][1])]
+    final_parameter_ranges = {param: interval_history[-1][i] for i, param in enumerate(initial_intervals.keys())}
 
-    generate_molecules_for_protein(
+    generate_molecules_for_protein_multifactors(
         protein=protein,
         input_csv=f"data/{protein}.txt",
         output_dir=output_dir,
@@ -211,13 +159,13 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         gnina_path=gnina_path,
         config_path=config_path,
         temp_dir=temp_dir,
-        affinity_range=final_affinity_range,
+        parameter_ranges=final_parameter_ranges,
         target_size=5,
         max_iterations=1,
         max_samples=final_k
     )
 
-    print("\nFinal Hypothesis Interval:", interval_history[-1])
+    print("\nFinal Hypothesis Intervals:", interval_history[-1])
     print("Q-value History:", Q_values)
 
     # Print the search tree
@@ -227,13 +175,16 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         for child in node['children']:
             print(f"\tChild Interval {child['interval']} | Q-score {child['Q_score']:.4f}")
 
-
 if __name__ == "__main__":
     date_time = datetime.now().strftime("%d%m%y_%H%M")
     print(date_time)
 
     protein = "DBH"
-    initial_interval = [[2, 10]]
+    initial_intervals = {
+        "CNNaffinity": [2, 10],
+        "MolWt": [100, 500],
+        "SAS": [0, 5.0]
+    }
 
     data_path = "data"
     labelled_file, unlabelled_file = construct_file_paths(data_path, protein)
@@ -242,33 +193,25 @@ if __name__ == "__main__":
     unlabelled_data = pd.read_csv(unlabelled_file).to_dict(orient="records")
 
     api_key = "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"
-    model_engine = "gpt-4o-mini"  #gpt-3.5-turbo, gpt-4o-mini, gpt-4o 
+    model_engine = "gpt-4o-mini"  # "gpt-3.5-turbo", gpt-4o-mini, gpt-4o
     gnina_path = "./docking"
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
-    output_dir = f"results_i_mc/{protein}/{model_engine}/{date_time}"
+    output_dir = f"results_GenMolMF/{protein}/{model_engine}/{date_time}"
 
     os.makedirs(temp_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
-
-    user_constraints = [
-        {'parameter': 'CNNaffinity', 'operator': 'range', 'value': [2, 10]},
-        {'parameter': 'MolWt', 'operator': '<', 'value': 500},
-        {'parameter': 'SAS', 'operator': '<', 'value': 5.0},
-    ]
 
     print("*" * 64)
     print(f" PROGRAM: INTERLEAVED_LMLFSTAR (TIMESTAMP: {date_time})")
     print(f" PROTEIN: {protein}")
     print("*" * 64)
 
-    print("User constraints:\n{user_constraints}")
-
     interleaved_LMLFStar(
         protein=protein,
         labelled_data=labelled_data,
         unlabelled_data=unlabelled_data,
-        initial_interval=initial_interval,
+        initial_intervals=initial_intervals,
         api_key=api_key,
         model_engine=model_engine,
         gnina_path=gnina_path,
@@ -278,9 +221,7 @@ if __name__ == "__main__":
         s=4,
         n=10,
         max_samples=5,
-        final_k=10,
-        user_constraints=user_constraints
+        final_k=10
     )
 
-    print("DONE [GenMol_mc.py]")
-
+    print("DONE [GenMol.py]")
