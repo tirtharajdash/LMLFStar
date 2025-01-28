@@ -1,8 +1,15 @@
+"""
+GenMol.py: Generate molecules while doing the LMLFStar search with multiple constraint (CNNaffinity, MolWt, SAS, etc.)
+The code searches for an optimal parameter ranges (CNNaffinity \in [x,10], ...) while interleaving it with generating molecules from an LLM.
+"""
+
 import random
 import math
 import numpy as np
 from datetime import datetime
 import os
+
+from env_utils import load_api_key
 from search import Hypothesis, compute_Q, construct_file_paths
 from LMLFStar import generate_molecules_for_protein, generate_molecules_for_protein_multifactors
 import pandas as pd
@@ -192,7 +199,7 @@ if __name__ == "__main__":
     labelled_data = pd.read_csv(labelled_file).to_dict(orient="records")
     unlabelled_data = pd.read_csv(unlabelled_file).to_dict(orient="records")
 
-    api_key = "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"
+    api_key = load_api_key() # api key
     model_engine = "gpt-4o-mini"  # "gpt-3.5-turbo", gpt-4o-mini, gpt-4o
     gnina_path = "./docking"
     config_path = f"./docking/{protein}/{protein}_config.txt"

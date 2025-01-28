@@ -4,6 +4,8 @@ import pandas as pd
 import ast
 from rdkit import Chem
 from openai import OpenAI
+
+from env_utils import load_api_key
 from get_mol_prop import compute_properties_with_affinity
 from mol_utils import calculate_similarity, sanitize_smiles
 
@@ -246,7 +248,7 @@ if __name__ == "__main__":
     date_time = datetime.now().strftime("%d%m%y_%H%M")
     print(date_time)
 
-    api_key = "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"
+    api_key = load_api_key() #Load the api key without revealing it publicly
     model_engine = "gpt-4o" #"gpt-3.5-turbo", gpt-4o-mini, gpt-4o
     
     # User parameters: protein and its affinity range for potential inhibitors (obtained from search.py)

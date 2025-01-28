@@ -1,6 +1,7 @@
 # Ignore directories or files
 nohup.out
 docking/
+safe/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
