@@ -10,6 +10,7 @@ import os
 from search import Hypothesis, compute_Q, construct_file_paths
 from LMLFStar import generate_molecules_for_protein
 import pandas as pd
+from functools import partial  # Added for clean function handling
 
 # Seeding for reproducibility
 random.seed(0)
@@ -33,6 +34,7 @@ def factor(x, constraints):
     for constraint in constraints:
         param, operator, value = constraint['parameter'], constraint['operator'], constraint['value']
         if param not in x:
+            print(f"Parameter {param} not found in molecule properties.")
             continue  # Skip if parameter is missing
 
         if operator == '<':
@@ -145,11 +147,14 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
 
             if os.path.exists(gen_csv):
                 properties_df = pd.read_csv(gen_csv)
+                
+                def check_feasibility(row, constraints):
+                    print(f"Checking molecule: {row.to_dict()}")
+                    result = factor(row.to_dict(), constraints)
+                    print(f"Feasibility result: {result}")
+                    return result
 
-                # Updated feasibility check using user_constraints
-                feasible_df = properties_df[
-                    properties_df.apply(lambda row: factor(row, user_constraints), axis=1)
-                ]
+                feasible_df = properties_df[properties_df.apply(lambda row: check_feasibility(row, user_constraints), axis=1)]
 
                 if len(feasible_df) > 0:
                     print(f"Feasible molecules found in interval {e_k} with Q-score {Q_k:.4f}.")
