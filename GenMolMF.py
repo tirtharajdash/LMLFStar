@@ -188,10 +188,11 @@ if __name__ == "__main__":
     print(date_time)
 
     protein = "DBH"
+
     initial_intervals = {
-        "CNNaffinity": [2, 10],
+        "CNNaffinity": [3, 10],
         "MolWt": [100, 500],
-        "SAS": [0, 5.0]
+        "SAS": [0, 3.0]
     }
 
     data_path = "data"
@@ -215,6 +216,10 @@ if __name__ == "__main__":
     print(f" PROTEIN: {protein}")
     print("*" * 64)
 
+    print(f"Search interval:\n\t{initial_intervals}")
+   
+    search_params = {"s":4, "n":10, "max_samples":10, "final_k":20}
+
     interleaved_LMLFStar(
         protein=protein,
         labelled_data=labelled_data,
@@ -226,10 +231,14 @@ if __name__ == "__main__":
         config_path=config_path,
         temp_dir=temp_dir,
         output_dir=output_dir,
-        s=4,
-        n=10,
-        max_samples=5,
-        final_k=10
+        s=search_params["s"],
+        n=search_params["n"],
+        max_samples=search_params["max_samples"],
+        final_k=search_params["final_k"]
     )
+    
+    print("Run config:")
+    print(f"Search intervals : {initial_intervals}")
+    print(f"Search params    : {search_params}")
 
     print("DONE [GenMol.py]")

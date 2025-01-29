@@ -197,7 +197,7 @@ if __name__ == "__main__":
     print(date_time)
 
     protein = "DBH"
-    initial_interval = [[2, 10]]
+    initial_interval = [[2, 10]] #CNNaffinity
 
     data_path = "data"
     labelled_file, unlabelled_file = construct_file_paths(data_path, protein)
@@ -220,6 +220,8 @@ if __name__ == "__main__":
     print(f" PROTEIN: {protein}")
     print("*" * 64)
 
+    search_params = {"s":4, "n":10, "max_samples":10, "final_k":20}
+
     interleaved_LMLFStar(
         protein=protein,
         labelled_data=labelled_data,
@@ -231,11 +233,15 @@ if __name__ == "__main__":
         config_path=config_path,
         temp_dir=temp_dir,
         output_dir=output_dir,
-        s=4,
-        n=10,
-        max_samples=5,
-        final_k=10
+        s=search_params["s"],
+        n=search_params["n"],
+        max_samples=search_params["max_samples"],
+        final_k=search_params["final_k"]
     )
 
+    print("Run config:")
+    print(f"Search interval  : CNNaffinity {initial_interval}")
+    print(f"Search params    : {search_params}")
+    
     print("DONE [GenMol1Fplus.py]")
 
