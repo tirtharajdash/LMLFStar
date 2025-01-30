@@ -1,6 +1,6 @@
 """
 GenMol.py: Generate molecules while doing the LMLFStar search with multiple constraint (CNNaffinity, MolWt, SAS, etc.)
-The code searches for an optimal parameter ranges (CNNaffinity \in [x,10], ...) while interleaving it with generating molecules from an LLM.
+The code searches for an optimal parameter ranges (CNNaffinity in [x,10], ...) while interleaving it with generating molecules from an LLM.
 Feasibility of generated molecules are checked all provided factors. That is, each factor should be within the obtained optimal range from search.
 """
 
@@ -192,7 +192,7 @@ if __name__ == "__main__":
     initial_intervals = {
         "CNNaffinity": [3, 10],
         "MolWt": [100, 500],
-        "SAS": [0, 3.0]
+        "SAS": [0, 4.0]
     }
 
     data_path = "data"
@@ -202,7 +202,7 @@ if __name__ == "__main__":
     unlabelled_data = pd.read_csv(unlabelled_file).to_dict(orient="records")
 
     api_key = load_api_key() # api key
-    model_engine = "gpt-4o-mini"  # "gpt-3.5-turbo", gpt-4o-mini, gpt-4o
+    model_engine = "gpt-4o"  # "gpt-3.5-turbo", gpt-4o-mini, gpt-4o
     gnina_path = "./docking"
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
@@ -218,7 +218,7 @@ if __name__ == "__main__":
 
     print(f"Search interval:\n\t{initial_intervals}")
    
-    search_params = {"s":4, "n":10, "max_samples":10, "final_k":20}
+    search_params = {"s":5, "n":10, "max_samples":10, "final_k":100}
 
     interleaved_LMLFStar(
         protein=protein,

@@ -206,7 +206,7 @@ if __name__ == "__main__":
     unlabelled_data = pd.read_csv(unlabelled_file).to_dict(orient="records")
 
     api_key = load_api_key()  # Load key without revealing it publicly
-    model_engine = "gpt-4o-mini"  # "gpt-3.5-turbo", gpt-4o-mini, gpt-4o
+    model_engine = "gpt-4o"  # gpt-3.5-turbo, gpt-4o-mini, gpt-4o
     gnina_path = "./docking"
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
@@ -220,7 +220,7 @@ if __name__ == "__main__":
     print(f" PROTEIN: {protein}")
     print("*" * 64)
 
-    search_params = {"s":4, "n":10, "max_samples":10, "final_k":20}
+    search_params = {"s":5, "n":10, "max_samples":10, "final_k":100}
 
     interleaved_LMLFStar(
         protein=protein,

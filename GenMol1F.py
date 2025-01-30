@@ -1,7 +1,7 @@
 """
 GenMol.py: Generate molecules while doing the LMLFStar search with single constraint (CNNaffinity)
-The code searches for an optimal parameter range (CNNaffinity \in [range]) while interleaving it with generating molecules from an LLM.
-1. The feasibility of generated molecules is checked against one constraint: CNNaffinity \in [optimal range]
+The code searches for an optimal parameter range (CNNaffinity in [range]) while interleaving it with generating molecules from an LLM.
+1. The feasibility of generated molecules is checked against one constraint: CNNaffinity in [optimal range]
 """
 
 import random

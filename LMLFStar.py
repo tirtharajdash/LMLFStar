@@ -48,8 +48,10 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
                     "role": "system", 
                     "content": (
                         "You are a scientist specialising in chemistry and drug design. "
-                        "Your task is to generate valid SMILES strings in the form of a Python list. " 
+                        "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
+                        "Return the response as plain text without any formatting, backticks, or explanations. "
                         "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations."
+                        "Example output: ['SMILES1', 'SMILES2', 'SMILES3']" 
                         )
                 },
                 {
@@ -165,15 +167,17 @@ def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, 
                     "role": "system", 
                     "content": (
                         "You are a scientist specialising in chemistry and drug design. "
-                        "Your task is to generate valid SMILES strings in the form of a Python list. " 
+                        "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
+                        "Return the response as plain text without any formatting, backticks, or explanations. "
                         "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations."
+                        "Example output: ['SMILES1', 'SMILES2', 'SMILES3']"
                         )
                 },
                 {
                     "role": "user", 
                     "content": (
                         f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
-                        f"Ensure the molecules are chemically feasible and suitable for binding to {protein}."
+                        f"Ensure the molecules are chemically feasible and require minimal steps for synthesis."
                         )
                 }
             ]
