@@ -182,7 +182,6 @@ def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
             
             k += 1
         
-        # (Optional) Save intermediate feasible molecules.
         if intermediate_data:
             pd.DataFrame(intermediate_data).drop_duplicates().to_csv(intermediate_csv, index=False)
             print(f"Intermediate feasible molecules saved to {intermediate_csv}")
@@ -658,9 +657,9 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=100, context=False, m
         print(f"Hypothesis search log saved to: {log_file_path}")
     
     initial_intervals = {
-        "CNNaffinity": [3, 10],
-        "MolWt": [100, 500],
-        "SAS": [0, 4.0]
+        "CNNaffinity": [2, 10],
+        "MolWt": [0, 500],
+        "SAS": [0, 5.0]
     }
     search_params = {"s": 4, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
     interleaved_LMLFStar(protein=protein,

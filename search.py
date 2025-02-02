@@ -25,7 +25,7 @@ class Hypothesis:
         for i, f in enumerate(self.factors):
             value = f(x)
             lower_bound, upper_bound = self.experiment[i]
-            print(f"Factor {i}, Value = {value}, Range = {self.experiment[i]}")
+            #print(f"Factor {i}, Value = {value}, Range = {self.experiment[i]}")
             if value is None:
                 return False
             if lower_bound is not None and value < lower_bound:
