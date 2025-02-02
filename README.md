@@ -1,8 +1,8 @@
-### LMLFStar: Conditional Generation of Novel Lead Molecules using an LLM 
+## LMLFStar: Conditional Generation of Novel Lead Molecules using an LLM 
 
 LMLFStar is a molecular generation and optimization framework that leverages a language model (LLM) to discover potential lead compounds for target proteins. It employs an iterative search strategy based on hypothesis testing to explore the chemical space efficiently. LMLFStar is a generalisation of [LMLF](https://ojs.aaai.org/index.php/AAAI/article/view/27751).
 
-## Features
+### Features
 `GenMol.py` is an interleaved implementation of `LMLFStar.py`. The results in the paper are based on this.
 
 - **Multiple Search Pipelines**:
@@ -19,7 +19,7 @@ LMLFStar is a molecular generation and optimization framework that leverages a l
 - **Customizable Parameters**:
   - Adjustable target size, model engine, feasibility thresholds, and search iterations.
 
-## Repository Structure
+### Repository Structure
 ```
 LMLFStar/
 ├── data/             # Contains input molecule datasets
@@ -43,24 +43,22 @@ LMLFStar/
 └── untitled/         # Temporary files or work-in-progress
 ```
 
-## Installation
-### Using Conda:
+### Installation
+#### Using Conda:
 ```bash
 conda env create -f env.yml
 conda activate chem
 ```
 
-### Installing Dependencies Manually:
-```bash
-pip install -r requirements.txt  # If available
-```
+Additionally, you will need the `gnina` software for docking. The current implementation uses the official version v1.3: [GNINA v1.3](https://github.com/gnina/gnina/releases/tag/v1.3).
 
-## Usage
-### Running a Molecular Generation Pipeline:
+
+### Usage
+#### Running a Molecular Generation Pipeline:
 ```bash
 python GenMol.py --protein DBH --target_size 5 --choice mf --context True --model gpt-4o --final_k 100
 ```
-#### Arguments:
+##### Arguments:
 | Argument       | Description |
 |---------------|-------------|
 | `--protein`   | Target protein name (e.g., `DBH`) |
@@ -70,18 +68,18 @@ python GenMol.py --protein DBH --target_size 5 --choice mf --context True --mode
 | `--model` | LLM model used (e.g., `gpt-4o`) |
 | `--final_k` | Number of molecules in the final generation step |
 
-### Example Runs
-#### Run GenMol1F (Single-factor search):
+#### Example Runs
+##### Run GenMol1F (Single-factor search):
 ```bash
-python GenMol.py --protein DBH --target_size 5 --choice 1f --context False --model gpt-4o --final_k 20
+python GenMol.py --protein DBH --target_size 5 --choice 1f --context False --model gpt-4o --final_k 10
 ```
 
-#### Run GenMolMF (Multi-factor search):
+##### Run GenMolMF (Multi-factor search):
 ```bash
-python GenMol.py --protein DBH --target_size 5 --choice mf --context True --model gpt-4o --final_k 100
+python GenMol.py --protein DBH --target_size 5 --choice mf --context True --model gpt-4o --final_k 10
 ```
 
-## Output
+### Output
 - **Results are stored in `results/` under a structured directory:**
   ```
   results/
@@ -99,21 +97,21 @@ python GenMol.py --protein DBH --target_size 5 --choice mf --context True --mode
   - `log.txt`: Detailed logs of search iterations.
   - `config.json`: Configuration of the run.
 
-## Troubleshooting
+### Troubleshooting
 - **Memory Issues**: Reduce `--target_size` and `--final_k`.
 - **No molecules generated**: Ensure `data/` has the correct input files.
 - **Long search times**: Reduce `--n` (number of iterations) and `--max_samples`.
 
-## License
+### License
 This repository is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
-## Contact
+### Contact
 For any questions or contributions, feel free to raise an issue or submit a pull request.
 
 
-#### References
+### References
 
-Some relevant sources and references:
+Some relevant sources and references for LMLF:
 
-1. Language-Model with Logical Feedback codebase: [LMLF](https://github.com/Shreyas-Bhat/LMLF)
-2. LMLF main paper: [AAAI](https://ojs.aaai.org/index.php/AAAI/article/view/27751)
+1. LMLF codebase: [LMLF](https://github.com/Shreyas-Bhat/LMLF)
+2. LMLF paper: [AAAI](https://ojs.aaai.org/index.php/AAAI/article/view/27751)
