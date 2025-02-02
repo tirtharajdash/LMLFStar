@@ -9,7 +9,8 @@ from env_utils import load_api_key
 from get_mol_prop import compute_properties_with_affinity
 from mol_utils import calculate_similarity, sanitize_smiles
 
-def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, model_engine, gnina_path, config_path, temp_dir, affinity_range, target_size=5, max_iterations=10, max_samples=5):
+def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, model_engine, gnina_path, config_path, temp_dir, 
+                                   affinity_range, target_size=5, max_iterations=10, max_samples=5):
     """
     Generates molecules similar to positive labeled ones for a specific protein target while ensuring they meet a specified CNNaffinity range.
 
@@ -50,7 +51,7 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
                         "You are a scientist specialising in chemistry and drug design. "
                         "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
                         "Return the response as plain text without any formatting, backticks, or explanations. "
-                        "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations."
+                        "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations. "
                         "Example output: ['SMILES1', 'SMILES2', 'SMILES3']" 
                         )
                 },
@@ -58,10 +59,12 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
                     "role": "user", 
                     "content": (
                         f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
-                        f"Ensure the molecules are chemically feasible and suitable for binding to {protein}."
+                        f"Ensure the molecules are chemically feasible and require minimal steps for synthesis."
                         )
                 }
             ]
+        
+        valid_smiles = []
 
         try:
             response = client.chat.completions.create(
@@ -128,7 +131,8 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
         print("Error: No valid molecule generated.")
 
 
-def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, api_key, model_engine, gnina_path, config_path, temp_dir, parameter_ranges, target_size=5, max_iterations=10, max_samples=5):
+def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, api_key, model_engine, gnina_path, config_path, temp_dir, 
+                                                parameter_ranges, target_size=5, max_iterations=10, max_samples=5):
     """
     Generates molecules similar to positive labeled ones for a specific protein target while ensuring they meet specified parameter ranges.
 
@@ -169,7 +173,7 @@ def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, 
                         "You are a scientist specialising in chemistry and drug design. "
                         "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
                         "Return the response as plain text without any formatting, backticks, or explanations. "
-                        "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations."
+                        "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations. "
                         "Example output: ['SMILES1', 'SMILES2', 'SMILES3']"
                         )
                 },
@@ -181,6 +185,8 @@ def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, 
                         )
                 }
             ]
+        
+        valid_smiles = []
 
         try:
             response = client.chat.completions.create(
@@ -248,9 +254,8 @@ def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, 
         print("Error: No valid molecule generated.")
 
 
-def generate_molecules_for_protein_with_context(protein, input_csv, output_dir, api_key, model_engine, 
-                                                gnina_path, config_path, temp_dir, affinity_range, 
-                                                target_size=5, max_iterations=10, max_samples=5):
+def generate_molecules_for_protein_with_context(protein, input_csv, output_dir, api_key, model_engine, gnina_path, config_path, temp_dir, 
+                                                affinity_range, target_size=5, max_iterations=10, max_samples=5):
     """
     Generates molecules similar to positive labeled ones for a specific protein target while ensuring they
     meet a specified CNNaffinity range. In each iteration, the molecules that pass the feasibility constraint
@@ -287,28 +292,30 @@ def generate_molecules_for_protein_with_context(protein, input_csv, output_dir, 
 
     for iteration in range(1, max_iterations + 1):
         # Build a context string if we have feasible molecules from earlier iterations.
-        context_text = f" Additionally, consider these previously feasible molecules: {context_feasible}." if context_feasible else ""
-        
+        context_text = f" Additionally, consider these previously generated feasible molecules: {context_feasible}." if context_feasible else ""
+               
         messages = [
-            {
-                "role": "system",
-                "content": (
-                    "You are a scientist specializing in chemistry and drug design. "
-                    "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
-                    "Return the response as plain text without any formatting, backticks, or explanations. "
-                    "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text."
-                )
-            },
-            {
-                "role": "user",
-                "content": (
-                    f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: "
-                    f"{positive_molecules}.{context_text} Ensure the molecules are chemically feasible and suitable for binding to {protein}."
-                )
-            }
-        ]
+                {
+                    "role": "system", 
+                    "content": (
+                        "You are a scientist specialising in chemistry and drug design. "
+                        "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
+                        "Return the response as plain text without any formatting, backticks, or explanations. "
+                        "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations. "
+                        "Example output: ['SMILES1', 'SMILES2', 'SMILES3']" 
+                        )
+                },
+                {
+                    "role": "user", 
+                    "content": (
+                        f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
+                        f"{context_text} "
+                        f"Ensure the molecules are chemically feasible and require minimal steps for synthesis."
+                        )
+                }
+            ]
         
-        valid_smiles = []  # Initialize valid_smiles for this iteration
+        valid_smiles = []  
 
         try:
             response = client.chat.completions.create(
@@ -432,29 +439,30 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
 
     for iteration in range(1, max_iterations + 1):
         # Build a context string if we have feasible molecules from earlier iterations.
-        context_text = f" Additionally, consider these previously feasible molecules: {context_feasible}." if context_feasible else ""
+        context_text = f" Additionally, consider these previously generated feasible molecules: {context_feasible}." if context_feasible else ""
         
         messages = [
-            {
-                "role": "system",
-                "content": (
-                    "You are a scientist specializing in chemistry and drug design. "
-                    "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
-                    "Return the response as plain text without any formatting, backticks, or explanations. "
-                    "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text."
-                )
-            },
-            {
-                "role": "user",
-                "content": (
-                    f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: "
-                    f"{positive_molecules}.{context_text} Ensure the molecules are chemically feasible, require minimal steps for synthesis, "
-                    f"and meet the following parameter ranges: {parameter_ranges}."
-                )
-            }
-        ]
+                {
+                    "role": "system", 
+                    "content": (
+                        "You are a scientist specialising in chemistry and drug design. "
+                        "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
+                        "Return the response as plain text without any formatting, backticks, or explanations. "
+                        "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations. "
+                        "Example output: ['SMILES1', 'SMILES2', 'SMILES3']" 
+                        )
+                },
+                {
+                    "role": "user", 
+                    "content": (
+                        f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
+                        f"{context_text} "
+                        f"Ensure the molecules are chemically feasible and require minimal steps for synthesis."
+                        )
+                }
+            ]
         
-        valid_smiles = []  # Initialize valid_smiles for this iteration
+        valid_smiles = []  
 
         try:
             response = client.chat.completions.create(
@@ -569,6 +577,7 @@ if __name__ == "__main__":
     print("2. Multifactor (MF)")
     print("3. Single factor with context (SFC)")
     print("4. Multifactor with context (MFC)")
+    print("0. Abort")
     mode = input("Enter the mode number (1-4): ").strip()
 
     # Build the output directory based on the chosen mode
@@ -642,4 +651,6 @@ if __name__ == "__main__":
         )
     else:
         print("Invalid mode selected. Exiting.")
+
+
 
