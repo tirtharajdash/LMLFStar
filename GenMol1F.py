@@ -12,7 +12,7 @@ import os
 
 from env_utils import load_api_key
 from search import Hypothesis, compute_Q, construct_file_paths
-from LMLFStar import generate_molecules_for_protein
+from LMLFStar import generate_molecules_for_protein, generate_molecules_for_protein_with_context
 import pandas as pd
 
 # Seeding for reproducibility
@@ -20,7 +20,7 @@ random.seed(0)
 np.random.seed(0)
 
 
-def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interval, api_key, model_engine, gnina_path, config_path, temp_dir, output_dir, s=4, n=10, max_samples=5, final_k=10):
+def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interval, api_key, model_engine, gnina_path, config_path, temp_dir, output_dir, s=4, n=10, max_samples=5, final_k=10, context=False):
     """
     Interleaved search and molecule generation.
 
@@ -97,20 +97,36 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
             affinity_range = [float(e_k[0][0]), float(e_k[0][1])]
 
             # Generate molecules for the interval
-            generate_molecules_for_protein(
-                protein=protein,
-                input_csv=f"data/{protein}.txt",
-                output_dir=output_dir,
-                api_key=api_key,
-                model_engine=model_engine,
-                gnina_path=gnina_path,
-                config_path=config_path,
-                temp_dir=temp_dir,
-                affinity_range=affinity_range,
-                target_size=5,
-                max_iterations=1,
-                max_samples=max_samples
-            )
+            if context:
+                generate_molecules_for_protein_with_context(
+                    protein=protein,
+                    input_csv=f"data/{protein}.txt",
+                    output_dir=output_dir,
+                    api_key=api_key,
+                    model_engine=model_engine,
+                    gnina_path=gnina_path,
+                    config_path=config_path,
+                    temp_dir=temp_dir,
+                    affinity_range=affinity_range,
+                    target_size=5,
+                    max_iterations=1,
+                    max_samples=max_samples
+                )
+            else:
+                generate_molecules_for_protein(
+                    protein=protein,
+                    input_csv=f"data/{protein}.txt",
+                    output_dir=output_dir,
+                    api_key=api_key,
+                    model_engine=model_engine,
+                    gnina_path=gnina_path,
+                    config_path=config_path,
+                    temp_dir=temp_dir,
+                    affinity_range=affinity_range,
+                    target_size=5,
+                    max_iterations=1,
+                    max_samples=max_samples
+                )
 
             # Check if generated molecules exist within the interval
             gen_csv = f"{output_dir}/generated.csv"
@@ -156,20 +172,36 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
     print("\nGenerating final molecules for the last interval.")
     final_affinity_range = [float(interval_history[-1][0][0]), float(interval_history[-1][0][1])]
 
-    generate_molecules_for_protein(
-        protein=protein,
-        input_csv=f"data/{protein}.txt",
-        output_dir=output_dir,
-        api_key=api_key,
-        model_engine=model_engine,
-        gnina_path=gnina_path,
-        config_path=config_path,
-        temp_dir=temp_dir,
-        affinity_range=final_affinity_range,
-        target_size=5,
-        max_iterations=1,
-        max_samples=final_k
-    )
+    if context:
+        generate_molecules_for_protein_with_context(
+            protein=protein,
+            input_csv=f"data/{protein}.txt",
+            output_dir=output_dir,
+            api_key=api_key,
+            model_engine=model_engine,
+            gnina_path=gnina_path,
+            config_path=config_path,
+            temp_dir=temp_dir,
+            affinity_range=final_affinity_range,
+            target_size=5,
+            max_iterations=1,
+            max_samples=final_k
+        )
+    else:
+        generate_molecules_for_protein(
+            protein=protein,
+            input_csv=f"data/{protein}.txt",
+            output_dir=output_dir,
+            api_key=api_key,
+            model_engine=model_engine,
+            gnina_path=gnina_path,
+            config_path=config_path,
+            temp_dir=temp_dir,
+            affinity_range=final_affinity_range,
+            target_size=5,
+            max_iterations=1,
+            max_samples=final_k
+        )
 
     print("\nFinal Hypothesis Interval:", interval_history[-1])
     print("Q-value History:", Q_values)
@@ -225,7 +257,8 @@ if __name__ == "__main__":
         s=search_params["s"],
         n=search_params["n"],
         max_samples=search_params["max_samples"],
-        final_k=search_params["final_k"]
+        final_k=search_params["final_k"],
+        context=True
     )
     
     print("Run config:")
