@@ -1,3 +1,9 @@
+"""
+LMLFStar.py: The classical non-interleaved version of LMLFStar.
+It takes an optimal search interval (or intervals for more than one params) and does the molecule generation in iteration.
+"""
+
+
 from datetime import datetime
 import os
 import pandas as pd
@@ -31,15 +37,17 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
         None
     """
     client = OpenAI(api_key=api_key)
-
+    
     data = pd.read_csv(input_csv)
     target_positive_molecules = data[data['Label'] == 1]['SMILES'].tolist()
-
-    positive_molecules = target_positive_molecules[0:target_size]
-
-    if not positive_molecules:
-        print(f"No positive molecules found for {protein} in {input_csv}")
-        return
+        
+    gen_prompt = f"Generate up to {max_samples} novel valid molecules"
+    if target_size > 0:
+        positive_molecules = target_positive_molecules[0:target_size]
+        if not positive_molecules:
+            print(f"No positive molecules found for {protein} in {input_csv}")
+            return
+        gen_prompt = f"{gen_prompt} similar to the following positive molecules: {positive_molecules}"
 
     generated_molecules = []
 
@@ -58,7 +66,7 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
                 {
                     "role": "user", 
                     "content": (
-                        f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
+                        f"{gen_prompt}. "
                         f"Ensure the molecules are chemically feasible and require minimal steps for synthesis."
                         )
                 }
@@ -153,15 +161,17 @@ def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, 
         None
     """
     client = OpenAI(api_key=api_key)
-
+    
     data = pd.read_csv(input_csv)
     target_positive_molecules = data[data['Label'] == 1]['SMILES'].tolist()
-
-    positive_molecules = target_positive_molecules[0:target_size]
-
-    if not positive_molecules:
-        print(f"No positive molecules found for {protein} in {input_csv}")
-        return
+        
+    gen_prompt = f"Generate up to {max_samples} novel valid molecules"
+    if target_size > 0:
+        positive_molecules = target_positive_molecules[0:target_size]
+        if not positive_molecules:
+            print(f"No positive molecules found for {protein} in {input_csv}")
+            return
+        gen_prompt = f"{gen_prompt} similar to the following positive molecules: {positive_molecules}"
 
     generated_molecules = []
 
@@ -174,13 +184,13 @@ def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, 
                         "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
                         "Return the response as plain text without any formatting, backticks, or explanations. "
                         "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations. "
-                        "Example output: ['SMILES1', 'SMILES2', 'SMILES3']"
+                        "Example output: ['SMILES1', 'SMILES2', 'SMILES3']" 
                         )
                 },
                 {
                     "role": "user", 
                     "content": (
-                        f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
+                        f"{gen_prompt}. "
                         f"Ensure the molecules are chemically feasible and require minimal steps for synthesis."
                         )
                 }
@@ -279,19 +289,22 @@ def generate_molecules_for_protein_with_context(protein, input_csv, output_dir, 
         None
     """
     client = OpenAI(api_key=api_key)
+    
     data = pd.read_csv(input_csv)
     target_positive_molecules = data[data['Label'] == 1]['SMILES'].tolist()
-    positive_molecules = target_positive_molecules[:target_size]
-
-    if not positive_molecules:
-        print(f"No positive molecules found for {protein} in {input_csv}")
-        return
+        
+    gen_prompt = f"Generate up to {max_samples} novel valid molecules"
+    if target_size > 0:
+        positive_molecules = target_positive_molecules[0:target_size]
+        if not positive_molecules:
+            print(f"No positive molecules found for {protein} in {input_csv}")
+            return
+        gen_prompt = f"{gen_prompt} similar to the following positive molecules: {positive_molecules}"
 
     generated_molecules = []
-    context_feasible = []  # Accumulate feasible molecules from previous iterations
+    context_feasible = [] 
 
     for iteration in range(1, max_iterations + 1):
-        # Build a context string if we have feasible molecules from earlier iterations.
         context_text = f" Additionally, consider these previously generated feasible molecules: {context_feasible}." if context_feasible else ""
                
         messages = [
@@ -308,7 +321,7 @@ def generate_molecules_for_protein_with_context(protein, input_csv, output_dir, 
                 {
                     "role": "user", 
                     "content": (
-                        f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
+                        f"{gen_prompt}. "
                         f"{context_text} "
                         f"Ensure the molecules are chemically feasible and require minimal steps for synthesis."
                         )
@@ -426,19 +439,22 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
         None
     """
     client = OpenAI(api_key=api_key)
+    
     data = pd.read_csv(input_csv)
     target_positive_molecules = data[data['Label'] == 1]['SMILES'].tolist()
-    positive_molecules = target_positive_molecules[:target_size]
-
-    if not positive_molecules:
-        print(f"No positive molecules found for {protein} in {input_csv}")
-        return
+        
+    gen_prompt = f"Generate up to {max_samples} novel valid molecules"
+    if target_size > 0:
+        positive_molecules = target_positive_molecules[0:target_size]
+        if not positive_molecules:
+            print(f"No positive molecules found for {protein} in {input_csv}")
+            return
+        gen_prompt = f"{gen_prompt} similar to the following positive molecules: {positive_molecules}"
 
     generated_molecules = []
-    context_feasible = []  # Accumulate feasible molecules from previous iterations
+    context_feasible = []
 
     for iteration in range(1, max_iterations + 1):
-        # Build a context string if we have feasible molecules from earlier iterations.
         context_text = f" Additionally, consider these previously generated feasible molecules: {context_feasible}." if context_feasible else ""
         
         messages = [
@@ -455,7 +471,7 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
                 {
                     "role": "user", 
                     "content": (
-                        f"Generate up to {max_samples} novel valid molecules similar to the following positive molecules: {positive_molecules}. "
+                        f"{gen_prompt}. "
                         f"{context_text} "
                         f"Ensure the molecules are chemically feasible and require minimal steps for synthesis."
                         )

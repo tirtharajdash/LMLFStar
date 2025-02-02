@@ -1,7 +1,11 @@
 """
-GenMol.py: Generate molecules while doing the LMLFStar search with single constraint (CNNaffinity)
-The code searches for an optimal parameter range (CNNaffinity in [range]) while interleaving it with generating molecules from an LLM.
-1. The feasibility of generated molecules is checked against one constraint: CNNaffinity in [optimal range]
+GenMol1Fplus.py: Generate molecules while doing the LMLFStar search with single constraint (CNNaffinity) with extended feasibility check.
+The feasibility of molecules is checked against multiple constraints:
+1. CNNaffinity in the range from search.
+2. MolWt < 500.
+3. SAS < 5.0.
+
+This is an enhanced version of GenMol1F.py with multi-factor feasibility checks.
 """
 
 import random
@@ -28,7 +32,7 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         protein (str): Target protein name.
         labelled_data (list): Labelled dataset (list of dictionaries).
         unlabelled_data (list): Unlabelled dataset (list of dictionaries).
-        initial_interval (list): Initial interval for the parameter.
+        initial_interval (list): Initial interval for CNNaffinity.
         api_key (str): OpenAI API key.
         model_engine (str): Model engine (e.g., gpt-3.5-turbo).
         gnina_path (str): Path to Gnina executable.
@@ -133,8 +137,14 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
 
             if os.path.exists(gen_csv):
                 properties_df = pd.read_csv(gen_csv)
-                feasible_df = properties_df[(properties_df['CNNaffinity'] >= affinity_range[0]) &
-                                            (properties_df['CNNaffinity'] <= affinity_range[1])]
+
+                # Apply feasibility checks for all constraints
+                feasible_df = properties_df[
+                    (properties_df['CNNaffinity'] >= affinity_range[0]) &
+                    (properties_df['CNNaffinity'] <= affinity_range[1]) &
+                    (properties_df['MolWt'] < 500) &
+                    (properties_df['SAS'] < 5.0)
+                ]
 
                 if len(feasible_df) > 0:
                     print(f"Feasible molecules found in interval {e_k} with Q-score {Q_k:.4f}.")
@@ -213,12 +223,13 @@ def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interv
         for child in node['children']:
             print(f"\tChild Interval {child['interval']} | Q-score {child['Q_score']:.4f}")
 
+
 if __name__ == "__main__":
     date_time = datetime.now().strftime("%d%m%y_%H%M")
     print(date_time)
 
     protein = "DBH"
-    initial_interval = [[2, 10]] #For CNNaffinity
+    initial_interval = [[2, 10]] #CNNaffinity
 
     data_path = "data"
     labelled_file, unlabelled_file = construct_file_paths(data_path, protein)
@@ -226,12 +237,12 @@ if __name__ == "__main__":
     labelled_data = pd.read_csv(labelled_file).to_dict(orient="records")
     unlabelled_data = pd.read_csv(unlabelled_file).to_dict(orient="records")
 
-    api_key = load_api_key() #Load key without revealing it publicly
-    model_engine = "gpt-4o-mini" #"gpt-3.5-turbo", gpt-4o-mini, gpt-4o
+    api_key = load_api_key()  # Load key without revealing it publicly
+    model_engine = "gpt-4o"  # gpt-3.5-turbo, gpt-4o-mini, gpt-4o
     gnina_path = "./docking"
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
-    output_dir = f"results_GenMol1F/{protein}/{model_engine}/{date_time}"
+    output_dir = f"results_GenMol1Fplus/{protein}/{model_engine}/{date_time}"
 
     os.makedirs(temp_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
@@ -241,7 +252,7 @@ if __name__ == "__main__":
     print(f" PROTEIN: {protein}")
     print("*" * 64)
 
-    search_params = {"s":4, "n":10, "max_samples":10, "final_k":20}
+    search_params = {"s":5, "n":10, "max_samples":10, "final_k":10, "context":True}
 
     interleaved_LMLFStar(
         protein=protein,
@@ -258,11 +269,12 @@ if __name__ == "__main__":
         n=search_params["n"],
         max_samples=search_params["max_samples"],
         final_k=search_params["final_k"],
-        context=True
+        context=search_params["context"]
     )
-    
+
     print("Run config:")
     print(f"Search interval  : CNNaffinity {initial_interval}")
     print(f"Search params    : {search_params}")
     
-    print("DONE [GenMol.py]")
+    print("DONE [GenMol1Fplus.py]")
+

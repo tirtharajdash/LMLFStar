@@ -1,0 +1,42 @@
+Final Hypothesis Interval: [[3.0, 4.75], [100.0, 125.0], [0, 4.0]]
+Q-value History: [6.669621947425772, 12.710661628423786, 33.15099542695646, 22.100663617970977]
+Search Tree:
+Iteration 1: Interval [[3, 10], [100, 500], [0, 4.0]] | Q-score 6.6696
+	Child Interval [[3.0, 4.75], [100, 500], [0, 4.0]] | Q-score -0.2650
+	Child Interval [[4.75, 6.5], [100, 500], [0, 4.0]] | Q-score 15.6734
+	Child Interval [[6.5, 8.25], [100, 500], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[8.25, 10.0], [100, 500], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [100.0, 200.0], [0, 4.0]] | Q-score 4.2369
+	Child Interval [[3, 10], [200.0, 300.0], [0, 4.0]] | Q-score 4.2369
+	Child Interval [[3, 10], [300.0, 400.0], [0, 4.0]] | Q-score 13.3619
+	Child Interval [[3, 10], [400.0, 500.0], [0, 4.0]] | Q-score 11.0503
+	Child Interval [[3, 10], [100, 500], [0.0, 1.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [100, 500], [1.0, 2.0]] | Q-score 4.2369
+	Child Interval [[3, 10], [100, 500], [2.0, 3.0]] | Q-score 1.9253
+	Child Interval [[3, 10], [100, 500], [3.0, 4.0]] | Q-score 17.9850
+Iteration 2: Interval [[3, 10], [100.0, 200.0], [0, 4.0]] | Q-score 12.7107
+	Child Interval [[3.0, 4.75], [100.0, 200.0], [0, 4.0]] | Q-score 4.2369
+	Child Interval [[4.75, 6.5], [100.0, 200.0], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[6.5, 8.25], [100.0, 200.0], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[8.25, 10.0], [100.0, 200.0], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [100.0, 125.0], [0, 4.0]] | Q-score 11.0503
+	Child Interval [[3, 10], [125.0, 150.0], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [150.0, 175.0], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [175.0, 200.0], [0, 4.0]] | Q-score 1.9253
+	Child Interval [[3, 10], [100.0, 200.0], [0.0, 1.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [100.0, 200.0], [1.0, 2.0]] | Q-score 11.0503
+	Child Interval [[3, 10], [100.0, 200.0], [2.0, 3.0]] | Q-score 1.9253
+	Child Interval [[3, 10], [100.0, 200.0], [3.0, 4.0]] | Q-score 8.7388
+Iteration 3: Interval [[3, 10], [100.0, 125.0], [0, 4.0]] | Q-score 33.1510
+	Child Interval [[3.0, 4.75], [100.0, 125.0], [0, 4.0]] | Q-score 11.0503
+	Child Interval [[4.75, 6.5], [100.0, 125.0], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[6.5, 8.25], [100.0, 125.0], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[8.25, 10.0], [100.0, 125.0], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [100.0, 106.25], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [106.25, 112.5], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [112.5, 118.75], [0, 4.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [118.75, 125.0], [0, 4.0]] | Q-score 11.0503
+	Child Interval [[3, 10], [100.0, 125.0], [0.0, 1.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [100.0, 125.0], [1.0, 2.0]] | Q-score 11.0503
+	Child Interval [[3, 10], [100.0, 125.0], [2.0, 3.0]] | Q-score 8.7388
+	Child Interval [[3, 10], [100.0, 125.0], [3.0, 4.0]] | Q-score 8.7388
