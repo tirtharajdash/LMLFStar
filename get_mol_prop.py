@@ -266,7 +266,7 @@ if __name__ == "__main__":
         input_csv='data/chembl1K.txt', #JAK2.txt, DRD2.txt, DBH.txt, unlabelled.txt, chembl10.txt, chembl1K.txt
         gnina_path='./docking/',
         temp_dir='/tmp/',
-        protein='JAK2' #This msut be set to a protein (JAK2/DRD2/DBH) if input_csv is non_protein
+        protein='DRD2' #This msut be set to a protein (JAK2/DRD2/DBH) if input_csv is non_protein
     )
 
 

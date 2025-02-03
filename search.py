@@ -43,6 +43,7 @@ def compute_Q(h, B, D, epsilon=0.1, theta_ext_h_approx=0.5):
     TP_count = len([e for e in E_plus if h.is_feasible(e)])
     TN_count = len([e for e in E_minus if not h.is_feasible(e)])
     FPN_count = len(D) - (TP_count + TN_count)
+    #print(f"TP: {TP_count}, TN: {TN_count}, FPN: {FPN_count}")
     theta_ext_h = theta_ext_h_approx
     if len(D) == 0:
         return float('-inf')

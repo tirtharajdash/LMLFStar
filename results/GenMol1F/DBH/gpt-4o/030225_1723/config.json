@@ -1,0 +1,20 @@
+{
+    "protein": "DBH",
+    "target_size": 5,
+    "context": true,
+    "model_engine": "gpt-4o",
+    "search_intervals": [
+        [
+            2,
+            10
+        ]
+    ],
+    "search_params": {
+        "s": 5,
+        "n": 10,
+        "max_samples": 10,
+        "final_k": 100,
+        "context": true
+    },
+    "plus_mode": false
+}

@@ -20,7 +20,7 @@ def sanitize_smiles(smiles):
         if mol is None:
             return None, "Invalid SMILES: Parsing failed."
         Chem.SanitizeMol(mol, sanitizeOps=SanitizeFlags.SANITIZE_ALL)
-        print(f"Molecule {smiles} sanitized successfully.")
+        #print(f"Molecule {smiles} sanitized successfully.")
         return mol, True
     except Exception as e:
         print(f"Sanitization failed: {e}")
