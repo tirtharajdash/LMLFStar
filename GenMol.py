@@ -97,7 +97,7 @@ def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
     def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_interval,
                              api_key, model_engine, gnina_path, config_path, temp_dir,
                              output_dir, s=4, n=10, max_samples=5, final_k=20, target_size=5, context=False):
-        # Single factor is CNNaffinity.
+
         factor = lambda x: x['CNNaffinity']
         e_0 = initial_interval
         h_0 = Hypothesis([factor], e_0)
@@ -124,7 +124,7 @@ def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
             lhs_samples = scipy.stats.qmc.LatinHypercube(d=1, seed=seed).random(n=s)
             quantiles = list(map(float, np.linspace(e_0[0][0], e_0[0][1], s + 1)))  # s partitions
             E_k = [
-                [[float(quantiles[min(int(sample * s), s - 1)]), float(quantiles[min(int(sample * s) + 1, s)])]]
+                [[float(quantiles[min(int(sample * s), s - 1)]), float(e_0[0][1])]]
                 for sample in lhs_samples.flatten()
             ]
             
@@ -218,6 +218,7 @@ def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                         break
                 else:
                     print(f"  No molecules generated for interval {e_k}.")
+                    w_k = 0
                     patience_counter += 1
             
             if not feasible_node_found:
@@ -396,15 +397,17 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         while k <= n:
             lhs_samples = scipy.stats.qmc.LatinHypercube(d=len(initial_intervals), seed=seed).random(n=s)
             E_k = []
-
             for sample in lhs_samples:
                 new_intervals = []
                 for i, param in enumerate(initial_intervals.keys()):
                     quantiles = np.linspace(initial_intervals[param][0], initial_intervals[param][1], s + 1)
-                    index = min(max(int(sample[i] * s), 0), s - 2) 
-                    new_intervals.append([float(quantiles[index]), float(quantiles[index + 1])])
+                    index = min(max(int(sample[i] * s), 0), s - 1)
+                    if param == "CNNaffinity": #keep max end fixed
+                        new_intervals.append([float(quantiles[index]), float(initial_intervals[param][1])])
+                    elif param in ["MolWt", "SAS"]: #keep min end fixed
+                        new_intervals.append([float(initial_intervals[param][0]), float(quantiles[index])])
                 E_k.append(new_intervals)
-
+            
             S = []
             for e in E_k:
                 h_k = Hypothesis(factors, e)
@@ -486,6 +489,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                         break
                 else:
                     print(f"  No molecules generated for interval {e_k}.")
+                    w_k = 0
                     patience_counter += 1
 
             if not feasible_node_found:
@@ -573,8 +577,8 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         print(f"Hypothesis search log saved to: {log_file_path}")
         
     # other run parameters: initial search space, search params, etc.
-    #initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500], "SAS": [0, 5.0]}
-    initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500]}
+    initial_intervals = {"CNNaffinity": [0, 10], "MolWt": [0, 700], "SAS": [0, 7.0]}
+    #initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500]}
 
     search_params = {"s": 5, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
     interleaved_LMLFStar(protein=protein,
