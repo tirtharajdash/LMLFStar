@@ -309,7 +309,7 @@ def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
     
     # other run parameters: initial search space, search params, etc.
     initial_interval = [[2, 10]]
-    search_params = {"s": 5, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
+    search_params = {"s": 30, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
     interleaved_LMLFStar(protein=protein,
                          labelled_data=labelled_data,
                          unlabelled_data=unlabelled_data,
@@ -577,10 +577,10 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         print(f"Hypothesis search log saved to: {log_file_path}")
         
     # other run parameters: initial search space, search params, etc.
-    initial_intervals = {"CNNaffinity": [0, 10], "MolWt": [0, 700], "SAS": [0, 7.0]}
+    initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]}
     #initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500]}
 
-    search_params = {"s": 5, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
+    search_params = {"s": 10, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
     interleaved_LMLFStar(protein=protein,
                          labelled_data=labelled_data,
                          unlabelled_data=unlabelled_data,
