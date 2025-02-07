@@ -153,6 +153,29 @@ def generate_structure(csv_file):
     return html_file_path
 
 
+def show_results(result_dir):
+    """
+    Shows the summary statistics of the generated molecules.
+    Creates two dataframe from the files in: results_path.
+    df_gen: Generated molecules (in `all.csv` within the results directory)
+    df_tanimoto: Tanimoto coefficients for the molecules
+    """
+    df_gen = pd.read_csv(f"{result_dir}/all.csv")
+    df_tanimoto = pd.read_csv(f"{result_dir}/tanimoto.csv")
+    print("CNNaffinity statistics:")
+    print(f" Mean: {df_gen['CNNaffinity'].mean():.2f}")
+    print(f" Median: {df_gen['CNNaffinity'].median():.2f}")
+    print(f" Std: {df_gen['CNNaffinity'].std():.2f}")
+    print(f" Min: {df_gen['CNNaffinity'].min():.2f}")
+    print(f" Max: {df_gen['CNNaffinity'].max():.2f}")
+    print("Tanimoto statistics:")
+    print(f" Mean: {df_tanimoto['Avg. Similarity'].mean():.2f}")
+    print(f" Median: {df_tanimoto['Avg. Similarity'].median():.2f}")
+    print(f" Std: {df_tanimoto['Avg. Similarity'].std():.3f}")
+    print(f" Min: {df_tanimoto['Avg. Similarity'].min():.2f}")
+    print(f" Max: {df_tanimoto['Avg. Similarity'].max():.2f}")
+
+
 if __name__ == "__main__":
     target_smiles_list = ["CCO", "CCN", "CCCC", "c1=cc=cc=c1"]
     input_smiles_list = ["CCO", "ccn"]
