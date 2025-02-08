@@ -81,6 +81,9 @@ def calculate_similarity(target_smiles_list, input_smiles_list):
             similarities.append(similarity)
         row["Avg. Similarity"] = sum(similarities) / len(similarities) if similarities else 0
         results.append(row)
+    
+    if not results:
+        return pd.DataFrame()
 
     df = pd.DataFrame(results)
     return df
@@ -156,24 +159,56 @@ def generate_structure(csv_file):
 def show_results(result_dir):
     """
     Shows the summary statistics of the generated molecules.
-    Creates two dataframe from the files in: results_path.
-    df_gen: Generated molecules (in `all.csv` within the results directory)
-    df_tanimoto: Tanimoto coefficients for the molecules
+    Computes Tanimoto coefficients for the molecules and displays statistics.
     """
-    df_gen = pd.read_csv(f"{result_dir}/all.csv")
-    df_tanimoto = pd.read_csv(f"{result_dir}/tanimoto.csv")
+    df_gen = pd.read_csv(os.path.join(result_dir, "all.csv"))
+
+    if len(result_dir.split('.')) > 1:
+        protein_name = result_dir.split('.')[1].split('/')[3]
+    else:
+        protein_name = result_dir.split('/')[3]
+    
+    print(f"Protein: {protein_name}")
+
+    target_file = os.path.join("data", f"{protein_name}.txt")
+    if not os.path.exists(target_file):
+        print(f"Error: Target file '{target_file}' not found.")
+        return
+
+    target_smiles_df = pd.read_csv(target_file)
+    target_smiles_list = target_smiles_df['SMILES'].tolist()
+
+    if 'SMILES' not in df_gen.columns:
+        print("Error: 'SMILES' column not found in generated molecules.")
+        return
+
+    input_smiles_list = df_gen['SMILES'].tolist()
+
+    df_tanimoto = calculate_similarity(target_smiles_list, input_smiles_list)
+
+    tanimoto_file = os.path.join(result_dir, "tanimoto.csv")
+    df_tanimoto.to_csv(tanimoto_file, index=False)
+
+    # Display summary statistics
     print("CNNaffinity statistics:")
-    print(f" Mean: {df_gen['CNNaffinity'].mean():.2f}")
-    print(f" Median: {df_gen['CNNaffinity'].median():.2f}")
-    print(f" Std: {df_gen['CNNaffinity'].std():.2f}")
-    print(f" Min: {df_gen['CNNaffinity'].min():.2f}")
-    print(f" Max: {df_gen['CNNaffinity'].max():.2f}")
+    if 'CNNaffinity' in df_gen.columns:
+        print(f" Mean: {df_gen['CNNaffinity'].mean():.2f}")
+        print(f" Median: {df_gen['CNNaffinity'].median():.2f}")
+        print(f" Std: {df_gen['CNNaffinity'].std():.2f}")
+        print(f" Min: {df_gen['CNNaffinity'].min():.2f}")
+        print(f" Max: {df_gen['CNNaffinity'].max():.2f}")
+    else:
+        print(" 'CNNaffinity' column not found in generated molecules.")
+
     print("Tanimoto statistics:")
-    print(f" Mean: {df_tanimoto['Avg. Similarity'].mean():.2f}")
-    print(f" Median: {df_tanimoto['Avg. Similarity'].median():.2f}")
-    print(f" Std: {df_tanimoto['Avg. Similarity'].std():.3f}")
-    print(f" Min: {df_tanimoto['Avg. Similarity'].min():.2f}")
-    print(f" Max: {df_tanimoto['Avg. Similarity'].max():.2f}")
+    if not df_tanimoto.empty:
+        print(f" Mean: {df_tanimoto['Avg. Similarity'].mean():.2f}")
+        print(f" Median: {df_tanimoto['Avg. Similarity'].median():.2f}")
+        print(f" Std: {df_tanimoto['Avg. Similarity'].std():.3f}")
+        print(f" Min: {df_tanimoto['Avg. Similarity'].min():.2f}")
+        print(f" Max: {df_tanimoto['Avg. Similarity'].max():.2f}")
+    else:
+        print(" No valid Tanimoto similarities computed.")
 
 
 if __name__ == "__main__":
