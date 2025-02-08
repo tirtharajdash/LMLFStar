@@ -2,8 +2,6 @@
 nohup.out
 docking/
 safe/
-data/DBH_buggy/
-results/*/DBH_buggy/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
