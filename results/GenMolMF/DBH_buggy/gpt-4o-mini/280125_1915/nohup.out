@@ -1,0 +1,808 @@
+/home/dash01/TD/LMLFStar/GenMolMF.py:1: SyntaxWarning: invalid escape sequence '\i'
+  """
+280125_1915
+****************************************************************
+ PROGRAM: INTERLEAVED_LMLFSTAR (TIMESTAMP: 280125_1915)
+ PROTEIN: DBH
+****************************************************************
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [100, 500]
+Factor 2, Value = 1.684828622610171, Range = [0, 5.0]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [100, 500]
+Factor 2, Value = 3.1203704533703096, Range = [0, 5.0]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [100, 500]
+Factor 2, Value = 3.5605968937806773, Range = [0, 5.0]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [100, 500]
+Factor 2, Value = 3.5764262219903804, Range = [0, 5.0]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [100, 500]
+Factor 2, Value = 3.255112324983731, Range = [0, 5.0]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [100, 500]
+Factor 2, Value = 1.6914869192045838, Range = [0, 5.0]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [100, 500]
+Factor 2, Value = 2.1355287101068825, Range = [0, 5.0]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [100, 500]
+Factor 2, Value = 4.396911807991868, Range = [0, 5.0]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [100, 500]
+Factor 2, Value = 4.309549288863947, Range = [0, 5.0]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [100, 500]
+Factor 2, Value = 4.56554530373838, Range = [0, 5.0]
+
+Iteration 1: Current Intervals [[2, 10], [100, 500], [0, 5.0]] | Q-score -13.7707
+
+Factor 0, Value = 3.233, Range = [2.0, 4.0]
+Factor 1, Value = 122.12299999999996, Range = [100, 500]
+Factor 2, Value = 1.684828622610171, Range = [0, 5.0]
+Factor 0, Value = 3.533, Range = [2.0, 4.0]
+Factor 1, Value = 296.5520000000001, Range = [100, 500]
+Factor 2, Value = 3.1203704533703096, Range = [0, 5.0]
+Factor 0, Value = 4.995, Range = [2.0, 4.0]
+Factor 0, Value = 4.816, Range = [2.0, 4.0]
+Factor 0, Value = 5.191, Range = [2.0, 4.0]
+Factor 0, Value = 4.638, Range = [2.0, 4.0]
+Factor 0, Value = 3.432, Range = [2.0, 4.0]
+Factor 1, Value = 194.227, Range = [100, 500]
+Factor 2, Value = 2.1355287101068825, Range = [0, 5.0]
+Factor 0, Value = 5.08, Range = [2.0, 4.0]
+Factor 0, Value = 5.394, Range = [2.0, 4.0]
+Factor 0, Value = 4.063, Range = [2.0, 4.0]
+Factor 0, Value = 3.233, Range = [4.0, 6.0]
+Factor 0, Value = 3.533, Range = [4.0, 6.0]
+Factor 0, Value = 4.995, Range = [4.0, 6.0]
+Factor 1, Value = 331.819, Range = [100, 500]
+Factor 2, Value = 3.5605968937806773, Range = [0, 5.0]
+Factor 0, Value = 4.816, Range = [4.0, 6.0]
+Factor 1, Value = 311.3570000000001, Range = [100, 500]
+Factor 2, Value = 3.5764262219903804, Range = [0, 5.0]
+Factor 0, Value = 5.191, Range = [4.0, 6.0]
+Factor 1, Value = 401.48200000000014, Range = [100, 500]
+Factor 2, Value = 3.255112324983731, Range = [0, 5.0]
+Factor 0, Value = 4.638, Range = [4.0, 6.0]
+Factor 1, Value = 256.4299999999999, Range = [100, 500]
+Factor 2, Value = 1.6914869192045838, Range = [0, 5.0]
+Factor 0, Value = 3.432, Range = [4.0, 6.0]
+Factor 0, Value = 5.08, Range = [4.0, 6.0]
+Factor 1, Value = 374.6090000000002, Range = [100, 500]
+Factor 2, Value = 4.396911807991868, Range = [0, 5.0]
+Factor 0, Value = 5.394, Range = [4.0, 6.0]
+Factor 1, Value = 278.436, Range = [100, 500]
+Factor 2, Value = 4.309549288863947, Range = [0, 5.0]
+Factor 0, Value = 4.063, Range = [4.0, 6.0]
+Factor 1, Value = 372.323, Range = [100, 500]
+Factor 2, Value = 4.56554530373838, Range = [0, 5.0]
+Factor 0, Value = 3.233, Range = [6.0, 8.0]
+Factor 0, Value = 3.533, Range = [6.0, 8.0]
+Factor 0, Value = 4.995, Range = [6.0, 8.0]
+Factor 0, Value = 4.816, Range = [6.0, 8.0]
+Factor 0, Value = 5.191, Range = [6.0, 8.0]
+Factor 0, Value = 4.638, Range = [6.0, 8.0]
+Factor 0, Value = 3.432, Range = [6.0, 8.0]
+Factor 0, Value = 5.08, Range = [6.0, 8.0]
+Factor 0, Value = 5.394, Range = [6.0, 8.0]
+Factor 0, Value = 4.063, Range = [6.0, 8.0]
+Factor 0, Value = 3.233, Range = [8.0, 10.0]
+Factor 0, Value = 3.533, Range = [8.0, 10.0]
+Factor 0, Value = 4.995, Range = [8.0, 10.0]
+Factor 0, Value = 4.816, Range = [8.0, 10.0]
+Factor 0, Value = 5.191, Range = [8.0, 10.0]
+Factor 0, Value = 4.638, Range = [8.0, 10.0]
+Factor 0, Value = 3.432, Range = [8.0, 10.0]
+Factor 0, Value = 5.08, Range = [8.0, 10.0]
+Factor 0, Value = 5.394, Range = [8.0, 10.0]
+Factor 0, Value = 4.063, Range = [8.0, 10.0]
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [100.0, 200.0]
+Factor 2, Value = 1.684828622610171, Range = [0, 5.0]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [100.0, 200.0]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [100.0, 200.0]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [100.0, 200.0]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [100.0, 200.0]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [100.0, 200.0]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [100.0, 200.0]
+Factor 2, Value = 2.1355287101068825, Range = [0, 5.0]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [100.0, 200.0]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [100.0, 200.0]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [100.0, 200.0]
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [200.0, 300.0]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [200.0, 300.0]
+Factor 2, Value = 3.1203704533703096, Range = [0, 5.0]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [200.0, 300.0]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [200.0, 300.0]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [200.0, 300.0]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [200.0, 300.0]
+Factor 2, Value = 1.6914869192045838, Range = [0, 5.0]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [200.0, 300.0]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [200.0, 300.0]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [200.0, 300.0]
+Factor 2, Value = 4.309549288863947, Range = [0, 5.0]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [200.0, 300.0]
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [300.0, 400.0]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [300.0, 400.0]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [300.0, 400.0]
+Factor 2, Value = 3.5605968937806773, Range = [0, 5.0]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [300.0, 400.0]
+Factor 2, Value = 3.5764262219903804, Range = [0, 5.0]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [300.0, 400.0]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [300.0, 400.0]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [300.0, 400.0]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [300.0, 400.0]
+Factor 2, Value = 4.396911807991868, Range = [0, 5.0]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [300.0, 400.0]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [300.0, 400.0]
+Factor 2, Value = 4.56554530373838, Range = [0, 5.0]
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [400.0, 500.0]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [400.0, 500.0]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [400.0, 500.0]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [400.0, 500.0]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [400.0, 500.0]
+Factor 2, Value = 3.255112324983731, Range = [0, 5.0]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [400.0, 500.0]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [400.0, 500.0]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [400.0, 500.0]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [400.0, 500.0]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [400.0, 500.0]
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [100, 500]
+Factor 2, Value = 1.684828622610171, Range = [0.0, 1.25]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [100, 500]
+Factor 2, Value = 3.1203704533703096, Range = [0.0, 1.25]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [100, 500]
+Factor 2, Value = 3.5605968937806773, Range = [0.0, 1.25]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [100, 500]
+Factor 2, Value = 3.5764262219903804, Range = [0.0, 1.25]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [100, 500]
+Factor 2, Value = 3.255112324983731, Range = [0.0, 1.25]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [100, 500]
+Factor 2, Value = 1.6914869192045838, Range = [0.0, 1.25]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [100, 500]
+Factor 2, Value = 2.1355287101068825, Range = [0.0, 1.25]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [100, 500]
+Factor 2, Value = 4.396911807991868, Range = [0.0, 1.25]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [100, 500]
+Factor 2, Value = 4.309549288863947, Range = [0.0, 1.25]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [100, 500]
+Factor 2, Value = 4.56554530373838, Range = [0.0, 1.25]
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [100, 500]
+Factor 2, Value = 1.684828622610171, Range = [1.25, 2.5]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [100, 500]
+Factor 2, Value = 3.1203704533703096, Range = [1.25, 2.5]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [100, 500]
+Factor 2, Value = 3.5605968937806773, Range = [1.25, 2.5]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [100, 500]
+Factor 2, Value = 3.5764262219903804, Range = [1.25, 2.5]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [100, 500]
+Factor 2, Value = 3.255112324983731, Range = [1.25, 2.5]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [100, 500]
+Factor 2, Value = 1.6914869192045838, Range = [1.25, 2.5]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [100, 500]
+Factor 2, Value = 2.1355287101068825, Range = [1.25, 2.5]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [100, 500]
+Factor 2, Value = 4.396911807991868, Range = [1.25, 2.5]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [100, 500]
+Factor 2, Value = 4.309549288863947, Range = [1.25, 2.5]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [100, 500]
+Factor 2, Value = 4.56554530373838, Range = [1.25, 2.5]
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [100, 500]
+Factor 2, Value = 1.684828622610171, Range = [2.5, 3.75]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [100, 500]
+Factor 2, Value = 3.1203704533703096, Range = [2.5, 3.75]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [100, 500]
+Factor 2, Value = 3.5605968937806773, Range = [2.5, 3.75]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [100, 500]
+Factor 2, Value = 3.5764262219903804, Range = [2.5, 3.75]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [100, 500]
+Factor 2, Value = 3.255112324983731, Range = [2.5, 3.75]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [100, 500]
+Factor 2, Value = 1.6914869192045838, Range = [2.5, 3.75]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [100, 500]
+Factor 2, Value = 2.1355287101068825, Range = [2.5, 3.75]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [100, 500]
+Factor 2, Value = 4.396911807991868, Range = [2.5, 3.75]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [100, 500]
+Factor 2, Value = 4.309549288863947, Range = [2.5, 3.75]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [100, 500]
+Factor 2, Value = 4.56554530373838, Range = [2.5, 3.75]
+Factor 0, Value = 3.233, Range = [2, 10]
+Factor 1, Value = 122.12299999999996, Range = [100, 500]
+Factor 2, Value = 1.684828622610171, Range = [3.75, 5.0]
+Factor 0, Value = 3.533, Range = [2, 10]
+Factor 1, Value = 296.5520000000001, Range = [100, 500]
+Factor 2, Value = 3.1203704533703096, Range = [3.75, 5.0]
+Factor 0, Value = 4.995, Range = [2, 10]
+Factor 1, Value = 331.819, Range = [100, 500]
+Factor 2, Value = 3.5605968937806773, Range = [3.75, 5.0]
+Factor 0, Value = 4.816, Range = [2, 10]
+Factor 1, Value = 311.3570000000001, Range = [100, 500]
+Factor 2, Value = 3.5764262219903804, Range = [3.75, 5.0]
+Factor 0, Value = 5.191, Range = [2, 10]
+Factor 1, Value = 401.48200000000014, Range = [100, 500]
+Factor 2, Value = 3.255112324983731, Range = [3.75, 5.0]
+Factor 0, Value = 4.638, Range = [2, 10]
+Factor 1, Value = 256.4299999999999, Range = [100, 500]
+Factor 2, Value = 1.6914869192045838, Range = [3.75, 5.0]
+Factor 0, Value = 3.432, Range = [2, 10]
+Factor 1, Value = 194.227, Range = [100, 500]
+Factor 2, Value = 2.1355287101068825, Range = [3.75, 5.0]
+Factor 0, Value = 5.08, Range = [2, 10]
+Factor 1, Value = 374.6090000000002, Range = [100, 500]
+Factor 2, Value = 4.396911807991868, Range = [3.75, 5.0]
+Factor 0, Value = 5.394, Range = [2, 10]
+Factor 1, Value = 278.436, Range = [100, 500]
+Factor 2, Value = 4.309549288863947, Range = [3.75, 5.0]
+Factor 0, Value = 4.063, Range = [2, 10]
+Factor 1, Value = 372.323, Range = [100, 500]
+Factor 2, Value = 4.56554530373838, Range = [3.75, 5.0]
+Sampled intervals: [[[2.0, 4.0], [100, 500], [0, 5.0]], [[4.0, 6.0], [100, 500], [0, 5.0]], [[6.0, 8.0], [100, 500], [0, 5.0]], [[8.0, 10.0], [100, 500], [0, 5.0]], [[2, 10], [100.0, 200.0], [0, 5.0]], [[2, 10], [200.0, 300.0], [0, 5.0]], [[2, 10], [300.0, 400.0], [0, 5.0]], [[2, 10], [400.0, 500.0], [0, 5.0]], [[2, 10], [100, 500], [0.0, 1.25]], [[2, 10], [100, 500], [1.25, 2.5]], [[2, 10], [100, 500], [2.5, 3.75]], [[2, 10], [100, 500], [3.75, 5.0]]]
+Q-scores: [6.548432043840112, -11.580356920327054, 8.73878697461997, 8.73878697461997, 4.236887209474595, -2.5765573900362995, -0.26501255567078097, 11.050331808985488, 8.73878697461997, -2.5765573900362995, 17.98496631208204, -11.701546823912711]
+
+Evaluating node with interval [[2, 10], [100, 500], [2.5, 3.75]] and Q-score 17.9850
+Iteration 1:
+	Generated: ['C1=CC=C(C(=O)C=C1)N', 'CCN(CC)C(=S)C(=O)N(CC)CC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)C(=O)C)F)F', 'C1[C@H](COC2=C1C=C(C=C2F)C(=O)N)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)C(=S)N)N3C(=CNC3=S)CCNCC4=CC=CC=C4']
+Molecule C1=CC=C(C(=O)C=C1)N sanitized successfully.
+Molecule CCN(CC)C(=S)C(=O)N(CC)CC sanitized successfully.
+Molecule C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)C(=O)C)F)F sanitized successfully.
+Molecule C1[C@H](COC2=C1C=C(C=C2F)C(=O)N)N3C(=CNC3=S)CCN sanitized successfully.
+Molecule C1[C@H](COC2=C1C=C(C=C2F)C(=S)N)N3C(=CNC3=S)CCNCC4=CC=CC=C4 sanitized successfully.[19:15:46] SMILES Parse Error: extra close parentheses while parsing: C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br
+[19:15:46] SMILES Parse Error: check for mistakes around position 48:
+[19:15:46] (=CNC3=S)C(C)C)F)F)F)Br
+[19:15:46] ~~~~~~~~~~~~~~~~~~~~^
+[19:15:46] SMILES Parse Error: Failed parsing SMILES 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br' for input: 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br'
+[19:15:46] SMILES Parse Error: extra close parentheses while parsing: C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)
+[19:15:46] SMILES Parse Error: check for mistakes around position 33:
+[19:15:46] C1C(=O)OC)O)C)C(=O)N)
+[19:15:46] ~~~~~~~~~~~~~~~~~~~~^
+[19:15:46] SMILES Parse Error: Failed parsing SMILES 'C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)' for input: 'C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)'
+
+	Valid: ['C1=CC=C(C(=O)C=C1)N', 'CCN(CC)C(=S)C(=O)N(CC)CC', 'C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)C(=O)C)F)F', 'C1[C@H](COC2=C1C=C(C=C2F)C(=O)N)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)C(=S)N)N3C(=CNC3=S)CCNCC4=CC=CC=C4'] (Total: 5)
+Total unique valid molecules generated: 5
+
+PROCESSING MOLECULE: C1CC2=C(C=C(C=C2C[C@H]1N3C(=CNC3=S)C(=O)C)F)F
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.29       0.8580      5.213
+
+gnina output result line captured: 1        0.00       -0.29       0.8580      5.213
+
+PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)C(=O)N)N3C(=CNC3=S)CCN
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.64       0.8705      4.806
+
+gnina output result line captured: 1        0.00       -0.64       0.8705      4.806
+
+PROCESSING MOLECULE: CCN(CC)C(=S)C(=O)N(CC)CC
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.60       0.8312      3.793
+
+gnina output result line captured: 1        0.00       -0.60       0.8312      3.793
+
+PROCESSING MOLECULE: C1=CC=C(C(=O)C=C1)N
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00        0.00       0.7018      3.233
+
+gnina output result line captured: 1        0.00        0.00       0.7018      3.233
+
+PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)C(=S)N)N3C(=CNC3=S)CCNCC4=CC=CC=C4
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -2.69       0.8256      5.390
+
+gnina output result line captured: 1        0.00       -2.69       0.8256      5.390
+Number of feasible molecules within specified ranges: 4
+Calculate Jaccard (Tanimoto) similarities between generated molecules and a target database of molecules in data/DBH.txt.
+Directory already exists: results_GenMolMF/DBH/gpt-4o-mini/280125_1915
+Results saved inside results_GenMolMF/DBH/gpt-4o-mini/280125_1915.
+Feasible molecules found in interval [[2, 10], [100, 500], [2.5, 3.75]] with Q-score 17.9850.
+
+No significant improvement in W-score: 71.9399 <= -13.7707
+No feasible child nodes found. Ending search.
+Intermediate feasible molecules saved to results_GenMolMF/DBH/gpt-4o-mini/280125_1915/intermediate.csv
+
+Generating final molecules for the last interval.
+Iteration 1:
+	Generated: ['C1=CC(=C(C(=C1C(=O)O)C)C)C(=O)O', 'CCN(CC)C(=O)N(C(=O)CC)C(=S)N(CC)CC', 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br', 'C1[C@H](COC2=C1C=C(C=C2F)Cl)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)Cl)N3C(=CNC3=S)CCNCC(=O)C', 'CCN(CC)C(=S)SCC(=O)C(=S)N(CC)CC', 'C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)', 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)CCN)F)F)F', 'C1[C@H](COC2=C1C=C(C=C2F)I)N3C(=CNC3=S)CCN', 'C1=CC(=C(C(=C1C(=O)N)C)C)C(=S)N']
+Molecule C1=CC(=C(C(=C1C(=O)O)C)C)C(=O)O sanitized successfully.
+Molecule CCN(CC)C(=O)N(C(=O)CC)C(=S)N(CC)CC sanitized successfully.
+Molecule C1[C@H](COC2=C1C=C(C=C2F)Cl)N3C(=CNC3=S)CCN sanitized successfully.
+Molecule C1[C@H](COC2=C1C=C(C=C2F)Cl)N3C(=CNC3=S)CCNCC(=O)C sanitized successfully.
+Molecule CCN(CC)C(=S)SCC(=O)C(=S)N(CC)CC sanitized successfully.
+Molecule C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)CCN)F)F)F sanitized successfully.
+Molecule C1[C@H](COC2=C1C=C(C=C2F)I)N3C(=CNC3=S)CCN sanitized successfully.
+Molecule C1=CC(=C(C(=C1C(=O)N)C)C)C(=S)N sanitized successfully.
+	Valid: ['C1=CC(=C(C(=C1C(=O)O)C)C)C(=O)O', 'CCN(CC)C(=O)N(C(=O)CC)C(=S)N(CC)CC', 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br', 'C1[C@H](COC2=C1C=C(C=C2F)Cl)N3C(=CNC3=S)CCN', 'C1[C@H](COC2=C1C=C(C=C2F)Cl)N3C(=CNC3=S)CCNCC(=O)C', 'CCN(CC)C(=S)SCC(=O)C(=S)N(CC)CC', 'C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)', 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)CCN)F)F)F', 'C1[C@H](COC2=C1C=C(C=C2F)I)N3C(=CNC3=S)CCN', 'C1=CC(=C(C(=C1C(=O)N)C)C)C(=S)N'] (Total: 10)[19:15:49] SMILES Parse Error: extra close parentheses while parsing: C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)
+[19:15:49] SMILES Parse Error: check for mistakes around position 33:
+[19:15:49] C1C(=O)OC)O)C)C(=O)N)
+[19:15:49] ~~~~~~~~~~~~~~~~~~~~^
+[19:15:49] SMILES Parse Error: Failed parsing SMILES 'C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)' for input: 'C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)'
+[19:15:49] SMILES Parse Error: extra close parentheses while parsing: C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)
+[19:15:49] SMILES Parse Error: check for mistakes around position 33:
+[19:15:49] C1C(=O)OC)O)C)C(=O)N)
+[19:15:49] ~~~~~~~~~~~~~~~~~~~~^
+[19:15:49] SMILES Parse Error: Failed parsing SMILES 'C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)' for input: 'C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)'
+[19:16:05] SMILES Parse Error: extra close parentheses while parsing: C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br
+[19:16:05] SMILES Parse Error: check for mistakes around position 48:
+[19:16:05] (=CNC3=S)C(C)C)F)F)F)Br
+[19:16:05] ~~~~~~~~~~~~~~~~~~~~^
+[19:16:05] SMILES Parse Error: Failed parsing SMILES 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br' for input: 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br'
+[19:16:05] SMILES Parse Error: extra close parentheses while parsing: C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br
+[19:16:05] SMILES Parse Error: check for mistakes around position 48:
+[19:16:05] (=CNC3=S)C(C)C)F)F)F)Br
+[19:16:05] ~~~~~~~~~~~~~~~~~~~~^
+[19:16:05] SMILES Parse Error: Failed parsing SMILES 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br' for input: 'C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br'
+
+Total unique valid molecules generated: 10
+
+PROCESSING MOLECULE: C1=CC(=C(C(=C1C(=O)O)C)C)C(=O)O
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.22       0.4600      2.866
+
+gnina output result line captured: 1        0.00       -0.22       0.4600      2.866
+
+PROCESSING MOLECULE: C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)
+Invalid SMILES: C1=CC(=C(C(=C1C(=O)OC)O)C)C(=O)N)
+
+PROCESSING MOLECULE: C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)CCN)F)F)F
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.35       0.7056      5.302
+
+gnina output result line captured: 1        0.00       -0.35       0.7056      5.302
+
+PROCESSING MOLECULE: C1=CC(=C(C(=C1C(=O)N)C)C)C(=S)N
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.17       0.6783      3.267
+
+gnina output result line captured: 1        0.00       -0.17       0.6783      3.267
+
+PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)Cl)N3C(=CNC3=S)CCNCC(=O)C
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.91       0.8368      5.183
+
+gnina output result line captured: 1        0.00       -0.91       0.8368      5.183
+
+PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)Cl)N3C(=CNC3=S)CCN
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.29       0.8297      5.086
+
+gnina output result line captured: 1        0.00       -0.29       0.8297      5.086
+
+PROCESSING MOLECULE: CCN(CC)C(=O)N(C(=O)CC)C(=S)N(CC)CC
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.88       0.8666      3.745
+
+gnina output result line captured: 1        0.00       -0.88       0.8666      3.745
+
+PROCESSING MOLECULE: C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br
+Invalid SMILES: C1CC2=C(C(=C(C=C2C[C@H]1N3C(=CNC3=S)C(C)C)F)F)F)Br
+
+PROCESSING MOLECULE: C1[C@H](COC2=C1C=C(C=C2F)I)N3C(=CNC3=S)CCN
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -0.48       0.8457      5.079
+
+gnina output result line captured: 1        0.00       -0.48       0.8457      5.079
+
+PROCESSING MOLECULE: CCN(CC)C(=S)SCC(=O)C(=S)N(CC)CC
+Running Gnina command: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Gnina output:
+              _             
+             (_)            
+   __ _ _ __  _ _ __   __ _ 
+  / _` | '_ \| | '_ \ / _` |
+ | (_| | | | | | | | | (_| |
+  \__, |_| |_|_|_| |_|\__,_|
+   __/ |                    
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: ./docking/gnina --config ./docking/DBH/DBH_config.txt --ligand /tmp/molecule_generation/ligand.pdb --seed 0 --cpu 64
+Using random seed: 0
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+ | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1        0.00       -1.13       0.8294      4.016
+
+gnina output result line captured: 1        0.00       -1.13       0.8294      4.016
+Number of feasible molecules within specified ranges: 5
+Calculate Jaccard (Tanimoto) similarities between generated molecules and a target database of molecules in data/DBH.txt.
+Directory already exists: results_GenMolMF/DBH/gpt-4o-mini/280125_1915
+Results saved inside results_GenMolMF/DBH/gpt-4o-mini/280125_1915.
+
+Final Hypothesis Intervals: [[2, 10], [100, 500], [2.5, 3.75]]
+Q-value History: [-13.770711851106912, 71.93986524832816]
+
+Search Tree:
+Iteration 1: Interval [[2, 10], [100, 500], [0, 5.0]] | Q-score -13.7707
+	Child Interval [[2.0, 4.0], [100, 500], [0, 5.0]] | Q-score 6.5484
+	Child Interval [[4.0, 6.0], [100, 500], [0, 5.0]] | Q-score -11.5804
+	Child Interval [[6.0, 8.0], [100, 500], [0, 5.0]] | Q-score 8.7388
+	Child Interval [[8.0, 10.0], [100, 500], [0, 5.0]] | Q-score 8.7388
+	Child Interval [[2, 10], [100.0, 200.0], [0, 5.0]] | Q-score 4.2369
+	Child Interval [[2, 10], [200.0, 300.0], [0, 5.0]] | Q-score -2.5766
+	Child Interval [[2, 10], [300.0, 400.0], [0, 5.0]] | Q-score -0.2650
+	Child Interval [[2, 10], [400.0, 500.0], [0, 5.0]] | Q-score 11.0503
+	Child Interval [[2, 10], [100, 500], [0.0, 1.25]] | Q-score 8.7388
+	Child Interval [[2, 10], [100, 500], [1.25, 2.5]] | Q-score -2.5766
+	Child Interval [[2, 10], [100, 500], [2.5, 3.75]] | Q-score 17.9850
+	Child Interval [[2, 10], [100, 500], [3.75, 5.0]] | Q-score -11.7015
+DONE [GenMol.py]

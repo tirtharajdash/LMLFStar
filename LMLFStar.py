@@ -13,7 +13,7 @@ from openai import OpenAI
 
 from env_utils import load_api_key
 from get_mol_prop import compute_properties_with_affinity
-from mol_utils import calculate_similarity, sanitize_smiles
+from mol_utils import calculate_similarity, sanitize_smiles, validate_smiles
 
 def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, model_engine, gnina_path, config_path, temp_dir, 
                                    affinity_range, target_size=5, max_iterations=10, max_samples=5):
@@ -89,7 +89,8 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
             print(f"\tGenerated: {raw_generated_smiles}")
             try:
                 parsed_smiles_list = ast.literal_eval(raw_generated_smiles.replace("'", '"'))
-                valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
+                #valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
+                valid_smiles = [s for s in parsed_smiles_list if validate_smiles(s)]
                 print(f"\tValid: {valid_smiles} (Total: {len(valid_smiles)})")
                 generated_molecules.extend(valid_smiles)
             except Exception as e:
@@ -213,7 +214,8 @@ def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, 
             print(f"\tGenerated: {raw_generated_smiles}")
             try:
                 parsed_smiles_list = ast.literal_eval(raw_generated_smiles.replace("'", '"'))
-                valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
+                #valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
+                valid_smiles = [s for s in parsed_smiles_list if validate_smiles(s)]
                 print(f"\tValid: {valid_smiles} (Total: {len(valid_smiles)})")
                 generated_molecules.extend(valid_smiles)
             except Exception as e:
@@ -345,7 +347,8 @@ def generate_molecules_for_protein_with_context(protein, input_csv, output_dir, 
             try:
                 # Parse the generated SMILES list.
                 parsed_smiles_list = ast.literal_eval(raw_generated_smiles.replace("'", '"'))
-                valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
+                #valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
+                valid_smiles = [s for s in parsed_smiles_list if validate_smiles(s)]
                 print(f"\tValid molecules: {valid_smiles} (Total: {len(valid_smiles)})")
                 generated_molecules.extend(valid_smiles)
             except Exception as e:
@@ -494,7 +497,8 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
 
             try:
                 parsed_smiles_list = ast.literal_eval(raw_generated_smiles.replace("'", '"'))
-                valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
+                #valid_smiles = [s for s in parsed_smiles_list if sanitize_smiles(s)]
+                valid_smiles = [s for s in parsed_smiles_list if validate_smiles(s)]
                 print(f"\tValid molecules: {valid_smiles} (Total: {len(valid_smiles)})")
                 generated_molecules.extend(valid_smiles)
             except Exception as e:

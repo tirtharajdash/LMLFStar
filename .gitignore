@@ -1,5 +1,5 @@
 # Ignore directories or files
-nohup.out
+./nohup.out
 docking/
 safe/
 

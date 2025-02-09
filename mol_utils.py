@@ -16,20 +16,37 @@ def sanitize_smiles(smiles):
         smiles (str): The SMILES string of the molecule.
 
     Returns:
-        tuple: A tuple (mol, flag)
-            - mol: RDKit Mol object if successful, None otherwise.
-            - flag: A string describing the result or error.
+        flag: Boolean True (success) or False (failure).
     """
     try:
         mol = Chem.MolFromSmiles(smiles, sanitize=False)
         if mol is None:
-            return None, "Invalid SMILES: Parsing failed."
+            return False
         Chem.SanitizeMol(mol, sanitizeOps=SanitizeFlags.SANITIZE_ALL)
-        #print(f"Molecule {smiles} sanitized successfully.")
-        return mol, True
+        return True
     except Exception as e:
         print(f"Sanitization failed: {e}")
-        return None, False
+        return False
+
+
+def validate_smiles(smiles):
+    """
+    Validate a smiles string
+
+    Args:
+        smiles (str): The SMILES string of the molecule.
+
+    Returns:
+        flag: Boolean True (success) or False (failure).
+    """
+    try:
+        mol = Chem.MolFromSmiles(smiles, sanitize=True)
+        if mol is None:
+            return False
+        return True
+    except Exception as e:
+        print(f"SMILES validation failed: {e}")
+        return False
 
 
 def calculate_similarity(target_smiles_list, input_smiles_list):
