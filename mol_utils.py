@@ -1,7 +1,6 @@
 from rdkit import Chem
-from rdkit.Chem import rdFingerprintGenerator, DataStructs, SanitizeMol, SanitizeFlags
-from rdkit import Chem
-from rdkit.Chem import Draw
+from rdkit.Chem import Draw, rdFingerprintGenerator, DataStructs, SanitizeMol, SanitizeFlags
+from rdkit.Chem.Draw import rdMolDraw2D
 from io import BytesIO
 import base64
 import os
@@ -105,8 +104,85 @@ def calculate_similarity(target_smiles_list, input_smiles_list):
     df = pd.DataFrame(results)
     return df
 
+def smiles_to_canonical(smiles):
+    """Convert a SMILES string to its canonical form using RDKit."""
+    mol = Chem.MolFromSmiles(smiles)
+    return Chem.MolToSmiles(mol, canonical=True) if mol else None
+
+def smiles_to_base64(smiles):
+    """Convert a SMILES string into a base64-encoded PNG image."""
+    try:
+        mol = Chem.MolFromSmiles(smiles)
+        if mol:
+            d2d = rdMolDraw2D.MolDraw2DCairo(400, 400)  # High-quality Cairo renderer
+            rdMolDraw2D.PrepareAndDrawMolecule(d2d, mol)
+            png = d2d.GetDrawingText()
+
+            img_base64 = base64.b64encode(png).decode("utf-8")
+            return f'<img src="data:image/png;base64,{img_base64}" width="100">'
+        return "Invalid SMILES"
+    except Exception as e:
+        print(f"Error processing SMILES {smiles}: {e}")
+        return "Error"
 
 def generate_structure(csv_file):
+    """
+    Generates an HTML file with molecular structures from a given CSV file containing SMILES.
+    
+    Args:
+        csv_file (str): Path to the input CSV file.
+    
+    Returns:
+        str: Path to the generated HTML file.
+    """
+    if not os.path.exists(csv_file):
+        print(f"Error: File {csv_file} not found.")
+        return None
+
+    df = pd.read_csv(csv_file)
+
+    if "SMILES" not in df.columns:
+        print("Error: The CSV file must contain a 'SMILES' column.")
+        return None
+
+    # Convert SMILES to canonical form before rendering
+    df["Canonical_SMILES"] = df["SMILES"].apply(smiles_to_canonical)
+
+    # Generate structure images
+    df["Structure"] = df["Canonical_SMILES"].apply(smiles_to_base64)
+
+    # Save as HTML file
+    output_dir = os.path.dirname(csv_file)
+    output_filename = os.path.splitext(os.path.basename(csv_file))[0] + ".html"
+    html_file_path = os.path.join(output_dir, output_filename)
+    html_content = df.to_html(escape=False, index=False)
+
+    html_template = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Molecular Structures</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; }}
+            table {{ border-collapse: collapse; width: 100%; }}
+            th, td {{ border: 1px solid black; padding: 8px; text-align: center; }}
+            th {{ background-color: #f2f2f2; }}
+        </style>
+    </head>
+    <body>
+        <h2>Molecular Structures Report</h2>
+        {html_content}
+    </body>
+    </html>
+    """
+
+    with open(html_file_path, "w", encoding="utf-8") as f:
+        f.write(html_template)
+
+    print(f"HTML file saved as {html_file_path}")
+    return html_file_path
+
+def generate_structure_v0(csv_file):
     """
     Generates an HTML file with molecular structures from a given CSV file containing SMILES.
     
