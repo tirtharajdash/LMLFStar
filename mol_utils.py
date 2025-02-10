@@ -145,13 +145,10 @@ def generate_structure(csv_file):
         print("Error: The CSV file must contain a 'SMILES' column.")
         return None
 
-    # Convert SMILES to canonical form before rendering
     df["Canonical_SMILES"] = df["SMILES"].apply(smiles_to_canonical)
 
-    # Generate structure images
     df["Structure"] = df["Canonical_SMILES"].apply(smiles_to_base64)
 
-    # Save as HTML file
     output_dir = os.path.dirname(csv_file)
     output_filename = os.path.splitext(os.path.basename(csv_file))[0] + ".html"
     html_file_path = os.path.join(output_dir, output_filename)
