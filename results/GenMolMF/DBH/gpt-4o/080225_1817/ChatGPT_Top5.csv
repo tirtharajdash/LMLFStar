@@ -1,0 +1,8 @@
+SMILES
+NCc1[nH+]c(S)nc1C2CCc3cc(F)cc(F)c3C2
+NCc1[nH+]c(S)nc1C2CCc3ccc(F)c(F)c3C2
+NCc1[nH]cnc(S1)C2CCc3cc(F)cc(F)c3C2
+NCc1[nH]cnc(S)1C2Cc3cc(F)cc(F)c3C2
+NCc1[nH]cnc(=O)1C2Cc3cc(F)cc(F)c3C2
+NCCc1[nH+]cnc(N)n1[C@H]1COc2c(F)ccc(F)c2C1
+NCCc1ncnc(N)c1[C@H]1COc2c(F)ccc(F)c2C1

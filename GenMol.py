@@ -464,7 +464,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                         config_path=config_path,
                         temp_dir=temp_dir,
                         parameter_ranges=parameter_ranges,
-                        target_size=5,
+                        target_size=5, 
                         max_iterations=1,
                         max_samples=max_samples
                     )
@@ -542,7 +542,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                 config_path=config_path,
                 temp_dir=temp_dir,
                 parameter_ranges=final_parameter_ranges,
-                target_size=5,
+                target_size=target_size,
                 max_iterations=1,
                 max_samples=final_k
             )

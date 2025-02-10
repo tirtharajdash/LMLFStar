@@ -1,0 +1,8 @@
+SMILES,MolWt,LogP,QED,SAS,TPSA,H_Acceptors,H_Donors,Rotatable_Bonds,Affinity,CNNaffinity,Label
+NCc1[nH+]c(S)nc1C2CCc3cc(F)cc(F)c3C2,,,,,,,,,,,-1
+NCc1[nH+]c(S)nc1C2CCc3ccc(F)c(F)c3C2,,,,,,,,,,,-1
+NCc1[nH]cnc(S1)C2CCc3cc(F)cc(F)c3C2,,,,,,,,,,,-1
+NCc1[nH]cnc(S)1C2Cc3cc(F)cc(F)c3C2,,,,,,,,,,,-1
+NCc1[nH]cnc(=O)1C2Cc3cc(F)cc(F)c3C2,,,,,,,,,,,-1
+NCCc1[nH+]cnc(N)n1[C@H]1COc2c(F)ccc(F)c2C1,,,,,,,,,,,-1
+NCCc1ncnc(N)c1[C@H]1COc2c(F)ccc(F)c2C1,306.31600000000003,1.5568999999999997,0.8982877843650069,3.465508562101153,87.05,5.0,2.0,3.0,0.0,5.887,-1

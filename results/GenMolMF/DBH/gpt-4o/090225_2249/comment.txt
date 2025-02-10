@@ -1,0 +1,2 @@
+Here the molecule generation during search used: target_size=target_size (=0), as opposed to target_size=5.
+That is the LLM sees no molecule from the known inhibitors database while doing the search.
