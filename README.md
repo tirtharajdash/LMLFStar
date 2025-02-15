@@ -9,18 +9,18 @@ Submitted to bioRxiv. URL will be updated shortly.
 #### Features
 `GenMol.py` is an interleaved implementation of `LMLFStar.py`. The results in the paper are based on this.
 
-- **Multiple Search Pipelines**:
+- *Multiple Search Pipelines*:
   - `GenMol1F`: Single-factor optimization based on CNNaffinity.
   - `GenMol1Fplus`: Extended feasibility testing, including molecular weight and SAS constraints.
   - `GenMolMF`: Multi-factor search considering multiple molecular properties.
-- **Dynamic Search Process**:
+- *Dynamic Search Process*:
   - Interval-based hypothesis exploration with adaptive refinement.
   - Feasibility testing based on predefined constraints.
   - Iterative selection based on Q-score calculations.
-- **Result Visualization**:
+- *Result Visualization*:
   - Detailed logging of each iteration.
   - Automated plotting of search progress (Q-score vs. iterations).
-- **Customizable Parameters**:
+- *Customizable Parameters*:
   - Adjustable target size, model engine, feasibility thresholds, and search iterations.
 
 #### Repository Structure
