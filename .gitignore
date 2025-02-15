@@ -1,5 +1,4 @@
-# Ignore directories or files
-./nohup.out
+# Ignore directories or large files
 docking/
 safe/
 
@@ -174,3 +173,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Useless files
+nohup.out
+results/*/*/*/*/*.out
+results/*/*/*/*/*.pdf
+

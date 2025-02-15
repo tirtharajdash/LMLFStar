@@ -1,6 +1,6 @@
 ### LMLFStar: Generation of Target-specific Novel Lead Molecules using an LLM
 
-LMLFStar is a molecular generation and optimization framework that leverages a language model (LLM) to discover potential lead compounds for target proteins. It employs an iterative search strategy based on hypothesis testing to explore the chemical space efficiently.
+LMLFStar is a molecular generation and optimization framework that uses a large language model (LLM) to discover potential lead compounds for target proteins. It employs an iterative search strategy using a Q-heuristic to explore the chemical property space efficiently.
 
 #### Preprint and Publication
 
@@ -115,6 +115,6 @@ For any questions or contributions, feel free to raise an issue or submit a pull
 ### References
 Some relevant sources and references for LMLF:
 1. LMLF codebase: [LMLF](https://github.com/Shreyas-Bhat/LMLF)
-2. LMLF paper: [AAAI](https://ojs.aaai.org/index.php/AAAI/article/view/27751)
-
+2. LMLF paper: [AAAI 2024](https://ojs.aaai.org/index.php/AAAI/article/view/27751)
+3. McCreath and Sharma, LIME: [ALT 1998](https://doi.org/10.1007/3-540-49730-7_25)
 
