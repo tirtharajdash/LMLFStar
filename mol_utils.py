@@ -7,6 +7,15 @@ import os
 import pandas as pd
 
 
+def get_canonical(smiles):
+    """
+    Get canonical SMILES representation of an input SMILES.
+    """
+    mol = Chem.MolFromSmiles(smiles)
+    canonical_smiles = Chem.MolToSmiles(mol, canonical=True)
+    print("Canonical SMILES:", canonical_smiles)
+
+
 def sanitize_smiles(smiles):
     """
     Create and sanitize a molecule from a SMILES string.
