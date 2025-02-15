@@ -1,6 +1,10 @@
-### LMLFStar: Conditional Generation of Target-specific Novel Lead Molecules using an LLM
+### LMLFStar: Generation of Target-specific Novel Lead Molecules using an LLM
 
 LMLFStar is a molecular generation and optimization framework that leverages a language model (LLM) to discover potential lead compounds for target proteins. It employs an iterative search strategy based on hypothesis testing to explore the chemical space efficiently.
+
+### Preprint and Publication
+
+Submitted to bioRxiv. URL will be updated shortly.
 
 ### Features
 `GenMol.py` is an interleaved implementation of `LMLFStar.py`. The results in the paper are based on this.
