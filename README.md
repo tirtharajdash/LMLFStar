@@ -2,11 +2,11 @@
 
 LMLFStar is a molecular generation and optimization framework that leverages a language model (LLM) to discover potential lead compounds for target proteins. It employs an iterative search strategy based on hypothesis testing to explore the chemical space efficiently.
 
-### Preprint and Publication
+#### Preprint and Publication
 
 Submitted to bioRxiv. URL will be updated shortly.
 
-### Features
+#### Features
 `GenMol.py` is an interleaved implementation of `LMLFStar.py`. The results in the paper are based on this.
 
 - **Multiple Search Pipelines**:
@@ -23,7 +23,7 @@ Submitted to bioRxiv. URL will be updated shortly.
 - **Customizable Parameters**:
   - Adjustable target size, model engine, feasibility thresholds, and search iterations.
 
-### Repository Structure
+#### Repository Structure
 ```
 LMLFStar/
 ├── data/             # Contains input molecule datasets
@@ -46,8 +46,8 @@ LMLFStar/
 └── nohup.out         # Log output from nohup execution
 ```
 
-### Installation
-#### Using Conda:
+#### Installation
+
 ```bash
 conda env create -f env.yml
 conda activate chem
@@ -55,8 +55,8 @@ conda activate chem
 
 Additionally, you will need the `gnina` software for docking. The current implementation uses the official version v1.3: [GNINA v1.3](https://github.com/gnina/gnina/releases/tag/v1.3).
 
-### Usage
-#### Running a Molecular Generation Pipeline:
+#### Usage
+
 ```bash
 python GenMol.py --protein DBH --target_size 5 --choice mf --context True --model gpt-4o --final_k 100
 ```
@@ -70,7 +70,10 @@ python GenMol.py --protein DBH --target_size 5 --choice mf --context True --mode
 | `--model` | LLM model used (e.g., `gpt-4o`) |
 | `--final_k` | Number of molecules in the final generation step after search is complete |
 
+see `run.sh` for a batch run.
+
 #### Example Runs
+
 ##### Run GenMol1F (Single-factor search):
 ```bash
 python GenMol.py --protein DBH --target_size 5 --choice 1 --context False --model gpt-4o --final_k 10
@@ -80,7 +83,8 @@ python GenMol.py --protein DBH --target_size 5 --choice 1 --context False --mode
 python GenMol.py --protein DBH --target_size 5 --choice 3 --context True --model gpt-4o --final_k 10
 ```
 
-### Function Call Structure
+#### Function Call Structure
+
 Below is a simplified structure of how the functions call each other:
 ```
 GenMol.py
@@ -104,17 +108,6 @@ GenMol.py
         │       ├── generate_molecules_for_protein_multifactors_with_context()
         │       ├── Logging and results handling
 ```
-
-### Output
-- **Results are stored in `results/` under a structured directory:**
-
-### Troubleshooting
-- **Memory Issues**: Reduce `--target_size` and `--final_k`.
-- **No molecules generated**: Ensure `data/` has the correct input files.
-- **Long search times**: Reduce `--n` (number of iterations) and `--max_samples`.
-
-### License
-This repository is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ### Contact
 For any questions or contributions, feel free to raise an issue or submit a pull request.
