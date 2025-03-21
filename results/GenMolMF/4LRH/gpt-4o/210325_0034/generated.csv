@@ -1,0 +1,2 @@
+SMILES,MolWt,LogP,QED,SAS,TPSA,H_Acceptors,H_Donors,Rotatable_Bonds,Affinity,CNNaffinity,Label
+Nc1nc(O)c2nc(CNc3ccc(C(=O)OC)cc3)cnc2n1,326.31600000000003,1.1063,0.6018898554750013,2.478974206704951,136.14,9,3,4,17.08,5.2,-1

@@ -1,0 +1,2 @@
+Mol,Nc1nc(=O)c2nc(CNc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)cnc2[nH]1,Nc1nc(O)c2nc(CNc3ccc(C(=O)O)cc3)cnc2n1,CN(Cc1cnc2nc(N)nc(N)c2n1)c1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1,C#CCN(Cc1ccc2[nH]c(N)nc(=O)c2c1)c1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1,Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c2c(=O)[nH]1,Avg. Similarity
+Nc1nc(O)c2nc(CNc3ccc(C(=O)OC)cc3)cnc2n1,0.3783783783783784,0.7959183673469388,0.35064935064935066,0.14583333333333334,0.16091954022988506,0.36633979398757727
