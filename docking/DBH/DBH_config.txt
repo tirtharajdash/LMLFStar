@@ -1,0 +1,8 @@
+receptor= /home/dash01/TD/LMLFStar/docking/DBH/4zel.pdbqt
+size_x =  45
+size_y =  45
+size_z =  45
+center_x =   7.5
+center_y =   -3.05
+center_z =  28.97
+num_modes = 1

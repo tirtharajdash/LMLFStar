@@ -1,0 +1,8 @@
+receptor= /home/dash01/TD/LMLFStar/docking/DRD2/6cm4_protein_wh.pdbqt
+size_x =  22.50
+size_y =  22.50
+size_z =  22.50
+center_x =   9.93
+center_y =   5.85
+center_z =  -9.58
+num_modes = 1
