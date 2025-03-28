@@ -1,4 +1,4 @@
-receptor= /home/dash01/TD/Folate/docking/4LRH/4LRH.pdbqt
+receptor= /home/dash01/TD/LMLFStar/docking/4LRH/4LRH.pdbqt
 size_x =  15
 size_y =  15
 size_z =  15

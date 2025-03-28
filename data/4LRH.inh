@@ -3,3 +3,6 @@ CHEMBL341824,Pteroic acid,Nc1nc(O)c2nc(CNc3ccc(C(=O)O)cc3)cnc2n1
 CHEMBL34259,Methotrexate,CN(Cc1cnc2nc(N)nc(N)c2n1)c1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1
 CHEMBL389051,CB3717,C#CCN(Cc1ccc2[nH]c(N)nc(=O)c2c1)c1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1
 CHEMBL225072,Pemetrexed,Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c2c(=O)[nH]1
+CHEMBL566727,Pterin-6-carboxylate,Nc1nc2ncc(C(=O)O)nc2c(=O)[nH]1
+CHEMBL1679,Leucovorin,Nc1nc(=O)c2c([nH]1)NCC(CNc1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1)N2C=O
+CHEMBL1231574,5 methyl tetra hydrofolate,CN1c2c([nH]c(N)nc2=O)NC[C@@H]1CNc1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1

@@ -466,6 +466,7 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
                     "content": (
                         "You are a scientist specialising in chemistry and drug design. "
                         "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
+                        "Your generated SMILES strings must not be available in any known chemical databases such as ChEMBL, PubChem, ZINC, etc. " #added on 27032025
                         "Return the response as plain text without any formatting, backticks, or explanations. "
                         "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. Avoid any extra text or explanations. "
                         "Example output: ['SMILES1', 'SMILES2', 'SMILES3']" 

@@ -263,10 +263,10 @@ def main(input_csv, gnina_path, temp_dir, protein=None):
 
 if __name__ == "__main__":
     main(
-        input_csv='data/DBH.txt', #JAK2.txt, DRD2.txt, DBH.txt, unlabelled.txt, chembl10.txt, chembl1K.txt
+        input_csv='data/4LRH.txt', #JAK2.txt, DRD2.txt, DBH.txt, 4LRH.txt, unlabelled.txt, chembl10.txt, chembl1K.txt
         gnina_path='./docking/',
         temp_dir='/tmp/',
-        protein='DBH' #This msut be set to a protein (JAK2/DRD2/DBH) if input_csv is non_protein
+        protein='4LRH' #This msut be set to a protein (JAK2/DRD2/DBH/4LRH) if input_csv is non_protein
     )
 
 

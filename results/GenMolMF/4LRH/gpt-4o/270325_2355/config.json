@@ -1,0 +1,27 @@
+{
+    "protein": "4LRH",
+    "target_size": 5,
+    "context": true,
+    "model_engine": "gpt-4o",
+    "search_intervals": {
+        "CNNaffinity": [
+            3,
+            10
+        ],
+        "MolWt": [
+            200,
+            700
+        ],
+        "SAS": [
+            0,
+            7.0
+        ]
+    },
+    "search_params": {
+        "s": 10,
+        "n": 10,
+        "max_samples": 10,
+        "final_k": 100,
+        "context": true
+    }
+}
