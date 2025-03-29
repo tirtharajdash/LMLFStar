@@ -275,7 +275,7 @@ def show_results(result_dir):
         return
 
     target_smiles_df = pd.read_csv(target_file)
-    target_smiles_list = target_smiles_df['SMILES'].tolist()
+    target_smiles_list = target_smiles_df[target_smiles_df['Label']==1]['SMILES'].tolist()
 
     if 'SMILES' not in df_gen.columns:
         print("Error: 'SMILES' column not found in generated molecules.")
