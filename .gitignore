@@ -1,6 +1,7 @@
 # Ignore directories or large files
 docking/
 safe/
+results/*/4LRH/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
