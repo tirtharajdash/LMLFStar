@@ -255,11 +255,65 @@ def generate_structure_v0(csv_file):
     return html_file_path
 
 
-def show_results(result_dir):
+def show_results(result_dir, nodup=True):
+    """
+    Computes summary statistics for CNNaffinity and Tanimoto similarity,
+    and returns a DataFrame indexed by property with columns:
+      ['mean','median','std','min','max'].
+      
+    nodup argument is only used for debugging. (added Aug 2, 2025)
+    """
+    print(f"\n{result_dir}")
+    df_generated    = pd.read_csv(os.path.join(result_dir, "generated.csv"))
+    df_intermediate = pd.read_csv(os.path.join(result_dir, "intermediate.csv"))
+    df_gen = pd.concat([df_generated, df_intermediate], ignore_index=True)
+
+    if nodup:
+        df_gen = df_gen.drop_duplicates(subset="SMILES", keep="first")
+    
+    df_gen.to_csv(os.path.join(result_dir, "all.csv"), index=False)
+    print(f"No. of generated unique molecules: {len(df_gen)}.")
+    
+    protein_name = result_dir.split('/')[3]
+    target_smiles_df = pd.read_csv(os.path.join("data", f"{protein_name}.txt"))
+    target_smiles = target_smiles_df[target_smiles_df['Label']==1]['SMILES'].tolist()
+    input_smiles  = df_gen.get('SMILES', []).tolist()
+    df_tanimoto   = calculate_similarity(target_smiles, input_smiles)
+
+    def stats(series):
+        if series is None or series.empty:
+            return {'mean': pd.NA, 'median': pd.NA, 'std': pd.NA, 'min': pd.NA, 'max': pd.NA}
+        return {
+            'mean':   series.mean(),
+            'median': series.median(),
+            'std':    series.std(),
+            'min':    series.min(),
+            'max':    series.max()
+        }
+
+    summary = {}
+    if 'CNNaffinity' in df_gen:
+        summary['CNNaffinity'] = stats(df_gen['CNNaffinity'])
+    else:
+        summary['CNNaffinity'] = stats(pd.Series(dtype=float))
+
+    if 'Avg. Similarity' in df_tanimoto:
+        summary['Tanimoto'] = stats(df_tanimoto['Avg. Similarity'])
+    else:
+        summary['Tanimoto'] = stats(pd.Series(dtype=float))
+
+    summary_df = pd.DataFrame.from_dict(summary, orient='index',
+                                        columns=['mean','median','std','min','max'])
+
+    return summary_df
+
+
+def show_results_v0(result_dir):
     """
     Shows the summary statistics of the generated molecules.
     Computes Tanimoto coefficients for the molecules and displays statistics.
     """
+    print(result_dir)
     df_gen = pd.read_csv(os.path.join(result_dir, "all.csv"))
 
     if len(result_dir.split('.')) > 1:

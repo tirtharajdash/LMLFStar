@@ -29,12 +29,12 @@ LMLFStar/
 ├── data/             # Contains input molecule datasets
 ├── docking/          # Configuration files for molecular docking
 ├── env_utils.py      # Utility functions for environment setup
-├── env.yml           # Conda environment file
+├── env.yml           # Conda environment file (make sure your machine has compatible hardware!)
 ├── GenMol.py         # Main script for running molecule generation pipelines
 ├── get_mol_prop.py   # Script for computing molecular properties
 ├── legacy/           # Older scripts and references
 ├── LICENSE           # License information
-├── LMLFStar.py       # Core functions for molecule generation
+├── LMLFStar.py       # Core functions for molecule generation (using models from OpenAI and Anthropic)
 ├── mol_utils.py      # Utilities for molecular processing
 ├── README.md         # Documentation for the repository
 ├── results/          # Stores generated molecules and search results
@@ -43,6 +43,8 @@ LMLFStar/
 ├── search.py         # Implements the hypothesis-driven search strategy
 ├── unit_test.ipynb   # Jupyter Notebook for testing components
 ├── Tree.ipynb        # Analysis of the generated molecule search tree
+├── *_claude.*        # Added later for Anthropic models (Claude-*)
+├── gen_GPT2_*.ipynb  # Added later for generating models from domain-specific model (Molecule GPT2)
 └── nohup.out         # Log output from nohup execution
 ```
 
@@ -108,6 +110,7 @@ GenMol.py
         │       ├── generate_molecules_for_protein_multifactors_with_context()
         │       ├── Logging and results handling
 ```
+[Aug 04, 2025] There is now a `GenMol_claude.py` for implementation of GenMol using Anthropic's Claude models.)
 
 ### Contact
 For any questions or contributions, feel free to raise an issue or submit a pull request.

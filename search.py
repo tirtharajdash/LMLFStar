@@ -16,6 +16,7 @@ def construct_file_paths(data_path, protein):
     unlabelled_file = f"{data_path}/chembl1K_with_properties_{protein}binding.txt"
     return labelled_file, unlabelled_file
 
+
 class Hypothesis:
     def __init__(self, factors, experiment):
         self.factors = factors
@@ -37,23 +38,77 @@ class Hypothesis:
     def __call__(self, x):
         return self.is_feasible(x)
 
+
+def compute_Q_terms(TP_count, TN_count, FPN_count, theta_ext_h, epsilon):
+    """
+    Compute Q‐score components:
+        - TP_count * log((1 - epsilon)/theta + epsilon)
+        - TN_count * log((1 - epsilon)/(1 - theta) + epsilon)
+        - FPN_count * log(epsilon)  (only if epsilon > 0)
+        - log(epsilon) prior term  (only if epsilon > 0)
+    """
+    tp_term = TP_count * math.log((1 - epsilon) / theta_ext_h     + epsilon)
+    tn_term = TN_count * math.log((1 - epsilon) / (1 - theta_ext_h) + epsilon)
+
+    if epsilon > 0:
+        print(f"[search.py] Noisy Q calculation (epsilon = {epsilon}).")
+        prior_term = math.log(epsilon)
+        fpn_term   = FPN_count * math.log(epsilon)
+    else:
+        print(f"[search.py] Noise-free Q calculation (epsilon = {epsilon}).")
+        prior_term = 0.0
+        fpn_term   = 0.0
+
+    return prior_term + tp_term + tn_term + fpn_term
+
+
 def compute_Q(h, B, D, epsilon=0.1, theta_ext_h_approx=0.5):
-    E_plus = [e for e in D if e['Label'] == 1]
-    E_minus = [e for e in D if e['Label'] == 0]
-    TP_count = len([e for e in E_plus if h.is_feasible(e)])
-    TN_count = len([e for e in E_minus if not h.is_feasible(e)])
-    FPN_count = len(D) - (TP_count + TN_count)
-    #print(f"TP: {TP_count}, TN: {TN_count}, FPN: {FPN_count}")
-    theta_ext_h = theta_ext_h_approx
-    if len(D) == 0:
+    """
+    Fixed-theta variant of Q:
+      - theta_ext_h is taken as theta_ext_h_approx (user passes; or default)
+      - constant math.log(epsilon) offsets every hypothesis equally
+    """
+    if not D:
         return float('-inf')
-    Q = (
-        math.log(epsilon) +
-        TP_count * math.log((1 - epsilon) / theta_ext_h + epsilon) +
-        TN_count * math.log((1 - epsilon) / (1 - theta_ext_h) + epsilon) +
-        FPN_count * math.log(epsilon)
-    )
-    return Q
+
+    E_plus  = [e for e in D if e['Label'] == 1]
+    E_minus = [e for e in D if e['Label'] == 0]
+
+    TP = sum(1 for e in E_plus  if h.is_feasible(e))
+    TN = sum(1 for e in E_minus if not h.is_feasible(e))
+    FPN = len(D) - (TP + TN)
+
+    theta_ext_h = theta_ext_h_approx
+
+    return compute_Q_terms(TP, TN, FPN, theta_ext_h, epsilon)
+
+
+def compute_Q_data(h, B, D, epsilon=0.1, theta_ext_h_approx=None):
+    """
+    Data-driven theta variant of Q:
+      - theta_ext_h = (|ext n D| + 1) / (|D| + 2)  # Laplace smoothing
+      - uses the same TP, TN, FPN counts
+      
+    Note. This function is not used in the paper.
+    """
+    if not D:
+        return float('-inf')
+
+    E_plus  = [e for e in D if e['Label'] == 1]
+    E_minus = [e for e in D if e['Label'] == 0]
+
+    TP = sum(1 for e in E_plus  if h.is_feasible(e))
+    TN = sum(1 for e in E_minus if not h.is_feasible(e))
+    FPN = len(D) - (TP + TN)
+
+    # empirical coverage
+    neg_cov = len(E_minus) - TN
+    ext_cov = TP + neg_cov
+
+    # Laplace smoothing to avoid θ=0 or 1
+    theta_ext_h = (ext_cov + 1) / (len(D) + 2)
+
+    return compute_Q_terms(TP, TN, FPN, theta_ext_h, epsilon)
 
 
 def SearchHypothesis(B, D, factors, init_intervals, s, n, theta_ext_h_default=0.5):

@@ -1,5 +1,5 @@
 ##########################################################
-receptor= /home/dash01/TD/LMLFStar/docking/JAK2/JAK2_receptor.pdbqt
+receptor= /home/dash/Data/LMLFStar/docking/JAK2/JAK2_receptor.pdbqt
 size_x =  22.5
 size_y =  22.5
 size_z =  22.5

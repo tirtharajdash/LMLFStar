@@ -1,7 +1,10 @@
 # Ignore directories or large files
 docking/
 safe/
+results/
 results/*/4LRH/
+results_claude/
+results_ZincGPT2/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

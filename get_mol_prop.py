@@ -155,7 +155,7 @@ def calculate_binding_affinity(smiles, gnina_path, config_path, temp_dir):
             '--config', config_path,
             '--ligand', pdb_file,
             '--seed', '0',
-            '--cpu', '64'
+            '--cpu', '16' #'64' for big machines
         ]
 
         print(f"Running Gnina command: {' '.join(cmd)}")

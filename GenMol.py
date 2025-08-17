@@ -308,8 +308,9 @@ def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         print(f"Hypothesis search log saved to: {log_file_path}")
     
     # other run parameters: initial search space, search params, etc.
-    initial_interval = [[2, 10]]
-    search_params = {"s": 30, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
+    initial_interval = [[3, 10]]
+    search_params = {"s": 10, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
+    
     interleaved_LMLFStar(protein=protein,
                          labelled_data=labelled_data,
                          unlabelled_data=unlabelled_data,
@@ -376,7 +377,8 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         h_0 = Hypothesis(factors, e_0)
 
         theta_ext_h_default = len(unlabelled_data) / (len(labelled_data) + len(unlabelled_data))
-        w_0 = compute_Q(h_0, "Background Knowledge", labelled_data, theta_ext_h_approx=theta_ext_h_default)
+        #w_0 = compute_Q(h_0, "Background Knowledge", labelled_data, theta_ext_h_approx=theta_ext_h_default) #default: epsilon=0.1
+        w_0 = compute_Q(h_0, "Background Knowledge", labelled_data, epsilon=0.1, theta_ext_h_approx=theta_ext_h_default) #epsilon = 0 (noise free); 0.5
 
         best_w = w_0
         patience = 3
@@ -411,7 +413,8 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
             S = []
             for e in E_k:
                 h_k = Hypothesis(factors, e)
-                Q_k = compute_Q(h_k, "Background Knowledge", labelled_data, theta_ext_h_approx=theta_ext_h_default)
+                #Q_k = compute_Q(h_k, "Background Knowledge", labelled_data, theta_ext_h_approx=theta_ext_h_default)
+                Q_k = compute_Q(h_k, "Background Knowledge", labelled_data, epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
                 S.append((Q_k, e))
 
             print("----------------------------------------")
@@ -579,8 +582,8 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
     # other run parameters: initial search space, search params, etc.
     initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]}
     #initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500]}
-
     search_params = {"s": 10, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
+    
     interleaved_LMLFStar(protein=protein,
                          labelled_data=labelled_data,
                          unlabelled_data=unlabelled_data,
