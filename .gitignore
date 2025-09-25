@@ -2,7 +2,8 @@
 docking/
 safe/
 results/
-results/*/4LRH/
+results*/*/4LRH/
+results*/*/2Z65/
 results_claude/
 results_ZincGPT2/
 

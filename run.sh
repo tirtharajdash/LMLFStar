@@ -42,3 +42,8 @@
 
 ### FOR NEW DATA: 4LRH
 #python GenMol.py --protein 4LRH --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
+
+
+### FOR NEW DATA: 2Z65
+python GenMol.py --protein 2Z65 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein 2Z65 --target_size 19 --choice 3 --context True --model gpt-4o --final_k 100

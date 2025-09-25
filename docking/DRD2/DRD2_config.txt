@@ -1,4 +1,4 @@
-receptor= /home/dash/Data/LMLFStar/docking/DRD2/6cm4_protein_wh.pdbqt
+receptor= /home/server2/dash/LMLFStar/docking/DRD2/6cm4_protein_wh.pdbqt
 size_x =  22.50
 size_y =  22.50
 size_z =  22.50

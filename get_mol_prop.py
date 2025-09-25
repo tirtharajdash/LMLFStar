@@ -85,6 +85,10 @@ def smiles_to_pdb(smiles, output_path):
         bool: True if successful, False otherwise.
     """
     try:
+        # Creating a temp (output_path) directory
+        print("dirname:", os.path.dirname(output_path))
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        
         mol = Chem.MolFromSmiles(smiles)
         if not mol:
             print(f"Invalid SMILES: {smiles}")
@@ -101,7 +105,7 @@ def smiles_to_pdb(smiles, output_path):
 
         # Optimize the structure
         AllChem.MMFFOptimizeMolecule(mol)
-
+        
         # Save as PDB
         Chem.MolToPDBFile(mol, output_path)
         return True
@@ -155,11 +159,16 @@ def calculate_binding_affinity(smiles, gnina_path, config_path, temp_dir):
             '--config', config_path,
             '--ligand', pdb_file,
             '--seed', '0',
-            '--cpu', '16' #'64' for big machines
+            '--cpu', '24' #'64' for big machines
         ]
 
+        env = os.environ.copy()
+        conda_prefix = os.environ.get("CONDA_PREFIX", "")
+        if conda_prefix:
+            env["LD_LIBRARY_PATH"] = os.path.join(conda_prefix, "lib") + ":" + env.get("LD_LIBRARY_PATH", "")
+
         print(f"Running Gnina command: {' '.join(cmd)}")
-        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
         print(f"Gnina output:\n{result.stdout}")
 
         if result.returncode != 0:

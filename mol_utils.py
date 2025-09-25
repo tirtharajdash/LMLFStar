@@ -264,9 +264,15 @@ def show_results(result_dir, nodup=True):
     nodup argument is only used for debugging. (added Aug 2, 2025)
     """
     print(f"\n{result_dir}")
-    df_generated    = pd.read_csv(os.path.join(result_dir, "generated.csv"))
-    df_intermediate = pd.read_csv(os.path.join(result_dir, "intermediate.csv"))
-    df_gen = pd.concat([df_generated, df_intermediate], ignore_index=True)
+    df_generated = pd.read_csv(os.path.join(result_dir, "generated.csv"))
+
+    intermediate_path = os.path.join(result_dir, "intermediate.csv")
+    if os.path.exists(intermediate_path):
+        df_intermediate = pd.read_csv(intermediate_path)
+        df_gen = pd.concat([df_generated, df_intermediate], ignore_index=True)
+    else:
+        print(f"{intermediate_path} not found!")
+        df_gen = df_generated
 
     if nodup:
         df_gen = df_gen.drop_duplicates(subset="SMILES", keep="first")
