@@ -514,7 +514,7 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
                 model=model_engine,
                 messages=messages,
                 max_tokens=128 * max_samples,
-                temperature=0.9, #deterministic 0.3, 0.5, 0.7(default), 0.9 stochastic
+                temperature=0.7, #deterministic 0.3, 0.5, 0.7(default), 0.9 stochastic
                 n=1
             )
             raw_generated_smiles = response.choices[0].message.content.strip()

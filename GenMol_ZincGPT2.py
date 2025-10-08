@@ -165,7 +165,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
             w_k = 0
 
             for (Q_k, e_k) in sorted_S:
-                if Q_k < best_w * 0.8:
+                if abs(Q_k) < abs(best_w) * 0.8:
                     continue
 
                 print(f"Evaluating node with interval {e_k} and Q-score {Q_k:.4f}")

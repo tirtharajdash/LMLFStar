@@ -152,7 +152,7 @@ def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
             w_k = 0 
             
             for (Q_k, e_k) in sorted_S:
-                if Q_k < best_w * 0.8:
+                if abs(Q_k) < abs(best_w) * 0.8:
                     continue  # bad candidate
                 
                 print(f"Evaluating node with interval {e_k} and Q-score {Q_k:.4f}")
@@ -434,7 +434,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
             w_k = 0
 
             for (Q_k, e_k) in sorted_S:
-                if Q_k < best_w * 0.8:
+                if abs(Q_k) < abs(best_w) * 0.8:
                     continue
 
                 print(f"Evaluating node with interval {e_k} and Q-score {Q_k:.4f}")
@@ -580,11 +580,11 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         print(f"Hypothesis search log saved to: {log_file_path}")
         
     # other run parameters: initial search space, search params, etc.
-    #initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]} #default setup
-    #search_params = {"s": 10, "n": 10, "max_samples": 10, "final_k": final_k, "context": context} #default setup
-    initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500]}
+    initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]} #default setup
+    search_params = {"s": 10, "n": 10, "max_samples": 10, "final_k": final_k, "context": context} #default setup
+    #initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500]}
     #initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500], "LogP": [-1, 5]}
-    search_params = {"s": 10, "n": 10, "max_samples": 30, "final_k": final_k, "context": context}
+    #search_params = {"s": 10, "n": 10, "max_samples": 30, "final_k": final_k, "context": context}
     
     interleaved_LMLFStar(protein=protein,
                          labelled_data=labelled_data,
