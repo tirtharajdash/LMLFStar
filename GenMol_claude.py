@@ -78,9 +78,10 @@ def setup_environment(protein, results_subdir, data_path="data", model_engine="c
 # ====================================
 # Pipeline 2: GenMolMF (Multi-Factor)
 # ====================================
-def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, model_engine="claude-3-5-sonnet-20241022"):
+def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
+             model_engine="claude-3-5-sonnet-20241022"):
     """
-    Multi-factor search.
+    Multi-factor search (Claude version).
     The algorithm searches for optimal parameter ranges for multiple properties
     (e.g. CNNaffinity, MolWt, SAS) and verifies that each molecule satisfies
     the corresponding constraints.
@@ -97,18 +98,18 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
     temp_dir = env["temp_dir"]
     output_dir = env["output_dir"]
 
-
     def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_intervals,
                              api_key, model_engine, gnina_path, config_path, temp_dir,
-                             output_dir, s=4, n=10, max_samples=5, final_k=100, target_size=5, context=False):
+                             output_dir, s=4, n=10, max_samples=5, final_k=100,
+                             target_size=5, context=False):
 
         factors = [lambda x, p=param: x.get(p) for param in initial_intervals.keys()]
         e_0 = [initial_intervals[param] for param in initial_intervals]
         h_0 = Hypothesis(factors, e_0)
 
         theta_ext_h_default = len(unlabelled_data) / (len(labelled_data) + len(unlabelled_data))
-        #w_0 = compute_Q(h_0, "Background Knowledge", labelled_data, theta_ext_h_approx=theta_ext_h_default) #default: epsilon=0.1
-        w_0 = compute_Q(h_0, "Background Knowledge", labelled_data, epsilon=0.1, theta_ext_h_approx=theta_ext_h_default) #epsilon = 0 (noise free); 0.5
+        w_0 = compute_Q(h_0, "Background Knowledge", labelled_data,
+                        epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
 
         best_w = w_0
         patience = 3
@@ -117,8 +118,6 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         iteration_numbers = []
         current_Q_history = []
         best_Q_history = []
-
-        k = 1
         interval_history = [e_0]
         Q_values = [w_0]
         w_values = [w_0]
@@ -126,25 +125,30 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         intermediate_csv = os.path.join(output_dir, "intermediate.csv")
         intermediate_data = []
 
+        k = 1
         while k <= n:
-            lhs_samples = scipy.stats.qmc.LatinHypercube(d=len(initial_intervals), seed=seed).random(n=s)
+            lhs_samples = scipy.stats.qmc.LatinHypercube(
+                d=len(initial_intervals), seed=seed).random(n=s)
             E_k = []
             for sample in lhs_samples:
                 new_intervals = []
                 for i, param in enumerate(initial_intervals.keys()):
-                    quantiles = np.linspace(initial_intervals[param][0], initial_intervals[param][1], s + 1)
+                    quantiles = np.linspace(initial_intervals[param][0],
+                                            initial_intervals[param][1], s + 1)
                     index = min(max(int(sample[i] * s), 0), s - 1)
-                    if param == "CNNaffinity": #keep max end fixed
-                        new_intervals.append([float(quantiles[index]), float(initial_intervals[param][1])])
-                    elif param in ["MolWt", "SAS"]: #keep min end fixed
-                        new_intervals.append([float(initial_intervals[param][0]), float(quantiles[index])])
+                    if param == "CNNaffinity":  # keep max end fixed
+                        new_intervals.append(
+                            [float(quantiles[index]), float(initial_intervals[param][1])])
+                    elif param in ["MolWt", "SAS"]:  # keep min end fixed
+                        new_intervals.append(
+                            [float(initial_intervals[param][0]), float(quantiles[index])])
                 E_k.append(new_intervals)
-            
+
             S = []
             for e in E_k:
                 h_k = Hypothesis(factors, e)
-                #Q_k = compute_Q(h_k, "Background Knowledge", labelled_data, theta_ext_h_approx=theta_ext_h_default)
-                Q_k = compute_Q(h_k, "Background Knowledge", labelled_data, epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
+                Q_k = compute_Q(h_k, "Background Knowledge", labelled_data,
+                                epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
                 S.append((Q_k, e))
 
             print("----------------------------------------")
@@ -168,9 +172,9 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                     continue
 
                 print(f"Evaluating node with interval {e_k} and Q-score {Q_k:.4f}")
-
                 parameter_ranges = {param: e_k[i] for i, param in enumerate(initial_intervals.keys())}
 
+                # Call molecule generator (Claude or non-context)
                 if context:
                     generate_molecules_for_protein_multifactors_with_context_claude(
                         protein=protein,
@@ -187,7 +191,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                         max_samples=max_samples
                     )
                 else:
-                    generate_molecules_for_protein_multifactors(
+                    generate_molecules_for_protein_multifactors_claude(
                         protein=protein,
                         input_csv=f"data/{protein}.txt",
                         output_dir=output_dir,
@@ -197,7 +201,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                         config_path=config_path,
                         temp_dir=temp_dir,
                         parameter_ranges=parameter_ranges,
-                        target_size=5, 
+                        target_size=5,
                         max_iterations=1,
                         max_samples=max_samples
                     )
@@ -206,19 +210,36 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                 if os.path.exists(gen_csv) and os.path.getsize(gen_csv) > 0:
                     properties_df = pd.read_csv(gen_csv)
 
+                    # Filter new molecules by current candidate interval
                     for param, bounds in parameter_ranges.items():
-                        properties_df = properties_df[(properties_df[param] >= bounds[0]) &
-                                                      (properties_df[param] <= bounds[1])]
+                        properties_df = properties_df[
+                            (properties_df[param] >= bounds[0]) &
+                            (properties_df[param] <= bounds[1])
+                        ]
 
                     if len(properties_df) > 0:
                         print(f"  Feasible molecules found in interval {e_k} with Q-score {Q_k:.4f}.")
-                        intermediate_data.extend(properties_df.to_dict(orient="records"))
+
+                        # Update best hypothesis
                         best_w = max(best_w, Q_k)
                         w_k = Q_k
                         w_0 = Q_k
                         e_0 = e_k
                         patience_counter = 0
                         feasible_node_found = True
+
+                        # Merge and re-filter entire intermediate dataset by best interval
+                        new_data = properties_df.to_dict(orient="records")
+                        intermediate_data.extend(new_data)
+                        interm_df = pd.DataFrame(intermediate_data).drop_duplicates()
+
+                        for param, bounds in zip(initial_intervals.keys(), e_0):
+                            interm_df = interm_df[
+                                (interm_df[param] >= bounds[0]) &
+                                (interm_df[param] <= bounds[1])
+                            ]
+
+                        intermediate_data = interm_df.to_dict(orient="records")
                         break
                 else:
                     print(f"  No molecules generated for interval {e_k}.")
@@ -247,7 +268,8 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
             print(f"Intermediate feasible molecules saved to {intermediate_csv}")
 
         print("\nGenerating final molecules for the optimal interval.")
-        final_parameter_ranges = {param: interval_history[-1][i] for i, param in enumerate(initial_intervals)}
+        final_parameter_ranges = {param: interval_history[-1][i]
+                                  for i, param in enumerate(initial_intervals)}
 
         if context:
             generate_molecules_for_protein_multifactors_with_context_claude(
@@ -265,7 +287,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                 max_samples=final_k
             )
         else:
-            generate_molecules_for_protein_multifactors(
+            generate_molecules_for_protein_multifactors_claude(
                 protein=protein,
                 input_csv=f"data/{protein}.txt",
                 output_dir=output_dir,
@@ -279,7 +301,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
                 max_iterations=1,
                 max_samples=final_k
             )
-        
+
         if iteration_numbers:
             plt.figure(figsize=(8, 6))
             plt.plot(iteration_numbers, current_Q_history, marker='o', label='Current Q Score')
@@ -297,9 +319,11 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         log_lines = []
         log_lines.append("Search Tree:")
         for node in search_tree:
-            log_lines.append(f"Iteration {node['iteration']}: Interval {node['current_interval']} | Q-score {node['Q_score']:.4f}")
+            log_lines.append(
+                f"Iteration {node['iteration']}: Interval {node['current_interval']} | Q-score {node['Q_score']:.4f}")
             for child in node['children']:
-                log_lines.append(f"\tChild Interval {child['interval']} | Q-score {child['Q_score']:.4f}")
+                log_lines.append(
+                    f"\tChild Interval {child['interval']} | Q-score {child['Q_score']:.4f}")
         log_lines.append(f"Q-value History: {Q_values}")
         log_lines.append(f"W-value History: {w_values}")
         log_lines.append(f"Final Hypothesis Interval: {interval_history[-1]}")
@@ -308,12 +332,11 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, mo
         with open(log_file_path, "w") as log_file:
             log_file.write(log_str)
         print(f"Hypothesis search log saved to: {log_file_path}")
-        
-    # other run parameters: initial search space, search params, etc.
-    initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]}
-    #initial_intervals = {"CNNaffinity": [2, 10], "MolWt": [0, 500]}
 
+    # ------------------ run setup ------------------
+    initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]}
     search_params = {"s": 10, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
+
     interleaved_LMLFStar(protein=protein,
                          labelled_data=labelled_data,
                          unlabelled_data=unlabelled_data,

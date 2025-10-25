@@ -264,15 +264,22 @@ def show_results(result_dir, nodup=True):
     nodup argument is only used for debugging. (added Aug 2, 2025)
     """
     print(f"\n{result_dir}")
-    df_generated = pd.read_csv(os.path.join(result_dir, "generated.csv"))
 
+    generated_path = os.path.join(result_dir, "generated.csv")
     intermediate_path = os.path.join(result_dir, "intermediate.csv")
-    if os.path.exists(intermediate_path):
+    
+    if os.path.exists(intermediate_path) and os.path.exists(generated_path):
+        df_generated = pd.read_csv(generated_path)
         df_intermediate = pd.read_csv(intermediate_path)
         df_gen = pd.concat([df_generated, df_intermediate], ignore_index=True)
+    elif os.path.exists(intermediate_path):
+        df_gen = pd.read_csv(intermediate_path)
+    elif os.path.exists(generated_path):
+        df_gen = pd.read_csv(generated_path)
     else:
-        print(f"{intermediate_path} not found!")
-        df_gen = df_generated
+        print(f"***Neither {generated_path} nor {intermediate_path} found!***")
+        df_gen = pd.DataFrame() 
+        return df_gen
 
     if nodup:
         df_gen = df_gen.drop_duplicates(subset="SMILES", keep="first")
@@ -281,6 +288,7 @@ def show_results(result_dir, nodup=True):
     print(f"No. of generated unique molecules: {len(df_gen)}.")
     
     protein_name = result_dir.split('/')[3]
+    print(f"Protein: {protein_name}")
     target_smiles_df = pd.read_csv(os.path.join("data", f"{protein_name}.txt"))
     target_smiles = target_smiles_df[target_smiles_df['Label']==1]['SMILES'].tolist()
     input_smiles  = df_gen.get('SMILES', []).tolist()

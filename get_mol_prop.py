@@ -233,7 +233,7 @@ def infer_protein_from_filename(filename):
     """
     Infer protein from the filename if it is labeled; otherwise, return None.
     """
-    known_proteins = ["JAK2", "DRD2", "DBH"]
+    known_proteins = ["JAK2", "DRD2", "DBH", "4LRH", "2Z65"]
     for protein in known_proteins:
         if protein in filename:
             return protein
@@ -272,10 +272,10 @@ def main(input_csv, gnina_path, temp_dir, protein=None):
 
 if __name__ == "__main__":
     main(
-        input_csv='data/4LRH.txt', #JAK2.txt, DRD2.txt, DBH.txt, 4LRH.txt, unlabelled.txt, chembl10.txt, chembl1K.txt
+        input_csv='data/2Z65.txt', #JAK2.txt, DRD2.txt, DBH.txt, 4LRH.txt, unlabelled.txt, chembl10.txt, chembl1K.txt, 2Z65.txt
         gnina_path='./docking/',
         temp_dir='/tmp/',
-        protein='4LRH' #This msut be set to a protein (JAK2/DRD2/DBH/4LRH) if input_csv is non_protein
+        protein='2Z65' #This msut be set to a protein (JAK2/DRD2/DBH/4LRH/2Z65) if input_csv is non_protein
     )
 
 

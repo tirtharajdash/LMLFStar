@@ -468,9 +468,15 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
     """
     client = OpenAI(api_key=api_key)
     
-    data = pd.read_csv(input_csv)
-    target_positive_molecules = data[data['Label'] == 1]['SMILES'].tolist()
-        
+    #next two lines are old
+    #data = pd.read_csv(input_csv)
+    #target_positive_molecules = data[data['Label'] == 1]['SMILES'].tolist()
+    
+    #the above two lines are replaced by this (19102025)
+    data = pd.read_csv(f"data/{protein}_with_properties_{protein}binding.txt", usecols=["SMILES","CNNaffinity","Label"])
+    target_positive_molecules = data[data["Label"]==1].sort_values(["CNNaffinity"], ascending=False)["SMILES"].tolist()
+    pains_molecules = data[data["Label"]==0].sort_values(["CNNaffinity"], ascending=False)["SMILES"][0:30].tolist()
+
     gen_prompt = f"Generate up to {max_samples} novel valid molecules"
     if target_size > 0:
         positive_molecules = target_positive_molecules[0:target_size]
@@ -484,7 +490,8 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
 
     for iteration in range(1, max_iterations + 1):
         context_text = f" Additionally, consider these previously generated feasible molecules: {context_feasible}." if context_feasible else ""
-        
+    
+        """
         messages = [
                 {
                     "role": "system", 
@@ -506,7 +513,37 @@ def generate_molecules_for_protein_multifactors_with_context(protein, input_csv,
                         )
                 }
             ]
+
+        """
+
+        messages = [
+                {
+                    "role": "system", 
+                    "content": (
+                        "You are a scientist specialising in chemistry and drug design. "
+                        "Your task is to generate valid SMILES strings as a comma-separated list inside square brackets. "
+                        "Each generated molecule must satisfy Lipinski’s Rule of Five: "
+                        "molecular weight <= 500, logP <= 5, hydrogen bond donors <= 5, and hydrogen bond acceptors <= 10. "
+                        "Each molecule should contain no more than two functional groups to maintain synthetic feasibility. "
+                        "Your generated SMILES strings must not be available in any known chemical databases such as ChEMBL, PubChem, or ZINC. "
+                        "Ensure the molecules are chemically feasible and require minimal synthetic steps. "
+                        "Strictly avoid generating any molecule structurally similar to PAINS (Pan-Assay Interference Compounds). "
+                        f"The following list (SMILES) represents some PAINS to avoid: {pains_molecules}. "
+                        "Return the response as plain text without any formatting, backticks, or explanations. "
+                        "The response must be formatted exactly as follows: ['SMILES1', 'SMILES2', ...]. "
+                        "Avoid any extra text or explanations. Example output: ['SMILES1', 'SMILES2', 'SMILES3']"
+                        )
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        f"{gen_prompt}. "
+                        f"{context_text} "
+                        )
+                }
+            ]
         
+ 
         valid_smiles = []  
 
         try:
@@ -621,8 +658,13 @@ def generate_molecules_for_protein_multifactors_with_context_claude(protein, inp
     # Initialize Claude client
     client = anthropic.Anthropic(api_key=api_key)
     
-    data = pd.read_csv(input_csv)
-    target_positive_molecules = data[data['Label'] == 1]['SMILES'].tolist()
+    #next two lines are old
+    #data = pd.read_csv(input_csv)
+    #target_positive_molecules = data[data['Label'] == 1]['SMILES'].tolist()
+    
+    #the above two lines are replaced by this (19102025)
+    data = pd.read_csv(f"data/{protein}_with_properties_{protein}binding.txt", usecols=["SMILES","CNNaffinity","Label"])
+    target_positive_molecules = data[data["Label"]==1].sort_values(["CNNaffinity"], ascending=False)["SMILES"].tolist()
         
     gen_prompt = f"Generate up to {max_samples} novel valid molecules"
     if target_size > 0:
