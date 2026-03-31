@@ -159,8 +159,10 @@ def generate_structure(csv_file):
     df["Structure"] = df["Canonical_SMILES"].apply(smiles_to_base64)
 
     output_dir = os.path.dirname(csv_file)
-    output_filename = os.path.splitext(os.path.basename(csv_file))[0] + ".html"
+    folder_name = os.path.basename(output_dir)
+    output_filename = f"{folder_name}_all.html"
     html_file_path = os.path.join(output_dir, output_filename)
+
     html_content = df.to_html(escape=False, index=False)
 
     html_template = f"""

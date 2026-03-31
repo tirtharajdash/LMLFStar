@@ -2,15 +2,14 @@
 
 ### MULTI-FACTOR (MAIN RUNS)
 
-#python GenMol.py --protein DBH --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
-#python GenMol.py --protein DBH --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
-
 #python GenMol.py --protein JAK2 --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
 #python GenMol.py --protein JAK2 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
 
 #python GenMol.py --protein DRD2 --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
 #python GenMol.py --protein DRD2 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
 
+#python GenMol.py --protein DBH --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DBH --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
 
 ### SINGLE FACTOR (AFFINITY)
 #python GenMol.py --protein JAK2 --target_size 5 --choice 1 --context True --model gpt-4o --final_k 100
@@ -45,5 +44,5 @@
 
 
 ### FOR NEW DATA: 2Z65
+python GenMol.py --protein 2Z65 --target_size 10 --choice 3 --context True --model gpt-4o --final_k 100
 python GenMol.py --protein 2Z65 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
-#python GenMol.py --protein 2Z65 --target_size 19 --choice 3 --context True --model gpt-4o --final_k 100
