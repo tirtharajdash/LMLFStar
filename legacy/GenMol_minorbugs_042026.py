@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """
-This single script can run the multi-factor molecule-generation pipeline (GenMolMF).
-GenMol1F and GenMol1Fplus are deprecated and will raise NotImplementedError.
+This single script can run one of three different molecule‐generation pipelines, depending on the user’s choice:
+
+1. GenMol1F: Single‐factor search (CNNaffinity) with feasibility based on CNNaffinity.
+2. GenMol1F with plus mode: Single‐factor search (CNNaffinity) with extended feasibility test (CNNaffinity plus MolWt and SAS constraints).
+3. GenMolMF: Multi‐factor search (e.g. CNNaffinity, MolWt, SAS) with feasibility on all factors.
+0. To abort the run
 
 Example run:
     python GenMol.py --protein DBH --target_size 1 --choice mf --context True --model gpt-4o --final_k 100
@@ -32,6 +36,13 @@ from LMLFStar import (
 # Helper: Environment Setup
 # =========================
 def setup_environment(protein, results_subdir, data_path="data", model_engine="gpt-4o"):
+    """
+    Sets up common parameters and directories.
+    Returns a dictionary with:
+      - date_time (timestamp)
+      - labelled_data and unlabelled_data (from CSV files)
+      - api_key, model_engine, gnina_path, config_path, temp_dir, output_dir
+    """
     date_time = datetime.now().strftime("%d%m%y_%H%M")
     labelled_file, unlabelled_file = construct_file_paths(data_path, protein)
     labelled_data = pd.read_csv(labelled_file).to_dict(orient="records")
@@ -41,8 +52,10 @@ def setup_environment(protein, results_subdir, data_path="data", model_engine="g
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
     output_dir = f"results/{results_subdir}/{protein}/{model_engine}/{date_time}"
+    
     os.makedirs(temp_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
+    
     return {
         "date_time": date_time,
         "labelled_data": labelled_data,
@@ -57,26 +70,26 @@ def setup_environment(protein, results_subdir, data_path="data", model_engine="g
 
 
 # ====================================
-# Pipeline 1: GenMol1F (deprecated)
+# Pipeline 1: GenMol1F (Single-Factor)
 # ====================================
-def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20,
-             context=False, model_engine="gpt-4o", plus_mode=False):
-    raise NotImplementedError(
-        "GenMol1F (and GenMol1Fplus) have been removed from the current version. "
-        "Use GenMolMF (--choice mf) instead."
-    )
-
+def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20, context=False, model_engine="gpt-4o", plus_mode=False):
+    """
+    Single-factor search for CNNaffinity.
+    Checks feasibility solely by verifying that the molecule’s CNNaffinity
+    lies within the current search interval.
+    """
+    print("[Function Outdated.] This function is removed from the current version.")
+    return
 
 # ====================================
 # Pipeline 2: GenMolMF (Multi-Factor)
 # ====================================
-def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
-             context=False, model_engine="gpt-4o"):
+def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False, model_engine="gpt-4o"):
     """
     Multi-factor search.
-    Searches for optimal parameter ranges across multiple molecular properties
-    (e.g. CNNaffinity, MolWt, SAS) and verifies that each generated molecule
-    satisfies the corresponding constraints.
+    The algorithm searches for optimal parameter ranges for multiple properties
+    (e.g. CNNaffinity, MolWt, SAS) and verifies that each molecule satisfies
+    the corresponding constraints.
     """
     random.seed(seed)
     np.random.seed(seed)
@@ -92,63 +105,49 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
 
     def interleaved_LMLFStar(protein, labelled_data, unlabelled_data, initial_intervals,
                              api_key, model_engine, gnina_path, config_path, temp_dir,
-                             output_dir, s=4, n=10, max_samples=5, final_k=100,
-                             target_size=5, context=False):
+                             output_dir, s=4, n=10, max_samples=5, final_k=100, target_size=5, context=False):
 
-        param_names = list(initial_intervals.keys())
-        factors = [lambda x, p=param: x.get(p) for param in param_names]
-        e_0 = [list(initial_intervals[param]) for param in param_names]
+        factors = [lambda x, p=param: x.get(p) for param in initial_intervals.keys()]
+        e_0 = [initial_intervals[param] for param in initial_intervals]
         h_0 = Hypothesis(factors, e_0)
 
         theta_ext_h_default = len(unlabelled_data) / (len(labelled_data) + len(unlabelled_data))
-        w_0 = compute_Q(h_0, "Background Knowledge", labelled_data,
-                        epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
-        best_w = w_0
+        w_0 = compute_Q(h_0, "Background Knowledge", labelled_data, epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
 
+        best_w = w_0
         patience = 3
         patience_counter = 0
+
         iteration_numbers = []
         current_Q_history = []
         best_Q_history = []
+
         k = 1
         interval_history = [e_0]
         Q_values = [w_0]
         w_values = [w_0]
         search_tree = []
-
         intermediate_csv = os.path.join(output_dir, "intermediate.csv")
         intermediate_data = []
 
         while k <= n:
-            # LHS seeding: vary seed per iteration so each round draws
-            # a fresh Latin Hypercube sample instead of reproducing the same
-            # candidate set every time.
-            lhs_samples = scipy.stats.qmc.LatinHypercube(
-                d=len(param_names), seed=seed + k
-            ).random(n=s)
-
+            lhs_samples = scipy.stats.qmc.LatinHypercube(d=len(initial_intervals), seed=seed).random(n=s)
             E_k = []
             for sample in lhs_samples:
                 new_intervals = []
-                # adaptive narrowing: build candidates from the current
-                # best interval e_0, not the original initial_intervals.
-                for i, param in enumerate(param_names):
-                    lo, hi = e_0[i][0], e_0[i][1]
-                    quantiles = np.linspace(lo, hi, s + 1)
+                for i, param in enumerate(initial_intervals.keys()):
+                    quantiles = np.linspace(initial_intervals[param][0], initial_intervals[param][1], s + 1)
                     index = min(max(int(sample[i] * s), 0), s - 1)
-                    if param == "CNNaffinity":  # tighten lower bound
-                        new_intervals.append([float(quantiles[index]), float(hi)])
-                    elif param in ["MolWt", "SAS"]:  # tighten upper bound
-                        new_intervals.append([float(lo), float(quantiles[index])])
-                    else:
-                        new_intervals.append([float(lo), float(hi)])
+                    if param == "CNNaffinity":  # keep max end fixed
+                        new_intervals.append([float(quantiles[index]), float(initial_intervals[param][1])])
+                    elif param in ["MolWt", "SAS"]:  # keep min end fixed
+                        new_intervals.append([float(initial_intervals[param][0]), float(quantiles[index])])
                 E_k.append(new_intervals)
 
             S = []
             for e in E_k:
                 h_k = Hypothesis(factors, e)
-                Q_k = compute_Q(h_k, "Background Knowledge", labelled_data,
-                                epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
+                Q_k = compute_Q(h_k, "Background Knowledge", labelled_data, epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
                 S.append((Q_k, e))
 
             print("----------------------------------------")
@@ -164,15 +163,16 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
             })
 
             sorted_S = sorted(S, key=lambda x: x[0], reverse=True)
-
-            prev_best_w = best_w  # patience: snapshot for iteration-level improvement check
             feasible_node_found = False
             w_k = 0
+
             for (Q_k, e_k) in sorted_S:
-                if Q_k < best_w * 0.8: #explorative: I have fixed this. But can we passed by user later.
+                if abs(Q_k) < abs(best_w) * 0.75:
                     continue
+
                 print(f"Evaluating node with interval {e_k} and Q-score {Q_k:.4f}")
-                parameter_ranges = {param: e_k[i] for i, param in enumerate(param_names)}
+
+                parameter_ranges = {param: e_k[i] for i, param in enumerate(initial_intervals.keys())}
 
                 # Generate molecules
                 if context:
@@ -186,7 +186,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
                         config_path=config_path,
                         temp_dir=temp_dir,
                         parameter_ranges=parameter_ranges,
-                        target_size=target_size,
+                        target_size=5,
                         max_iterations=1,
                         max_samples=max_samples
                     )
@@ -201,7 +201,7 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
                         config_path=config_path,
                         temp_dir=temp_dir,
                         parameter_ranges=parameter_ranges,
-                        target_size=target_size,  
+                        target_size=5,
                         max_iterations=1,
                         max_samples=max_samples
                     )
@@ -209,6 +209,8 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
                 gen_csv = f"{output_dir}/generated.csv"
                 if os.path.exists(gen_csv) and os.path.getsize(gen_csv) > 0:
                     properties_df = pd.read_csv(gen_csv)
+
+                    # Filter newly generated molecules by this candidate interval
                     for param, bounds in parameter_ranges.items():
                         properties_df = properties_df[
                             (properties_df[param] >= bounds[0]) &
@@ -217,36 +219,36 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
 
                     if len(properties_df) > 0:
                         print(f"  Feasible molecules found in interval {e_k} with Q-score {Q_k:.4f}.")
+
+                        # Update current best
                         best_w = max(best_w, Q_k)
                         w_k = Q_k
                         w_0 = Q_k
                         e_0 = e_k
+                        patience_counter = 0
                         feasible_node_found = True
 
+                        # Merge new molecules, re-filter everything by best interval
                         new_data = properties_df.to_dict(orient="records")
                         intermediate_data.extend(new_data)
                         interm_df = pd.DataFrame(intermediate_data).drop_duplicates()
-                        for param, bounds in zip(param_names, e_0):
+
+                        for param, bounds in zip(initial_intervals.keys(), e_0):
                             interm_df = interm_df[
                                 (interm_df[param] >= bounds[0]) &
                                 (interm_df[param] <= bounds[1])
                             ]
+
                         intermediate_data = interm_df.to_dict(orient="records")
                         break
-                    else:
-                        # this used to charge the counter once per failing candidate
-                        # within a single outer iteration.
-                        print(f"  No molecules generated for interval {e_k}.")
+                else:
+                    print(f"  No molecules generated for interval {e_k}.")
+                    w_k = 0
+                    patience_counter += 1
 
             if not feasible_node_found:
                 print("No feasible candidate nodes found that meet the threshold. Ending search.")
                 break
-
-            # patience tracks consecutive iterations without improvement in best Q.
-            if best_w > prev_best_w + 1e-9:
-                patience_counter = 0
-            else:
-                patience_counter += 1
 
             iteration_numbers.append(k)
             current_Q_history.append(w_0)
@@ -261,12 +263,14 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
 
             k += 1
 
+        # Save intermediate molecules
         if intermediate_data:
             pd.DataFrame(intermediate_data).drop_duplicates().to_csv(intermediate_csv, index=False)
             print(f"Intermediate feasible molecules saved to {intermediate_csv}")
 
         print("\nGenerating final molecules for the optimal interval.")
-        final_parameter_ranges = {param: interval_history[-1][i] for i, param in enumerate(param_names)}
+        final_parameter_ranges = {param: interval_history[-1][i] for i, param in enumerate(initial_intervals)}
+
         if context:
             generate_molecules_for_protein_multifactors_with_context(
                 protein=protein,
@@ -312,7 +316,8 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
             plt.close()
             print(f"Search progression plot saved to: {pdf_path}")
 
-        log_lines = ["Search Tree:"]
+        log_lines = []
+        log_lines.append("Search Tree:")
         for node in search_tree:
             log_lines.append(f"Iteration {node['iteration']}: Interval {node['current_interval']} | Q-score {node['Q_score']:.4f}")
             for child in node['children']:
@@ -326,7 +331,8 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
             log_file.write(log_str)
         print(f"Hypothesis search log saved to: {log_file_path}")
 
-    initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]}
+    # Initial intervals and params
+    initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]}  # default setup
     search_params = {"s": 10, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
 
     interleaved_LMLFStar(protein=protein,
@@ -366,41 +372,56 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20,
 # ================================
 def main():
     date_time = datetime.now().strftime("%d%m%y_%H%M")
-    print("=" * 63)
-    print(f" TARGET-SPECIFIC LEAD DISCOVERY USING AN LLM [{date_time}]")
-    print("=" * 63)
+    
+    print("="*63)
+    print(f"   TARGET-SPECIFIC LEAD DISCOVERY USING AN LLM [{date_time}]")
+    print("="*63)
+    
     parser = argparse.ArgumentParser(
         description="TARGET-SPECIFIC LEAD DISCOVERY USING AN LLM"
     )
     parser.add_argument("--choice", type=str, required=True,
-                        help="Pipeline: '3' or 'mf' for GenMolMF; '0' to abort. "
-                             "('1'/'1f' and '2'/'1fplus' are removed.)")
+                        help="Choice of pipeline: '1' (or '1f') for GenMol1F; '2' (or '1fplus') for GenMol1F with plus mode; '3' (or 'mf') for GenMolMF; '0' to abort")
     parser.add_argument("--protein", type=str, default="DBH", help="Target protein")
     parser.add_argument("--target_size", type=int, default=5, help="Target size for molecule generation")
     parser.add_argument("--context", type=str, default="False", help="Use context (True/False)")
     parser.add_argument("--model", type=str, default="gpt-4o", help="Model engine to use")
     parser.add_argument("--final_k", type=int, default=20, help="Number of molecules to generate in the final step")
     args = parser.parse_args()
-
+    
     context = args.context.lower() in ("true", "1", "yes")
+    
     choice = args.choice.lower()
     print(args)
 
-    if choice in ["1", "1f", "2", "1fplus"]:
-        print(f"Choice '{args.choice}' (GenMol1F / 1Fplus) has been removed. Use --choice mf.")
-        return 1
+    if choice in ["1", "1f"]:
+        print("Calling GenMol1F ...")
+        GenMol1F(seed=0, 
+                 protein=args.protein, 
+                 target_size=args.target_size, 
+                 final_k=args.final_k, 
+                 context=context, 
+                 model_engine=args.model)
+    elif choice in ["2", "1fplus"]:        
+        print("Calling GenMol1F with plus mode ...")
+        GenMol1F(seed=0, 
+                 protein=args.protein, 
+                 target_size=args.target_size, 
+                 final_k=args.final_k, 
+                 context=context, 
+                 model_engine=args.model,
+                 plus_mode=True)
     elif choice in ["3", "mf"]:
         print("Calling GenMolMF ...")
-        GenMolMF(seed=0,
+        GenMolMF(seed=0, 
                  protein=args.protein,
-                 target_size=args.target_size,
-                 final_k=args.final_k,
-                 context=context,
+                 target_size=args.target_size, 
+                 final_k=args.final_k, 
+                 context=context, 
                  model_engine=args.model)
     else:
         print(f"Choice {args.choice} is invalid. Aborting...")
         return 1
-
 
 if __name__ == "__main__":
     main()

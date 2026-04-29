@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 """
-NOTE: The following is directly copied from GenMol.py, which may not all be implemented. This was done for claude based molecule generation
-for comparison purpose only. Use carefully. Not editing the following notes, however.
+GenMol_claude.py: Claude-based variant of GenMolMF.
 
-This single script can run one of three different molecule‐generation pipelines, depending on the user’s choice:
-
-1. GenMol1F: Single‐factor search (CNNaffinity) with feasibility based on CNNaffinity.
-2. GenMol1F with plus mode: Single‐factor search (CNNaffinity) with extended feasibility test (CNNaffinity plus MolWt and SAS constraints).
-3. GenMolMF: Multi‐factor search (e.g. CNNaffinity, MolWt, SAS) with feasibility on all factors.
-0. To abort the run
+Note: only --context True is supported here; the no-context Claude generator
+(`generate_molecules_for_protein_multifactors_claude`) is not implemented in
+LMLFStar.py. GenMol1F / 1Fplus are not implemented either; use --choice mf.
 
 Example run:
-    python GenMol.py --protein DBH --target_size 1 --choice mf --context True --model gpt-4o --final_k 100
+    python GenMol_claude.py --protein DBH --target_size 5 --choice mf --context True \\
+        --model claude-3-5-sonnet-20241022 --final_k 100
 """
 
 import argparse
@@ -35,14 +32,8 @@ from LMLFStar import (
 # =========================
 # Helper: Environment Setup
 # =========================
-def setup_environment(protein, results_subdir, data_path="data", model_engine="claude-3-5-sonnet-20241022"):
-    """
-    Sets up common parameters and directories.
-    Returns a dictionary with:
-      - date_time (timestamp)
-      - labelled_data and unlabelled_data (from CSV files)
-      - api_key, model_engine, gnina_path, config_path, temp_dir, output_dir
-    """
+def setup_environment(protein, results_subdir, data_path="data",
+                      model_engine="claude-3-5-sonnet-20241022"):
     date_time = datetime.now().strftime("%d%m%y_%H%M")
     labelled_file, unlabelled_file = construct_file_paths(data_path, protein)
     labelled_data = pd.read_csv(labelled_file).to_dict(orient="records")
@@ -52,10 +43,8 @@ def setup_environment(protein, results_subdir, data_path="data", model_engine="c
     config_path = f"./docking/{protein}/{protein}_config.txt"
     temp_dir = "/tmp/molecule_generation"
     output_dir = f"results_claude/{results_subdir}/{protein}/{model_engine}/{date_time}"
-    
     os.makedirs(temp_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
-    
     return {
         "date_time": date_time,
         "labelled_data": labelled_data,
@@ -70,10 +59,15 @@ def setup_environment(protein, results_subdir, data_path="data", model_engine="c
 
 
 # ====================================
-# Pipeline 1: GenMol1F (Single-Factor)
+# Pipeline 1: GenMol1F (deprecated)
 # ====================================
+def GenMol1F(seed=0, protein="DBH", target_size=5, final_k=20,
+             context=False, model_engine="claude-3-5-sonnet-20241022", plus_mode=False):
+    raise NotImplementedError(
+        "GenMol1F (and 1Fplus) are not implemented for the Claude pipeline. "
+        "Use GenMolMF (--choice mf)."
+    )
 
-# *** NOT IMPLEMENTED ***
 
 # ====================================
 # Pipeline 2: GenMolMF (Multi-Factor)
@@ -81,11 +75,15 @@ def setup_environment(protein, results_subdir, data_path="data", model_engine="c
 def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
              model_engine="claude-3-5-sonnet-20241022"):
     """
-    Multi-factor search (Claude version).
-    The algorithm searches for optimal parameter ranges for multiple properties
-    (e.g. CNNaffinity, MolWt, SAS) and verifies that each molecule satisfies
-    the corresponding constraints.
+    Multi-factor search (Claude). Only context=True is supported.
     """
+    if not context:
+        raise NotImplementedError(
+            "Non-context Claude generation is not implemented "
+            "(no `generate_molecules_for_protein_multifactors_claude` in LMLFStar.py). "
+            "Pass --context True."
+        )
+
     random.seed(seed)
     np.random.seed(seed)
 
@@ -103,18 +101,18 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
                              output_dir, s=4, n=10, max_samples=5, final_k=100,
                              target_size=5, context=False):
 
-        factors = [lambda x, p=param: x.get(p) for param in initial_intervals.keys()]
-        e_0 = [initial_intervals[param] for param in initial_intervals]
+        param_names = list(initial_intervals.keys())
+        factors = [lambda x, p=param: x.get(p) for param in param_names]
+        e_0 = [list(initial_intervals[param]) for param in param_names]
         h_0 = Hypothesis(factors, e_0)
 
         theta_ext_h_default = len(unlabelled_data) / (len(labelled_data) + len(unlabelled_data))
         w_0 = compute_Q(h_0, "Background Knowledge", labelled_data,
                         epsilon=0.1, theta_ext_h_approx=theta_ext_h_default)
-
         best_w = w_0
+
         patience = 3
         patience_counter = 0
-
         iteration_numbers = []
         current_Q_history = []
         best_Q_history = []
@@ -127,21 +125,26 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
 
         k = 1
         while k <= n:
+            # LHS seeding: per-iteration seed; previously identical samples every round.
             lhs_samples = scipy.stats.qmc.LatinHypercube(
-                d=len(initial_intervals), seed=seed).random(n=s)
+                d=len(param_names), seed=seed + k
+            ).random(n=s)
+
             E_k = []
             for sample in lhs_samples:
                 new_intervals = []
-                for i, param in enumerate(initial_intervals.keys()):
-                    quantiles = np.linspace(initial_intervals[param][0],
-                                            initial_intervals[param][1], s + 1)
+                # adaptive narrowing: build candidates from current best e_0,
+                # not the original initial_intervals.
+                for i, param in enumerate(param_names):
+                    lo, hi = e_0[i][0], e_0[i][1]
+                    quantiles = np.linspace(lo, hi, s + 1)
                     index = min(max(int(sample[i] * s), 0), s - 1)
-                    if param == "CNNaffinity":  # keep max end fixed
-                        new_intervals.append(
-                            [float(quantiles[index]), float(initial_intervals[param][1])])
-                    elif param in ["MolWt", "SAS"]:  # keep min end fixed
-                        new_intervals.append(
-                            [float(initial_intervals[param][0]), float(quantiles[index])])
+                    if param == "CNNaffinity":
+                        new_intervals.append([float(quantiles[index]), float(hi)])
+                    elif param in ["MolWt", "SAS"]:
+                        new_intervals.append([float(lo), float(quantiles[index])])
+                    else:
+                        new_intervals.append([float(lo), float(hi)])
                 E_k.append(new_intervals)
 
             S = []
@@ -164,53 +167,35 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
             })
 
             sorted_S = sorted(S, key=lambda x: x[0], reverse=True)
+            prev_best_w = best_w 
             feasible_node_found = False
             w_k = 0
 
             for (Q_k, e_k) in sorted_S:
-                if abs(Q_k) < abs(best_w) * 0.8:
+                if Q_k < best_w * 0.8:
                     continue
 
                 print(f"Evaluating node with interval {e_k} and Q-score {Q_k:.4f}")
-                parameter_ranges = {param: e_k[i] for i, param in enumerate(initial_intervals.keys())}
+                parameter_ranges = {param: e_k[i] for i, param in enumerate(param_names)}
 
-                # Call molecule generator (Claude or non-context)
-                if context:
-                    generate_molecules_for_protein_multifactors_with_context_claude(
-                        protein=protein,
-                        input_csv=f"data/{protein}.txt",
-                        output_dir=output_dir,
-                        api_key=api_key,
-                        model_name=model_engine,
-                        gnina_path=gnina_path,
-                        config_path=config_path,
-                        temp_dir=temp_dir,
-                        parameter_ranges=parameter_ranges,
-                        target_size=5,
-                        max_iterations=1,
-                        max_samples=max_samples
-                    )
-                else:
-                    generate_molecules_for_protein_multifactors_claude(
-                        protein=protein,
-                        input_csv=f"data/{protein}.txt",
-                        output_dir=output_dir,
-                        api_key=api_key,
-                        model_name=model_engine,
-                        gnina_path=gnina_path,
-                        config_path=config_path,
-                        temp_dir=temp_dir,
-                        parameter_ranges=parameter_ranges,
-                        target_size=5,
-                        max_iterations=1,
-                        max_samples=max_samples
-                    )
+                generate_molecules_for_protein_multifactors_with_context_claude(
+                    protein=protein,
+                    input_csv=f"data/{protein}.txt",
+                    output_dir=output_dir,
+                    api_key=api_key,
+                    model_name=model_engine,
+                    gnina_path=gnina_path,
+                    config_path=config_path,
+                    temp_dir=temp_dir,
+                    parameter_ranges=parameter_ranges,
+                    target_size=target_size, 
+                    max_iterations=1,
+                    max_samples=max_samples
+                )
 
                 gen_csv = f"{output_dir}/generated.csv"
                 if os.path.exists(gen_csv) and os.path.getsize(gen_csv) > 0:
                     properties_df = pd.read_csv(gen_csv)
-
-                    # Filter new molecules by current candidate interval
                     for param, bounds in parameter_ranges.items():
                         properties_df = properties_df[
                             (properties_df[param] >= bounds[0]) &
@@ -219,36 +204,36 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
 
                     if len(properties_df) > 0:
                         print(f"  Feasible molecules found in interval {e_k} with Q-score {Q_k:.4f}.")
-
-                        # Update best hypothesis
                         best_w = max(best_w, Q_k)
                         w_k = Q_k
                         w_0 = Q_k
                         e_0 = e_k
-                        patience_counter = 0
                         feasible_node_found = True
 
-                        # Merge and re-filter entire intermediate dataset by best interval
                         new_data = properties_df.to_dict(orient="records")
                         intermediate_data.extend(new_data)
                         interm_df = pd.DataFrame(intermediate_data).drop_duplicates()
-
-                        for param, bounds in zip(initial_intervals.keys(), e_0):
+                        for param, bounds in zip(param_names, e_0):
                             interm_df = interm_df[
                                 (interm_df[param] >= bounds[0]) &
                                 (interm_df[param] <= bounds[1])
                             ]
-
                         intermediate_data = interm_df.to_dict(orient="records")
                         break
+                    else:
+                        print(f"  Generated molecules but none in interval {e_k}.")
                 else:
                     print(f"  No molecules generated for interval {e_k}.")
-                    w_k = 0
-                    patience_counter += 1
 
             if not feasible_node_found:
                 print("No feasible candidate nodes found that meet the threshold. Ending search.")
                 break
+
+            # patience: track at iteration level
+            if best_w > prev_best_w + 1e-9:
+                patience_counter = 0
+            else:
+                patience_counter += 1
 
             iteration_numbers.append(k)
             current_Q_history.append(w_0)
@@ -268,39 +253,22 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
             print(f"Intermediate feasible molecules saved to {intermediate_csv}")
 
         print("\nGenerating final molecules for the optimal interval.")
-        final_parameter_ranges = {param: interval_history[-1][i]
-                                  for i, param in enumerate(initial_intervals)}
+        final_parameter_ranges = {param: interval_history[-1][i] for i, param in enumerate(param_names)}
 
-        if context:
-            generate_molecules_for_protein_multifactors_with_context_claude(
-                protein=protein,
-                input_csv=f"data/{protein}.txt",
-                output_dir=output_dir,
-                api_key=api_key,
-                model_name=model_engine,
-                gnina_path=gnina_path,
-                config_path=config_path,
-                temp_dir=temp_dir,
-                parameter_ranges=final_parameter_ranges,
-                target_size=target_size,
-                max_iterations=1,
-                max_samples=final_k
-            )
-        else:
-            generate_molecules_for_protein_multifactors_claude(
-                protein=protein,
-                input_csv=f"data/{protein}.txt",
-                output_dir=output_dir,
-                api_key=api_key,
-                model_name=model_engine,
-                gnina_path=gnina_path,
-                config_path=config_path,
-                temp_dir=temp_dir,
-                parameter_ranges=final_parameter_ranges,
-                target_size=target_size,
-                max_iterations=1,
-                max_samples=final_k
-            )
+        generate_molecules_for_protein_multifactors_with_context_claude(
+            protein=protein,
+            input_csv=f"data/{protein}.txt",
+            output_dir=output_dir,
+            api_key=api_key,
+            model_name=model_engine,
+            gnina_path=gnina_path,
+            config_path=config_path,
+            temp_dir=temp_dir,
+            parameter_ranges=final_parameter_ranges,
+            target_size=target_size,
+            max_iterations=1,
+            max_samples=final_k
+        )
 
         if iteration_numbers:
             plt.figure(figsize=(8, 6))
@@ -316,14 +284,11 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
             plt.close()
             print(f"Search progression plot saved to: {pdf_path}")
 
-        log_lines = []
-        log_lines.append("Search Tree:")
+        log_lines = ["Search Tree:"]
         for node in search_tree:
-            log_lines.append(
-                f"Iteration {node['iteration']}: Interval {node['current_interval']} | Q-score {node['Q_score']:.4f}")
+            log_lines.append(f"Iteration {node['iteration']}: Interval {node['current_interval']} | Q-score {node['Q_score']:.4f}")
             for child in node['children']:
-                log_lines.append(
-                    f"\tChild Interval {child['interval']} | Q-score {child['Q_score']:.4f}")
+                log_lines.append(f"\tChild Interval {child['interval']} | Q-score {child['Q_score']:.4f}")
         log_lines.append(f"Q-value History: {Q_values}")
         log_lines.append(f"W-value History: {w_values}")
         log_lines.append(f"Final Hypothesis Interval: {interval_history[-1]}")
@@ -333,7 +298,6 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
             log_file.write(log_str)
         print(f"Hypothesis search log saved to: {log_file_path}")
 
-    # ------------------ run setup ------------------
     initial_intervals = {"CNNaffinity": [3, 10], "MolWt": [200, 700], "SAS": [0, 7.0]}
     search_params = {"s": 10, "n": 10, "max_samples": 10, "final_k": final_k, "context": context}
 
@@ -374,56 +338,41 @@ def GenMolMF(seed=0, protein="DBH", target_size=5, final_k=20, context=False,
 # ================================
 def main():
     date_time = datetime.now().strftime("%d%m%y_%H%M")
-    
-    print("="*63)
-    print(f"   TARGET-SPECIFIC LEAD DISCOVERY USING AN LLM [{date_time}]")
-    print("="*63)
-    
+    print("=" * 63)
+    print(f"   TARGET-SPECIFIC LEAD DISCOVERY USING AN LLM (Claude) [{date_time}]")
+    print("=" * 63)
     parser = argparse.ArgumentParser(
-        description="TARGET-SPECIFIC LEAD DISCOVERY USING AN LLM"
+        description="TARGET-SPECIFIC LEAD DISCOVERY USING AN LLM (Claude)"
     )
     parser.add_argument("--choice", type=str, required=True,
-                        help="Choice of pipeline: '1' (or '1f') for GenMol1F; '2' (or '1fplus') for GenMol1F with plus mode; '3' (or 'mf') for GenMolMF; '0' to abort")
+                        help="Pipeline: '3' or 'mf' for GenMolMF; '0' to abort. "
+                             "('1'/'1f' and '2'/'1fplus' are not implemented for Claude.)")
     parser.add_argument("--protein", type=str, default="DBH", help="Target protein")
     parser.add_argument("--target_size", type=int, default=5, help="Target size for molecule generation")
-    parser.add_argument("--context", type=str, default="False", help="Use context (True/False)")
-    parser.add_argument("--model", type=str, default="gpt-4o", help="Model engine to use")
+    parser.add_argument("--context", type=str, default="False", help="Use context (True/False); only True is supported")
+    parser.add_argument("--model", type=str, default="claude-3-5-sonnet-20241022", help="Claude model to use")
     parser.add_argument("--final_k", type=int, default=20, help="Number of molecules to generate in the final step")
     args = parser.parse_args()
-    
+
     context = args.context.lower() in ("true", "1", "yes")
-    
     choice = args.choice.lower()
     print(args)
 
-    if choice in ["1", "1f"]:
-        print("Calling GenMol1F ...")
-        GenMol1F(seed=0, 
-                 protein=args.protein, 
-                 target_size=args.target_size, 
-                 final_k=args.final_k, 
-                 context=context, 
-                 model_engine=args.model)
-    elif choice in ["2", "1fplus"]:        
-        print("Calling GenMol1F with plus mode ...")
-        GenMol1F(seed=0, 
-                 protein=args.protein, 
-                 target_size=args.target_size, 
-                 final_k=args.final_k, 
-                 context=context, 
-                 model_engine=args.model,
-                 plus_mode=True)
+    if choice in ["1", "1f", "2", "1fplus"]:
+        print(f"Choice '{args.choice}' is not implemented for the Claude pipeline. Use --choice mf.")
+        return 1
     elif choice in ["3", "mf"]:
-        print("Calling GenMolMF ...")
-        GenMolMF(seed=0, 
+        print("Calling GenMolMF (Claude) ...")
+        GenMolMF(seed=0,
                  protein=args.protein,
-                 target_size=args.target_size, 
-                 final_k=args.final_k, 
-                 context=context, 
+                 target_size=args.target_size,
+                 final_k=args.final_k,
+                 context=context,
                  model_engine=args.model)
     else:
         print(f"Choice {args.choice} is invalid. Aborting...")
         return 1
+
 
 if __name__ == "__main__":
     main()

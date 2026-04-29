@@ -73,7 +73,7 @@ def generate_molecules_for_protein(protein, input_csv, output_dir, api_key, mode
         gen_prompt = f"{gen_prompt} similar to the following positive molecules: {positive_molecules}"
 
     generated_molecules = []
-
+    context_text = ""
     for iteration in range(1, max_iterations + 1):
         messages = [
                 {
@@ -200,7 +200,7 @@ def generate_molecules_for_protein_multifactors(protein, input_csv, output_dir, 
         gen_prompt = f"{gen_prompt} similar to the following positive molecules: {positive_molecules}"
 
     generated_molecules = []
-
+    context_text = ""
     for iteration in range(1, max_iterations + 1):
         messages = [
                 {
