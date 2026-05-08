@@ -2,16 +2,28 @@
 
 ### MULTI-FACTOR (MAIN RUNS)
 
-#python GenMol.py --protein JAK2 --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
-#python GenMol.py --protein JAK2 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
+python GenMol.py --protein JAK2 --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
+python GenMol.py --protein JAK2 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein JAK2 --target_size 1 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein JAK2 --target_size 2 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein JAK2 --target_size 3 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein JAK2 --target_size 4 --choice 3 --context True --model gpt-4o --final_k 100
 
-#python GenMol.py --protein DRD2 --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
-#python GenMol.py --protein DRD2 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
+python GenMol.py --protein DRD2 --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
+python GenMol.py --protein DRD2 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DRD2 --target_size 1 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DRD2 --target_size 2 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DRD2 --target_size 3 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DRD2 --target_size 4 --choice 3 --context True --model gpt-4o --final_k 100
 
-#python GenMol.py --protein DBH --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
-#python GenMol.py --protein DBH --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
+python GenMol.py --protein DBH --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
+python GenMol.py --protein DBH --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DBH --target_size 1 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DBH --target_size 2 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DBH --target_size 3 --choice 3 --context True --model gpt-4o --final_k 100
+#python GenMol.py --protein DBH --target_size 4 --choice 3 --context True --model gpt-4o --final_k 100
 
-### SINGLE FACTOR (AFFINITY)
+### SINGLE FACTOR (AFFINITY): OBSOLETE (DO NOT USE)
 #python GenMol.py --protein JAK2 --target_size 5 --choice 1 --context True --model gpt-4o --final_k 100
 #python GenMol.py --protein JAK2 --target_size 0 --choice 1 --context True --model gpt-4o --final_k 100
 
@@ -39,10 +51,3 @@
 #python GenMol_ZincGPT2.py --choice mf --protein DBH --final_k 100
 
 
-### FOR NEW DATA: 4LRH
-#python GenMol.py --protein 4LRH --target_size 5 --choice 3 --context True --model gpt-4o --final_k 100
-
-
-### FOR NEW DATA: 2Z65
-python GenMol.py --protein 2Z65 --target_size 10 --choice 3 --context True --model gpt-4o --final_k 100
-python GenMol.py --protein 2Z65 --target_size 0 --choice 3 --context True --model gpt-4o --final_k 100

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from rdkit import Chem
 from rdkit.Chem import Draw, rdFingerprintGenerator, DataStructs, SanitizeMol, SanitizeFlags
 from rdkit.Chem.Draw import rdMolDraw2D
@@ -134,7 +136,62 @@ def smiles_to_base64(smiles):
         print(f"Error processing SMILES {smiles}: {e}")
         return "Error"
 
+
 def generate_structure(csv_file):
+    if not os.path.exists(csv_file):
+        print(f"Error: File {csv_file} not found.")
+        return None
+    df = pd.read_csv(csv_file)
+    if "SMILES" not in df.columns:
+        print("Error: The CSV file must contain a 'SMILES' column.")
+        return None
+
+    parts = os.path.normpath(csv_file).split(os.sep)
+    try:
+        results_idx = parts.index("results")
+        model_name = parts[results_idx + 3]
+        date_tag = parts[results_idx + 4]
+    except (ValueError, IndexError):
+        mol_prefix = "M" 
+        model_name = "unknown"
+        date_tag = "000000_0000"
+
+    model_tag = model_name.replace("-", "").replace(".", "")
+    run_tag = date_tag.split("_")[1]
+    df.insert(0, "MolID", [f"{mol_prefix}_{model_tag}_{run_tag}_{i+1}" for i in range(len(df))])
+
+    df["Canonical_SMILES"] = df["SMILES"].apply(smiles_to_canonical)
+    df["Structure"] = df["Canonical_SMILES"].apply(smiles_to_base64)
+    output_dir = os.path.dirname(csv_file)
+    folder_name = os.path.basename(output_dir)
+    output_filename = f"{folder_name}_all.html"
+    html_file_path = os.path.join(output_dir, output_filename)
+    html_content = df.to_html(escape=False, index=False)
+    html_template = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Molecular Structures</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; }}
+            table {{ border-collapse: collapse; width: 100%; }}
+            th, td {{ border: 1px solid black; padding: 8px; text-align: center; }}
+            th {{ background-color: #f2f2f2; }}
+        </style>
+    </head>
+    <body>
+        <h2>Molecular Structures Report</h2>
+        {html_content}
+    </body>
+    </html>
+    """
+    with open(html_file_path, "w", encoding="utf-8") as f:
+        f.write(html_template)
+    print(f"HTML file saved as {html_file_path}")
+    return html_file_path
+    
+
+def generate_structure_v1(csv_file):
     """
     Generates an HTML file with molecular structures from a given CSV file containing SMILES.
     
